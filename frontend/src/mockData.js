@@ -5,28 +5,30 @@ export const collections = [
     id: 'starter',
     name: 'Starter Collection',
     tier: 'starter',
-    description: 'Entry-level access to curated surface patterns. Perfect for small boutiques and emerging designers exploring textile possibilities.',
+    access: 'Non-exclusive',
+    description: 'Curated surface patterns created for modern brands and boutiques. Entry-level access to foundational designs.',
     designCount: 25,
-    priceRange: 'Accessible pricing for startups',
+    priceRange: 'Accessible for emerging brands',
     features: [
       'Access to 25 base patterns',
-      'Standard resolution files',
-      'Email support',
-      'Single user license'
+      'Standard resolution previews',
+      'Non-exclusive usage rights',
+      'Email support'
     ]
   },
   {
     id: 'controlled',
     name: 'Controlled Collection',
     tier: 'controlled',
-    description: 'Expanded library with exclusive patterns and priority access. Ideal for established brands seeking distinctive surface design.',
+    access: 'Limited usage',
+    description: 'Expanded library with exclusive patterns and priority access. Designed for established brands seeking distinctive surfaces.',
     designCount: 75,
-    priceRange: 'Professional tier pricing',
+    priceRange: 'Professional tier',
     features: [
       'Access to 75 premium patterns',
-      'High resolution files',
+      'High resolution previews',
+      'Limited usage licensing',
       'Priority support',
-      'Up to 3 user licenses',
       'Early access to new releases'
     ]
   },
@@ -34,17 +36,69 @@ export const collections = [
     id: 'exclusive',
     name: 'Exclusive Collection',
     tier: 'exclusive',
-    description: 'Complete archive with custom design consultation. For design houses requiring bespoke surface solutions and unlimited creative freedom.',
+    access: 'Commissioned / Original',
+    description: 'Complete archive with custom design consultation. Bespoke surface solutions with unlimited creative freedom.',
     designCount: '150+',
-    priceRange: 'Premium enterprise pricing',
+    priceRange: 'Premium commissioned work',
     features: [
       'Full pattern library access',
-      'Ultra-high resolution files',
+      'Exclusive commissioned designs',
       'Dedicated design consultant',
-      'Unlimited user licenses',
+      'Unlimited usage rights',
       'Custom pattern development',
       'Exclusive colorway options'
     ]
+  }
+];
+
+export const fabrics = [
+  {
+    id: 'fabric-001',
+    name: 'Cotton Poplin',
+    weight: '120 GSM',
+    suitability: 'Apparel, Light furnishings',
+    techniques: ['Digital', 'Screen printing'],
+    description: 'Crisp, smooth finish. Excellent color clarity.'
+  },
+  {
+    id: 'fabric-002',
+    name: 'Linen Canvas',
+    weight: '280 GSM',
+    suitability: 'Upholstery, Wall coverings',
+    techniques: ['Digital', 'Screen printing', 'Block printing'],
+    description: 'Natural texture with dimensional quality.'
+  },
+  {
+    id: 'fabric-003',
+    name: 'Silk Crepe de Chine',
+    weight: '90 GSM',
+    suitability: 'Luxury apparel, Scarves',
+    techniques: ['Digital'],
+    description: 'Fluid drape with subtle sheen.'
+  },
+  {
+    id: 'fabric-004',
+    name: 'Cotton Sateen',
+    weight: '200 GSM',
+    suitability: 'Bedding, Soft furnishings',
+    techniques: ['Digital', 'Screen printing'],
+    description: 'Smooth surface with soft hand feel.'
+  },
+  {
+    id: 'fabric-005',
+    name: 'Organic Cotton Jersey',
+    weight: '180 GSM',
+    suitability: 'Apparel, Activewear',
+    techniques: ['Digital'],
+    description: 'Stretch and recovery with eco credentials.'
+  },
+  {
+    id: 'fabric-006',
+    name: 'Velvet',
+    weight: '320 GSM',
+    suitability: 'Upholstery, Statement pieces',
+    techniques: ['Digital'],
+    description: 'Rich texture with depth and luxury.'
   }
 ];
 
@@ -55,9 +109,11 @@ export const designs = [
     collection: 'starter',
     description: 'A bold exploration of linear repetition and architectural rhythm. This pattern creates depth through layered geometric forms.',
     category: 'Geometric',
-    colors: ['#d9fb06', '#1a1c1b', '#dfddd6'],
-    suitability: 'Upholstery, Wall coverings, Packaging',
-    repeat: 'Half-drop repeat, 24" x 24"',
+    colors: ['#2C3E50', '#E74C3C', '#ECF0F1'],
+    designIntent: 'Inspired by urban skylines and architectural blueprints, this design translates structural thinking into textile language.',
+    suitableTechniques: ['Digital printing', 'Screen printing'],
+    recommendedFabrics: ['fabric-001', 'fabric-002', 'fabric-004'],
+    scale: 'Half-drop repeat, 24" x 24"',
     style: 'Contemporary Minimalist',
     thumbnail: 'abstract-geometric-1'
   },
@@ -67,9 +123,11 @@ export const designs = [
     collection: 'starter',
     description: 'Fluid forms inspired by natural erosion patterns. Seamless movement across surface creates calm visual continuity.',
     category: 'Organic',
-    colors: ['#3f4816', '#dfddd6', '#888680'],
-    suitability: 'Apparel, Home textiles, Soft furnishings',
-    repeat: 'Block repeat, 18" x 18"',
+    colors: ['#27AE60', '#F39C12', '#95A5A6'],
+    designIntent: 'Water-carved stone and wind patterns inform this exploration of organic movement and natural rhythm.',
+    suitableTechniques: ['Digital printing', 'Block printing'],
+    recommendedFabrics: ['fabric-001', 'fabric-003', 'fabric-005'],
+    scale: 'Block repeat, 18" x 18"',
     style: 'Biomorphic Abstract',
     thumbnail: 'abstract-organic-1'
   },
@@ -79,9 +137,11 @@ export const designs = [
     collection: 'controlled',
     description: 'Angular planes intersect to capture shifting perspectives. A study in controlled chaos and visual tension.',
     category: 'Abstract',
-    colors: ['#d9fb06', '#302f2c', '#f8d47a'],
-    suitability: 'Statement walls, Large format textiles, Commercial interiors',
-    repeat: 'Full drop repeat, 36" x 36"',
+    colors: ['#8E44AD', '#F1C40F', '#34495E'],
+    designIntent: 'Light refraction through crystalline structures creates this play of angles and transparent layers.',
+    suitableTechniques: ['Digital printing', 'Screen printing'],
+    recommendedFabrics: ['fabric-002', 'fabric-004', 'fabric-006'],
+    scale: 'Full drop repeat, 36" x 36"',
     style: 'Architectural Abstract',
     thumbnail: 'abstract-angular-1'
   },
@@ -91,9 +151,11 @@ export const designs = [
     collection: 'controlled',
     description: 'Grid structures break and reform, suggesting textile construction at macro scale. Digital interpretation of hand-woven texture.',
     category: 'Textural',
-    colors: ['#888680', '#dfddd6', '#302f2c'],
-    suitability: 'Upholstery, Contract textiles, Hospitality design',
-    repeat: 'Block repeat, 30" x 30"',
+    colors: ['#7F8C8D', '#BDC3C7', '#2C3E50'],
+    designIntent: 'Traditional weaving techniques reimagined through digital lens, celebrating craft history and contemporary making.',
+    suitableTechniques: ['Digital printing', 'Screen printing', 'Block printing'],
+    recommendedFabrics: ['fabric-001', 'fabric-002', 'fabric-004'],
+    scale: 'Block repeat, 30" x 30"',
     style: 'Industrial Texture',
     thumbnail: 'abstract-texture-1'
   },
@@ -103,9 +165,11 @@ export const designs = [
     collection: 'exclusive',
     description: 'Rhythmic color gradations create optical vibration. A bold statement in color theory and surface activation.',
     category: 'Optical',
-    colors: ['#d9fb06', '#f8d47a', '#3f4816', '#1a1c1b'],
-    suitability: 'Feature walls, Retail environments, Brand spaces',
-    repeat: 'Half-drop repeat, 48" x 48"',
+    colors: ['#E74C3C', '#F39C12', '#8E44AD', '#2C3E50'],
+    designIntent: 'Op-art traditions meet contemporary color science in this exploration of visual rhythm and perceptual engagement.',
+    suitableTechniques: ['Digital printing'],
+    recommendedFabrics: ['fabric-003', 'fabric-004', 'fabric-006'],
+    scale: 'Half-drop repeat, 48" x 48"',
     style: 'Op-Art Inspired',
     thumbnail: 'abstract-optical-1'
   },
@@ -115,36 +179,37 @@ export const designs = [
     collection: 'exclusive',
     description: 'Deconstructed material surfaces reveal hidden complexity. Layers of transparency and opacity create spatial depth.',
     category: 'Layered',
-    colors: ['#302f2c', '#dfddd6', '#888680', '#1a1c1b'],
-    suitability: 'Luxury textiles, High-end furnishings, Bespoke applications',
-    repeat: 'Random match, 60" x 60"',
+    colors: ['#34495E', '#BDC3C7', '#7F8C8D', '#2C3E50'],
+    designIntent: 'Material archaeology — exposing the layers, marks, and histories embedded in surfaces over time.',
+    suitableTechniques: ['Digital printing', 'Screen printing'],
+    recommendedFabrics: ['fabric-002', 'fabric-004', 'fabric-006'],
+    scale: 'Random match, 60" x 60"',
     style: 'Deconstructed Modernism',
     thumbnail: 'abstract-layered-1'
   }
 ];
 
-export const howItWorksSteps = [
+export const processSteps = [
   {
-    step: 1,
-    title: 'Browse Collections',
-    description: 'Explore our curated tiers — Starter, Controlled, or Exclusive. Each collection offers distinct pattern libraries tailored to different creative needs.'
+    id: 1,
+    title: 'Discover Design',
+    description: 'Curated surface patterns created for modern brands and boutiques.'
   },
   {
-    step: 2,
-    title: 'Sign Up & Access',
-    description: 'Create your account with simple Google authentication. Choose your tier and gain immediate access to your design library.'
+    id: 2,
+    title: 'Choose & Prepare',
+    description: 'Select scale, fabric suitability, and finishing — made print-ready with design intelligence.'
   },
   {
-    step: 3,
-    title: 'Download & Create',
-    description: 'Access high-resolution files, request custom orders, and bring surface design excellence to your projects.'
+    id: 3,
+    title: 'Print in Small Batches',
+    description: 'Produced on demand with trusted partners, without excess inventory.'
   }
 ];
 
 export const philosophyContent = {
-  heading: 'Pattern as Language',
-  subheading: 'We believe surface design is a visual dialect — communicating texture, rhythm, and material thinking without words.',
-  body: 'Kalapop exists at the intersection of digital craft and textile tradition. Our patterns are designed for contemporary spaces, thoughtful brands, and designers who understand that surfaces speak.'
+  heading: 'Design-to-Print Intelligence',
+  body: 'Kalapop exists at the intersection of curated design and thoughtful production. We help brands move from surface pattern to small-batch printing with design intelligence, trusted partners, and zero excess inventory.'
 };
 
 // Mock user for authenticated state
@@ -154,5 +219,17 @@ export const mockUser = {
   email: 'designer@example.com',
   picture: 'https://via.placeholder.com/150',
   tier: 'controlled',
+  isAdmin: false,
   savedDesigns: ['design-001', 'design-003', 'design-004']
+};
+
+// Mock admin user
+export const mockAdminUser = {
+  user_id: 'admin-user-001',
+  name: 'Kalapop Admin',
+  email: 'admin@kalapop.design',
+  picture: 'https://via.placeholder.com/150',
+  tier: 'exclusive',
+  isAdmin: true,
+  savedDesigns: []
 };
