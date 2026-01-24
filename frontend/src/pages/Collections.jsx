@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { collections, designs } from '../mockData';
-import { ArrowRight } from 'lucide-react';
 
 const Collections = () => {
   const location = useLocation();
@@ -22,59 +21,46 @@ const Collections = () => {
 
   return (
     <div className="collections-page">
-      <section className="page-hero">
-        <div className="section-container">
-          <h1 className="heading-1" style={{ marginBottom: '24px' }}>Pattern Collections</h1>
-          <p className="body-large" style={{ color: 'var(--text-secondary)', maxWidth: '60ch' }}>
-            Explore our three-tier system. Each collection offers distinct patterns, licensing, and support levels.
-          </p>
-        </div>
+      <section className="section-narrow" style={{ paddingBottom: '3rem', textAlign: 'center' }}>
+        <p className="caption" style={{ marginBottom: '1rem' }}>Surface Design Library</p>
+        <h1 className="heading-1" style={{ marginBottom: '1.5rem' }}>Collections</h1>
+        <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
+          Three curated tiers, each offering distinct patterns, licensing structures, and support levels for modern brands.
+        </p>
       </section>
 
       {collections.map((collection, index) => (
         <section
           key={collection.id}
           id={collection.tier}
-          className="collection-section"
-          style={{ background: index % 2 === 0 ? 'var(--bg-page)' : 'var(--bg-card)' }}
+          style={{ 
+            background: index % 2 === 0 ? 'var(--bg-page)' : 'var(--bg-section)',
+            padding: '6rem 2rem'
+          }}
         >
-          <div className="section-container">
-            <div className="collection-header">
-              <div>
-                <p className="caption" style={{ marginBottom: '16px' }}>
-                  {collection.tier.toUpperCase()}
-                </p>
-                <h2 className="heading-2" style={{ marginBottom: '24px' }}>
-                  {collection.name}
-                </h2>
-                <p className="body-medium" style={{ color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: '60ch' }}>
-                  {collection.description}
-                </p>
-                <div className="collection-features">
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    {collection.features.map((feature, i) => (
-                      <li key={i} className="body-small" style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: 0, color: 'var(--brand-primary)' }}>•</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div className="collection-meta">
-                <div className="meta-item">
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '3rem', maxWidth: '800px' }}>
+              <span className="collection-badge">{collection.access}</span>
+              <h2 className="heading-2" style={{ marginBottom: '1rem' }}>
+                {collection.name}
+              </h2>
+              <p className="body-large" style={{ marginBottom: '2rem' }}>
+                {collection.description}
+              </p>
+              <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+                <div>
                   <p className="caption">Pattern Count</p>
-                  <p className="heading-4" style={{ marginTop: '8px' }}>{collection.designCount}</p>
+                  <p className="heading-4" style={{ marginTop: '0.5rem' }}>{collection.designCount}</p>
                 </div>
-                <div className="meta-item" style={{ marginTop: '24px' }}>
-                  <p className="caption">Pricing</p>
-                  <p className="body-small" style={{ marginTop: '8px' }}>{collection.priceRange}</p>
+                <div>
+                  <p className="caption">Tier</p>
+                  <p className="body-medium" style={{ marginTop: '0.5rem' }}>{collection.priceRange}</p>
                 </div>
               </div>
             </div>
 
             {/* Design Preview Grid */}
-            <div className="designs-grid" style={{ marginTop: '64px' }}>
+            <div className="designs-grid">
               {getDesignsByTier(collection.tier).map((design) => (
                 <Link
                   key={design.id}
@@ -82,16 +68,14 @@ const Collections = () => {
                   className="design-card"
                 >
                   <div className="design-thumbnail">
-                    {/* Abstract pattern preview based on design style */}
+                    <div className="design-watermark">KALAPOP</div>
                     <div className={`pattern-preview ${design.thumbnail}`}></div>
                   </div>
                   <div className="design-info">
-                    <h3 className="heading-5" style={{ marginBottom: '8px' }}>
+                    <h3 className="heading-5" style={{ marginBottom: '0.5rem' }}>
                       {design.name}
                     </h3>
-                    <p className="caption" style={{ color: 'var(--text-secondary)' }}>
-                      {design.category}
-                    </p>
+                    <p className="caption">{design.category}</p>
                   </div>
                 </Link>
               ))}
@@ -100,14 +84,14 @@ const Collections = () => {
         </section>
       ))}
 
-      <section className="cta-section">
-        <div className="section-container" style={{ textAlign: 'center' }}>
-          <h2 className="heading-2" style={{ marginBottom: '24px' }}>Ready to Access Our Library?</h2>
-          <p className="body-medium" style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>
-            Sign up to explore full-resolution patterns and start your creative journey.
+      <section style={{ background: 'var(--bg-page)', padding: '6rem 2rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>Ready to Access?</h2>
+          <p className="body-large" style={{ marginBottom: '2rem' }}>
+            Sign up to explore designs and request custom orders.
           </p>
           <Link to="/login" className="btn-primary">
-            Get Started <ArrowRight size={20} style={{ marginLeft: '8px' }} />
+            Sign Up
           </Link>
         </div>
       </section>
