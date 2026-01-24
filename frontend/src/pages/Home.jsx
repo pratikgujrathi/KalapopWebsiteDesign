@@ -1,87 +1,83 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { collections, philosophyContent, howItWorksSteps } from '../mockData';
-import { ArrowRight, Grid3x3, Layers, Sparkles } from 'lucide-react';
+import { collections, philosophyContent, processSteps } from '../mockData';
 
 const Home = () => {
   return (
     <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Surface Design for Contemporary Spaces</h1>
-          <p className="body-large" style={{ color: 'var(--text-secondary)', marginTop: '32px', maxWidth: '40ch' }}>
-            Curated pattern libraries for boutiques, designers, and creative professionals who demand distinction.
-          </p>
-          <div style={{ marginTop: '48px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <Link to="/collections" className="btn-primary">
-              Explore Collections
-            </Link>
-            <Link to="/how-it-works" className="btn-secondary">
-              How It Works
-            </Link>
+      {/* Hero Banner with Pattern Collage */}
+      <section className="hero-banner">
+        <div className="hero-pattern-collage">
+          {/* Pattern tiles - mood board style */}
+          <div className="pattern-tile large">
+            <div className="pattern-preview abstract-geometric-1"></div>
           </div>
+          <div className="pattern-tile">
+            <div className="pattern-preview abstract-organic-1"></div>
+          </div>
+          <div className="pattern-tile">
+            <div className="pattern-preview abstract-texture-1"></div>
+          </div>
+          <div className="pattern-tile tall">
+            <div className="pattern-preview abstract-angular-1"></div>
+          </div>
+          <div className="pattern-tile">
+            <div className="pattern-preview abstract-layered-1"></div>
+          </div>
+          <div className="pattern-tile wide">
+            <div className="pattern-preview abstract-optical-1"></div>
+          </div>
+        </div>
+        
+        <div className="hero-content">
+          <p className="hero-tagline">Surface Design Studio</p>
+          <h1 className="heading-display" style={{ marginBottom: '1.5rem' }}>
+            From Curated Design to Small-Batch Printing
+          </h1>
+          <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
+            Thoughtfully designed patterns for modern brands, boutiques, and creative professionals.
+          </p>
+        </div>
+      </section>
+
+      {/* Process Section - Editorial Blocks */}
+      <section className="process-section">
+        <div className="process-grid">
+          {processSteps.map((step) => (
+            <div key={step.id} className="process-block">
+              <div className="process-block-pattern">
+                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
+              </div>
+              <h3 className="heading-3" style={{ marginBottom: '1rem' }}>
+                {step.title}
+              </h3>
+              <p className="body-medium">
+                {step.description}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Philosophy Section */}
       <section className="philosophy-section">
-        <div className="section-container">
-          <div className="philosophy-content">
-            <p className="caption" style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
-              Our Philosophy
-            </p>
-            <h2 className="heading-2" style={{ marginBottom: '32px' }}>
-              {philosophyContent.heading}
-            </h2>
-            <p className="body-medium" style={{ color: 'var(--text-secondary)', marginBottom: '24px', maxWidth: '65ch' }}>
-              {philosophyContent.subheading}
-            </p>
-            <p className="body-small" style={{ maxWidth: '65ch' }}>
-              {philosophyContent.body}
-            </p>
-          </div>
-
-          {/* Abstract visual element */}
-          <div className="philosophy-visual">
-            <div className="abstract-pattern-1"></div>
-            <div className="abstract-pattern-2"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Preview */}
-      <section className="how-it-works-preview">
-        <div className="section-container">
-          <h2 className="heading-2" style={{ marginBottom: '64px', textAlign: 'center' }}>
-            Simple Process
+        <div className="section-narrow">
+          <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>
+            {philosophyContent.heading}
           </h2>
-          <div className="steps-grid">
-            {howItWorksSteps.map((step) => (
-              <div key={step.step} className="step-card">
-                <div className="step-number">{step.step}</div>
-                <h3 className="heading-4" style={{ marginTop: '24px', marginBottom: '16px' }}>
-                  {step.title}
-                </h3>
-                <p className="body-small">{step.description}</p>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '64px' }}>
-            <Link to="/how-it-works" className="link-text">
-              Learn more <ArrowRight size={16} style={{ display: 'inline', marginLeft: '8px' }} />
-            </Link>
-          </div>
+          <p className="body-large" style={{ maxWidth: '70ch', margin: '0 auto' }}>
+            {philosophyContent.body}
+          </p>
         </div>
       </section>
 
       {/* Collections Preview */}
-      <section className="collections-preview">
+      <section style={{ background: 'var(--bg-section)' }}>
         <div className="section-container">
-          <div style={{ marginBottom: '64px' }}>
-            <h2 className="heading-2" style={{ marginBottom: '24px' }}>Collections Overview</h2>
-            <p className="body-medium" style={{ color: 'var(--text-secondary)', maxWidth: '65ch' }}>
-              Three distinct tiers designed for different creative needs and business scales.
+          <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+            <h2 className="heading-2" style={{ marginBottom: '1rem' }}>Collections</h2>
+            <p className="body-medium">
+              Three curated tiers designed for different creative needs.
             </p>
           </div>
 
@@ -90,24 +86,26 @@ const Home = () => {
               <Link
                 key={collection.id}
                 to={`/collections#${collection.tier}`}
-                className="collection-preview-card"
+                className="collection-card"
               >
-                <div className="collection-icon">
-                  {collection.tier === 'starter' && <Grid3x3 size={32} />}
-                  {collection.tier === 'controlled' && <Layers size={32} />}
-                  {collection.tier === 'exclusive' && <Sparkles size={32} />}
-                </div>
-                <h3 className="heading-4" style={{ marginBottom: '16px' }}>
+                <span className="collection-badge">{collection.access}</span>
+                <h3 className="heading-3" style={{ marginBottom: '1rem' }}>
                   {collection.name}
                 </h3>
-                <p className="body-small" style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                <p className="body-medium" style={{ marginBottom: '1.5rem' }}>
                   {collection.description}
                 </p>
-                <div className="caption" style={{ color: 'var(--brand-primary)' }}>
+                <p className="caption">
                   {collection.designCount} Patterns
-                </div>
+                </p>
               </Link>
             ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <Link to="/collections" className="btn-primary">
+              View All Collections
+            </Link>
           </div>
         </div>
       </section>
