@@ -9,6 +9,7 @@ import DesignDetail from "./pages/DesignDetail";
 import HowItWorks from "./pages/HowItWorks";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import { Toaster } from "./components/ui/sonner";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
         <Footer />
