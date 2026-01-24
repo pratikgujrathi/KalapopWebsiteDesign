@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { mockUser, designs } from '../mockData';
-import { Heart, Download, Mail, User, LogOut } from 'lucide-react';
+import { mockUser, designs, fabrics } from '../mockData';
+import { Heart, Mail, LogOut, Settings } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('saved');
+  const [selectedFabrics, setSelectedFabrics] = useState([]);
   const { toast } = useToast();
   const user = mockUser;
   const savedDesigns = designs.filter(d => user.savedDesigns.includes(d.id));
 
-  const handleRequestOrder = () => {
+  const handleFabricToggle = (fabricId) => {
+    setSelectedFabrics(prev => 
+      prev.includes(fabricId)
+        ? prev.filter(id => id !== fabricId)
+        : [...prev, fabricId]
+    );
+  };
+
+  const handleRequestOrder = (e) => {
+    e.preventDefault();
     toast({
       title: "Request sent",
-      description: "Our team will contact you shortly about your custom order.",
+      description: "Our team will contact you shortly about your order.",
     });
   };
 
@@ -22,7 +32,6 @@ const Dashboard = () => {
       title: "Logged out",
       description: "You have been successfully logged out.",
     });
-    // In real implementation, this would clear session and redirect
   };
 
   return (
@@ -31,41 +40,35 @@ const Dashboard = () => {
         {/* Dashboard Header */}
         <div className="dashboard-header">
           <div>
-            <h1 className="heading-1" style={{ fontSize: '3rem', marginBottom: '16px' }}>
-              My Studio
-            </h1>
-            <p className="body-medium" style={{ color: 'var(--text-secondary)' }}>
-              Welcome back, {user.name}
-            </p>
+            <h1 className="heading-1" style={{ marginBottom: '0.5rem' }}>My Studio</h1>
+            <p className="body-medium">Welcome back, {user.name}</p>
           </div>
-          <button onClick={handleLogout} className="btn-secondary">
-            <LogOut size={20} /> <span style={{ marginLeft: '8px' }}>Sign Out</span>
-          </button>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            {user.isAdmin && (
+              <Link to="/admin" className="btn-secondary">
+                <Settings size={18} style={{ marginRight: '0.5rem' }} /> Admin
+              </Link>
+            )}
+            <button onClick={handleLogout} className="btn-tertiary">
+              <LogOut size={18} style={{ marginRight: '0.5rem' }} /> Sign Out
+            </button>
+          </div>
         </div>
 
         {/* Account Info */}
-        <div className="account-info-card">
-          <div className="account-info-grid">
-            <div className="info-item">
-              <User size={20} style={{ color: 'var(--text-secondary)' }} />
-              <div style={{ marginLeft: '12px' }}>
-                <p className="caption">Account</p>
-                <p className="body-small" style={{ marginTop: '4px' }}>{user.name}</p>
-              </div>
+        <div style={{ background: 'var(--bg-section)', padding: '2rem', border: '1px solid var(--border-light)', marginBottom: '3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+            <div>
+              <p className="caption">Email</p>
+              <p className="body-medium" style={{ marginTop: '0.5rem' }}>{user.email}</p>
             </div>
-            <div className="info-item">
-              <Mail size={20} style={{ color: 'var(--text-secondary)' }} />
-              <div style={{ marginLeft: '12px' }}>
-                <p className="caption">Email</p>
-                <p className="body-small" style={{ marginTop: '4px' }}>{user.email}</p>
-              </div>
+            <div>
+              <p className="caption">Access Tier</p>
+              <p className="body-medium" style={{ marginTop: '0.5rem', textTransform: 'capitalize' }}>{user.tier}</p>
             </div>
-            <div className="info-item">
-              <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'var(--brand-primary)' }} />
-              <div style={{ marginLeft: '12px' }}>
-                <p className="caption">Tier</p>
-                <p className="body-small" style={{ marginTop: '4px', textTransform: 'capitalize' }}>{user.tier}</p>
-              </div>
+            <div>
+              <p className="caption">Saved Designs</p>
+              <p className="body-medium" style={{ marginTop: '0.5rem' }}>{savedDesigns.length} patterns</p>
             </div>
           </div>
         </div>
@@ -76,23 +79,23 @@ const Dashboard = () => {
             className={`tab-button ${activeTab === 'saved' ? 'active' : ''}`}
             onClick={() => setActiveTab('saved')}
           >
-            <Heart size={18} /> <span style={{ marginLeft: '8px' }}>Saved Designs</span>
+            <Heart size={18} style={{ marginRight: '0.5rem' }} /> Saved Designs
           </button>
           <button
             className={`tab-button ${activeTab === 'request' ? 'active' : ''}`}
             onClick={() => setActiveTab('request')}
           >
-            <Mail size={18} /> <span style={{ marginLeft: '8px' }}>Request Order</span>
+            <Mail size={18} style={{ marginRight: '0.5rem' }} /> Request Order
           </button>
         </div>
 
         {/* Tab Content */}
         {activeTab === 'saved' && (
-          <div className="tab-content">
-            <div style={{ marginBottom: '32px' }}>
-              <h2 className="heading-4" style={{ marginBottom: '8px' }}>Your Saved Designs</h2>
-              <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
-                {savedDesigns.length} patterns saved
+          <div>
+            <div style={{ marginBottom: '2rem' }}>
+              <h2 className="heading-3" style={{ marginBottom: '0.5rem' }}>Your Saved Designs</h2>
+              <p className="body-medium">
+                {savedDesigns.length} patterns saved for your projects
               </p>
             </div>
 
@@ -105,26 +108,22 @@ const Dashboard = () => {
                     className="design-card"
                   >
                     <div className="design-thumbnail">
+                      <div className="design-watermark">KALAPOP</div>
                       <div className={`pattern-preview ${design.thumbnail}`}></div>
                     </div>
                     <div className="design-info">
-                      <h3 className="heading-5" style={{ marginBottom: '8px' }}>
+                      <h3 className="heading-5" style={{ marginBottom: '0.5rem' }}>
                         {design.name}
                       </h3>
-                      <p className="caption" style={{ color: 'var(--text-secondary)' }}>
-                        {design.category}
-                      </p>
-                      <button className="download-button">
-                        <Download size={16} /> <span style={{ marginLeft: '8px' }}>Download</span>
-                      </button>
+                      <p className="caption">{design.category}</p>
                     </div>
                   </Link>
                 ))}
               </div>
             ) : (
-              <div className="empty-state">
-                <Heart size={48} style={{ color: 'var(--text-secondary)', marginBottom: '16px' }} />
-                <p className="body-medium" style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+              <div style={{ textAlign: 'center', padding: '4rem 2rem', background: 'var(--bg-section)', border: '1px solid var(--border-light)' }}>
+                <Heart size={48} style={{ color: 'var(--text-tertiary)', marginBottom: '1rem' }} />
+                <p className="body-large" style={{ marginBottom: '1.5rem' }}>
                   No saved designs yet
                 </p>
                 <Link to="/collections" className="btn-primary">
@@ -136,14 +135,14 @@ const Dashboard = () => {
         )}
 
         {activeTab === 'request' && (
-          <div className="tab-content">
-            <div style={{ maxWidth: '600px' }}>
-              <h2 className="heading-4" style={{ marginBottom: '16px' }}>Request Custom Order</h2>
-              <p className="body-small" style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>
-                Need a custom pattern or colorway? Fill out your requirements and our team will reach out.
+          <div>
+            <div style={{ maxWidth: '700px' }}>
+              <h2 className="heading-3" style={{ marginBottom: '1rem' }}>Request Custom Order</h2>
+              <p className="body-medium" style={{ marginBottom: '2rem' }}>
+                Provide details about your project. Our team will prepare design files and coordinate with trusted printing partners.
               </p>
 
-              <form className="request-form" onSubmit={(e) => { e.preventDefault(); handleRequestOrder(); }}>
+              <form onSubmit={handleRequestOrder}>
                 <div className="form-group">
                   <label className="caption" htmlFor="project-name">Project Name</label>
                   <input
@@ -156,29 +155,61 @@ const Dashboard = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="caption" htmlFor="design-type">Design Type</label>
-                  <select id="design-type" className="form-input" required>
-                    <option value="">Select a type</option>
-                    <option value="geometric">Geometric</option>
-                    <option value="organic">Organic</option>
-                    <option value="abstract">Abstract</option>
-                    <option value="textural">Textural</option>
-                    <option value="custom">Custom / Other</option>
+                  <label className="caption" htmlFor="design-id">Select Design</label>
+                  <select id="design-id" className="form-input form-select" required>
+                    <option value="">Choose a design</option>
+                    {savedDesigns.map(design => (
+                      <option key={design.id} value={design.id}>{design.name}</option>
+                    ))}
                   </select>
                 </div>
 
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <label className="caption">Select Fabrics (Optional)</label>
+                  <p className="body-small" style={{ marginTop: '0.5rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+                    Choose fabrics suitable for your project. This helps us prepare accurately.
+                  </p>
+                  <div style={{ display: 'grid', gap: '1rem' }}>
+                    {fabrics.slice(0, 4).map((fabric) => (
+                      <div
+                        key={fabric.id}
+                        className={`fabric-option ${selectedFabrics.includes(fabric.id) ? 'selected' : ''}`}
+                        onClick={() => handleFabricToggle(fabric.id)}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <p className="body-medium" style={{ fontWeight: 600 }}>{fabric.name}</p>
+                          <p className="caption">{fabric.weight}</p>
+                        </div>
+                        <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
+                          {fabric.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="form-group">
-                  <label className="caption" htmlFor="requirements">Requirements</label>
+                  <label className="caption" htmlFor="scale">Scale Preference</label>
+                  <input
+                    type="text"
+                    id="scale"
+                    className="form-input"
+                    placeholder="E.g., 24x24 inch repeat"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="caption" htmlFor="requirements">Additional Requirements</label>
                   <textarea
                     id="requirements"
                     className="form-input"
                     rows="6"
-                    placeholder="Describe your pattern needs, color preferences, intended use, timeline, etc."
+                    placeholder="Describe your project needs, timeline, quantity, etc."
                     required
                   />
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                <button type="submit" className="btn-primary">
                   Submit Request
                 </button>
               </form>
