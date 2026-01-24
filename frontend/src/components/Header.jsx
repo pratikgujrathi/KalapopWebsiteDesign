@@ -29,7 +29,7 @@ const Header = () => {
           >
             How It Works
           </Link>
-          <Link to="/login" className="btn-primary" style={{ padding: '0.75em 1.5em' }}>
+          <Link to="/login" className="btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
             Sign In
           </Link>
         </nav>
@@ -64,7 +64,7 @@ const Header = () => {
           <Link
             to="/login"
             className="btn-primary"
-            style={{ marginTop: '16px', width: '100%', justifyContent: 'center' }}
+            style={{ marginTop: '1rem', justifyContent: 'center' }}
             onClick={() => setMobileMenuOpen(false)}
           >
             Sign In
