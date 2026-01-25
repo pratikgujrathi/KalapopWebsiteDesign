@@ -85,4 +85,8 @@ const Home = () => {
 
           <div className=\"collections-grid\">\n            {collections.map((collection) => (\n              <Link\n                key={collection.id}\n                to={`/collections#${collection.tier}`}\n                className=\"collection-card\"\n              >\n                <span className=\"collection-badge\">{collection.access}</span>\n                <h3 className=\"heading-3\" style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>\n                  {collection.name}\n                </h3>\n                <p className=\"body-medium\" style={{ marginBottom: '2rem', fontSize: '1.125rem' }}>\n                  {collection.description}\n                </p>\n                <p className=\"caption\" style={{ fontSize: '0.875rem' }}>\n                  {collection.designCount} PATTERNS\n                </p>\n              </Link>\n            ))}\n          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '5rem' }}>\n            <Link to=\"/collections\" className=\"btn-primary\">\n              View All Collections\n            </Link>\n          </div>\n        </div>\n      </section>\n    </div>\n  );\n};\n\nexport default Home;
+          <div style={{ textAlign: 'center', marginTop: '5rem' }}>
+            <Link to="/collections" className="btn-primary">
+              View All Collections
+            </Link>
+          </div>\n        </div>\n      </section>\n    </div>\n  );\n};\n\nexport default Home;
