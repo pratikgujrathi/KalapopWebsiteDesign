@@ -59,7 +59,25 @@ const Home = () => {
           </p>
         </div>
         <div className=\"process-grid\">
-          {processSteps.map((step, index) => (\n            <div key={step.id} className=\"process-block\" style={{ textAlign: 'center' }}>\n              <div className=\"process-block-pattern\">\n                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>\n              </div>\n              <h3 className=\"heading-3\" style={{ \n                marginBottom: '1.5rem',\n                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'\n              }}>\n                {step.title}\n              </h3>\n              <p className=\"body-medium\" style={{ \n                fontSize: '1.125rem',\n                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'\n              }}>\n                {step.description}\n              </p>\n            </div>\n          ))}\n        </div>\n      </section>
+          {processSteps.map((step, index) => (
+            <div key={step.id} className="process-block" style={{ textAlign: 'center' }}>
+              <div className="process-block-pattern">
+                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
+              </div>
+              <h3 className="heading-3" style={{ 
+                marginBottom: '1.5rem',
+                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'
+              }}>
+                {step.title}
+              </h3>
+              <p className="body-medium" style={{ 
+                fontSize: '1.125rem',
+                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'
+              }}>
+                {step.description}
+              </p>
+            </div>
+          ))}\n        </div>\n      </section>
 
       {/* Philosophy Section with Bold Background */}\n      <section className=\"philosophy-section\">\n        <div className=\"section-narrow\" style={{ position: 'relative', zIndex: 2 }}>\n          <h2 className=\"heading-2\" style={{ marginBottom: '2rem', textAlign: 'center' }}>\n            {philosophyContent.heading}\n          </h2>\n          <p className=\"body-large\" style={{ maxWidth: '70ch', margin: '0 auto', textAlign: 'center', fontSize: '1.5rem' }}>\n            {philosophyContent.body}\n          </p>\n        </div>\n      </section>
 
