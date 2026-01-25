@@ -51,15 +51,15 @@ const Home = () => {
       </section>
 
       {/* Process Section - Bold Editorial Blocks */}
-      <section className=\"process-section\">
+      <section className="process-section">
         <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-          <h2 className=\"heading-2\" style={{ marginBottom: '1.5rem' }}>THE KALAPOP PROCESS</h2>
-          <p className=\"body-large\" style={{ maxWidth: '60ch', margin: '0 auto' }}>
+          <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>THE KALAPOP PROCESS</h2>
+          <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
             From curated design to thoughtful printing in three bold steps.
           </p>
         </div>
-        <div className=\"process-grid\">
-          {processSteps.map((step, index) => (
+        <div className="process-grid">
+          {processSteps.map((step) => (
             <div key={step.id} className="process-block" style={{ textAlign: 'center' }}>
               <div className="process-block-pattern">
                 <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
@@ -77,16 +77,62 @@ const Home = () => {
                 {step.description}
               </p>
             </div>
-          ))}\n        </div>\n      </section>
+          ))}
+        </div>
+      </section>
 
-      {/* Philosophy Section with Bold Background */}\n      <section className=\"philosophy-section\">\n        <div className=\"section-narrow\" style={{ position: 'relative', zIndex: 2 }}>\n          <h2 className=\"heading-2\" style={{ marginBottom: '2rem', textAlign: 'center' }}>\n            {philosophyContent.heading}\n          </h2>\n          <p className=\"body-large\" style={{ maxWidth: '70ch', margin: '0 auto', textAlign: 'center', fontSize: '1.5rem' }}>\n            {philosophyContent.body}\n          </p>\n        </div>\n      </section>
+      {/* Philosophy Section with Bold Background */}
+      <section className="philosophy-section">
+        <div className="section-narrow" style={{ position: 'relative', zIndex: 2 }}>
+          <h2 className="heading-2" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+            {philosophyContent.heading}
+          </h2>
+          <p className="body-large" style={{ maxWidth: '70ch', margin: '0 auto', textAlign: 'center', fontSize: '1.5rem' }}>
+            {philosophyContent.body}
+          </p>
+        </div>
+      </section>
 
-      {/* Collections Preview with Bold Cards */}\n      <section style={{ background: 'var(--bg-page)', padding: '8rem 3rem' }}>\n        <div style={{ maxWidth: '1600px', margin: '0 auto' }}>\n          <div style={{ marginBottom: '5rem', textAlign: 'center' }}>\n            <h2 className=\"heading-2\" style={{ marginBottom: '1.5rem' }}>OUR COLLECTIONS</h2>\n            <p className=\"body-large\" style={{ fontSize: '1.25rem' }}>\n              Three curated tiers designed for different creative needs.\n            </p>\n          </div>
+      {/* Collections Preview with Bold Cards */}
+      <section style={{ background: 'var(--bg-page)', padding: '8rem 3rem' }}>
+        <div style={{ maxWidth: '1600px', margin: '0 auto' }}>
+          <div style={{ marginBottom: '5rem', textAlign: 'center' }}>
+            <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>OUR COLLECTIONS</h2>
+            <p className="body-large" style={{ fontSize: '1.25rem' }}>
+              Three curated tiers designed for different creative needs.
+            </p>
+          </div>
 
-          <div className=\"collections-grid\">\n            {collections.map((collection) => (\n              <Link\n                key={collection.id}\n                to={`/collections#${collection.tier}`}\n                className=\"collection-card\"\n              >\n                <span className=\"collection-badge\">{collection.access}</span>\n                <h3 className=\"heading-3\" style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>\n                  {collection.name}\n                </h3>\n                <p className=\"body-medium\" style={{ marginBottom: '2rem', fontSize: '1.125rem' }}>\n                  {collection.description}\n                </p>\n                <p className=\"caption\" style={{ fontSize: '0.875rem' }}>\n                  {collection.designCount} PATTERNS\n                </p>\n              </Link>\n            ))}\n          </div>
+          <div className="collections-grid">
+            {collections.map((collection) => (
+              <Link
+                key={collection.id}
+                to={`/collections#${collection.tier}`}
+                className="collection-card"
+              >
+                <span className="collection-badge">{collection.access}</span>
+                <h3 className="heading-3" style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>
+                  {collection.name}
+                </h3>
+                <p className="body-medium" style={{ marginBottom: '2rem', fontSize: '1.125rem' }}>
+                  {collection.description}
+                </p>
+                <p className="caption" style={{ fontSize: '0.875rem' }}>
+                  {collection.designCount} PATTERNS
+                </p>
+              </Link>
+            ))}
+          </div>
 
           <div style={{ textAlign: 'center', marginTop: '5rem' }}>
             <Link to="/collections" className="btn-primary">
               View All Collections
             </Link>
-          </div>\n        </div>\n      </section>\n    </div>\n  );\n};\n\nexport default Home;
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;
