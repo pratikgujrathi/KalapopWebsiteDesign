@@ -5,112 +5,58 @@ import { collections, philosophyContent, processSteps } from '../mockData';
 const Home = () => {
   return (
     <div className="home-page">
-      {/* Hero Banner with Pattern Collage */}
+      {/* Hero Banner with Pattern Collage & Oversized Typography */}
       <section className="hero-banner">
-        <div className="hero-pattern-collage">
-          {/* Pattern tiles - mood board style */}
-          <div className="pattern-tile large">
-            <div className="pattern-preview abstract-geometric-1"></div>
-          </div>
-          <div className="pattern-tile">
-            <div className="pattern-preview abstract-organic-1"></div>
-          </div>
-          <div className="pattern-tile">
-            <div className="pattern-preview abstract-texture-1"></div>
-          </div>
-          <div className="pattern-tile tall">
-            <div className="pattern-preview abstract-angular-1"></div>
-          </div>
-          <div className="pattern-tile">
-            <div className="pattern-preview abstract-layered-1"></div>
-          </div>
-          <div className="pattern-tile wide">
-            <div className="pattern-preview abstract-optical-1"></div>
-          </div>
-        </div>
-        
-        <div className="hero-content">
-          <p className="hero-tagline">Surface Design Studio</p>
-          <h1 className="heading-display" style={{ marginBottom: '1.5rem' }}>
-            From Curated Design to Small-Batch Printing
-          </h1>
-          <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
-            Thoughtfully designed patterns for modern brands, boutiques, and creative professionals.
-          </p>
-        </div>
-      </section>
-
-      {/* Process Section - Editorial Blocks */}
-      <section className="process-section">
-        <div className="process-grid">
-          {processSteps.map((step) => (
-            <div key={step.id} className="process-block">
-              <div className="process-block-pattern">
-                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
-              </div>
-              <h3 className="heading-3" style={{ marginBottom: '1rem' }}>
-                {step.title}
-              </h3>
-              <p className="body-medium">
-                {step.description}
-              </p>
+        <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+          <div className="hero-pattern-collage">
+            {/* Pattern tiles - bold mood board style */}
+            <div className="pattern-tile large">
+              <div className="pattern-preview abstract-geometric-1"></div>
             </div>
-          ))}
+            <div className="pattern-tile">
+              <div className="pattern-preview abstract-organic-1"></div>
+            </div>
+            <div className="pattern-tile">
+              <div className="pattern-preview abstract-texture-1"></div>
+            </div>
+            <div className="pattern-tile tall">
+              <div className="pattern-preview abstract-angular-1"></div>
+            </div>
+            <div className="pattern-tile">
+              <div className="pattern-preview abstract-layered-1"></div>
+            </div>
+            <div className="pattern-tile wide">
+              <div className="pattern-preview abstract-optical-1"></div>
+            </div>
+          </div>
+          
+          <div className="hero-content">
+            <div className="hero-tagline">Surface Design Studio</div>
+            <h1 className="heading-display" style={{ marginBottom: '2rem', color: '#1A1A1A' }}>
+              BOLD PATTERNS<br/>FOR MODERN<br/>BRANDS
+            </h1>
+            <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto 3rem', fontSize: '1.5rem', fontWeight: 500 }}>
+              Design-led surface studio creating curated patterns for boutiques, designers, and creative professionals.
+            </p>
+            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>\n              <Link to=\"/collections\" className=\"btn-primary\">\n                Explore Collections\n              </Link>\n              <Link to=\"/how-it-works\" className=\"btn-secondary\">\n                How It Works\n              </Link>\n            </div>\n          </div>
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section className="philosophy-section">
-        <div className="section-narrow">
-          <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>
-            {philosophyContent.heading}
-          </h2>
-          <p className="body-large" style={{ maxWidth: '70ch', margin: '0 auto' }}>
-            {philosophyContent.body}
+      {/* Process Section - Bold Editorial Blocks */}
+      <section className=\"process-section\">
+        <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+          <h2 className=\"heading-2\" style={{ marginBottom: '1.5rem' }}>THE KALAPOP PROCESS</h2>
+          <p className=\"body-large\" style={{ maxWidth: '60ch', margin: '0 auto' }}>
+            From curated design to thoughtful printing in three bold steps.
           </p>
         </div>
-      </section>
+        <div className=\"process-grid\">
+          {processSteps.map((step, index) => (\n            <div key={step.id} className=\"process-block\" style={{ textAlign: 'center' }}>\n              <div className=\"process-block-pattern\">\n                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>\n              </div>\n              <h3 className=\"heading-3\" style={{ \n                marginBottom: '1.5rem',\n                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'\n              }}>\n                {step.title}\n              </h3>\n              <p className=\"body-medium\" style={{ \n                fontSize: '1.125rem',\n                color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)'\n              }}>\n                {step.description}\n              </p>\n            </div>\n          ))}\n        </div>\n      </section>
 
-      {/* Collections Preview */}
-      <section style={{ background: 'var(--bg-section)' }}>
-        <div className="section-container">
-          <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
-            <h2 className="heading-2" style={{ marginBottom: '1rem' }}>Collections</h2>
-            <p className="body-medium">
-              Three curated tiers designed for different creative needs.
-            </p>
-          </div>
+      {/* Philosophy Section with Bold Background */}\n      <section className=\"philosophy-section\">\n        <div className=\"section-narrow\" style={{ position: 'relative', zIndex: 2 }}>\n          <h2 className=\"heading-2\" style={{ marginBottom: '2rem', textAlign: 'center' }}>\n            {philosophyContent.heading}\n          </h2>\n          <p className=\"body-large\" style={{ maxWidth: '70ch', margin: '0 auto', textAlign: 'center', fontSize: '1.5rem' }}>\n            {philosophyContent.body}\n          </p>\n        </div>\n      </section>
 
-          <div className="collections-grid">
-            {collections.map((collection) => (
-              <Link
-                key={collection.id}
-                to={`/collections#${collection.tier}`}
-                className="collection-card"
-              >
-                <span className="collection-badge">{collection.access}</span>
-                <h3 className="heading-3" style={{ marginBottom: '1rem' }}>
-                  {collection.name}
-                </h3>
-                <p className="body-medium" style={{ marginBottom: '1.5rem' }}>
-                  {collection.description}
-                </p>
-                <p className="caption">
-                  {collection.designCount} Patterns
-                </p>
-              </Link>
-            ))}
-          </div>
+      {/* Collections Preview with Bold Cards */}\n      <section style={{ background: 'var(--bg-page)', padding: '8rem 3rem' }}>\n        <div style={{ maxWidth: '1600px', margin: '0 auto' }}>\n          <div style={{ marginBottom: '5rem', textAlign: 'center' }}>\n            <h2 className=\"heading-2\" style={{ marginBottom: '1.5rem' }}>OUR COLLECTIONS</h2>\n            <p className=\"body-large\" style={{ fontSize: '1.25rem' }}>\n              Three curated tiers designed for different creative needs.\n            </p>\n          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <Link to="/collections" className="btn-primary">
-              View All Collections
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+          <div className=\"collections-grid\">\n            {collections.map((collection) => (\n              <Link\n                key={collection.id}\n                to={`/collections#${collection.tier}`}\n                className=\"collection-card\"\n              >\n                <span className=\"collection-badge\">{collection.access}</span>\n                <h3 className=\"heading-3\" style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>\n                  {collection.name}\n                </h3>\n                <p className=\"body-medium\" style={{ marginBottom: '2rem', fontSize: '1.125rem' }}>\n                  {collection.description}\n                </p>\n                <p className=\"caption\" style={{ fontSize: '0.875rem' }}>\n                  {collection.designCount} PATTERNS\n                </p>\n              </Link>\n            ))}\n          </div>
 
-export default Home;
+          <div style={{ textAlign: 'center', marginTop: '5rem' }}>\n            <Link to=\"/collections\" className=\"btn-primary\">\n              View All Collections\n            </Link>\n          </div>\n        </div>\n      </section>\n    </div>\n  );\n};\n\nexport default Home;
