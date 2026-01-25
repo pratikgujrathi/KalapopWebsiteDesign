@@ -38,7 +38,15 @@ const Home = () => {
             <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto 3rem', fontSize: '1.5rem', fontWeight: 500 }}>
               Design-led surface studio creating curated patterns for boutiques, designers, and creative professionals.
             </p>
-            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>\n              <Link to=\"/collections\" className=\"btn-primary\">\n                Explore Collections\n              </Link>\n              <Link to=\"/how-it-works\" className=\"btn-secondary\">\n                How It Works\n              </Link>\n            </div>\n          </div>
+            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link to="/collections" className="btn-primary">
+                Explore Collections
+              </Link>
+              <Link to="/how-it-works" className="btn-secondary">
+                How It Works
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
