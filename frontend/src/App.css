@@ -6,34 +6,31 @@
 /* Import Google Fonts - Bold Display Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap');
 
-/* CSS Variables - Studio Design System */
+
+/* CSS Variables - Bold Maximalist System */
 :root {
-  /* Backgrounds */
+  /* Vibrant Backgrounds */
   --bg-page: #FFFFFF;
-  --bg-section: #F8F9FA;
-  --bg-card: #FFFFFF;
-  --bg-accent: #F1F3F5;
+  --bg-vibrant-orange: #FF5722;
+  --bg-vibrant-pink: #FF0080;
+  --bg-vibrant-purple: #B5A6E1;
+  --bg-vibrant-yellow: #FFEB3B;
+  --bg-vibrant-blue: #00BCD4;
+  --bg-dark: #1A1A1A;
   
   /* Text Colors */
   --text-primary: #1A1A1A;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
   --text-inverse: #FFFFFF;
+  --text-vibrant-orange: #FF5722;
+  --text-vibrant-pink: #FF0080;
   
   /* Borders */
-  --border-light: #E5E7EB;
-  --border-medium: #D1D5DB;
-  --border-dark: #9CA3AF;
-  
-  /* Brand Colors */
-  --brand-primary: #1A1A1A;
-  --brand-accent: #2C5F2D;
-  --brand-hover: #3A7A3B;
+  --border-bold: #1A1A1A;
+  --border-color: rgba(0, 0, 0, 0.15);
   
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-bold: 8px 8px 0 rgba(0, 0, 0, 0.15);
+  --shadow-xl: 12px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Typography Classes */
