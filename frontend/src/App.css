@@ -1071,22 +1071,6 @@ main {
   position: relative;
 }
 
-.philosophy-section::before {
-  content: 'DESIGN';
-  position: absolute;
-  top: 10%;
-  right: -5%;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 20vw;
-  font-weight: 900;
-  color: rgba(0, 0, 0, 0.05);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  transform: rotate(90deg);
-  pointer-events: none;
-  text-transform: uppercase;
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hero-pattern-collage {
