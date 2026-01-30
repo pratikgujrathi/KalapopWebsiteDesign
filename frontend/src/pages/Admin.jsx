@@ -88,7 +88,7 @@ const Admin = () => {
             className={`tab-button ${activeSection === 'designs' ? 'active' : ''}`}
             onClick={() => setActiveSection('designs')}
           >
-            <Edit2 size={18} style={{ marginRight: '0.5rem' }} /> Manage Designs
+            <Edit2 size={18} style={{ marginRight: '0.5rem' }} /> Manage Designs & Banner
           </button>
           <button
             className={`tab-button ${activeSection === 'fabrics' ? 'active' : ''}`}
@@ -101,8 +101,11 @@ const Admin = () => {
         {/* Manage Designs Section */}
         {activeSection === 'designs' && (
           <div>
-            <div className="admin-section">
-              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Upload New Design</h2>
+            <div className="admin-section" style={{ background: 'var(--bg-vibrant-purple)', color: 'var(--text-primary)' }}>
+              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Upload New Design (Auto Watermark)</h2>
+              <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch' }}>
+                Upload images will automatically have "KALAPOP" watermark applied. As admin, you can download original files without watermark.
+              </p>
               <form onSubmit={handleUploadDesign}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                   <div className="form-group">
@@ -161,17 +164,6 @@ const Admin = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="caption" htmlFor="design-intent">Design Intent</label>
-                  <textarea
-                    id="design-intent"
-                    className="form-input"
-                    rows="3"
-                    placeholder="Inspiration and conceptual thinking behind the design"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
                   <label className="caption" htmlFor="design-image">Upload Design Image</label>
                   <input
                     type="file"
@@ -180,32 +172,73 @@ const Admin = () => {
                     accept="image/*"
                     required
                   />
-                  <p className="body-small" style={{ marginTop: '0.5rem', color: 'var(--text-tertiary)' }}>
-                    Recommended: High-resolution image, minimum 2000x2000px
+                  <p className="body-small" style={{ marginTop: '0.5rem', fontWeight: 600 }}>
+                    ⚠️ Watermark will be automatically added upon upload
                   </p>
                 </div>
 
                 <button type="submit" className="btn-primary">
-                  <Upload size={18} style={{ marginRight: '0.5rem' }} /> Upload Design
+                  <Upload size={18} style={{ marginRight: '0.5rem' }} /> Upload with Watermark
                 </button>
               </form>
             </div>
 
             <div className="admin-section">
-              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Existing Designs</h2>
+              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Existing Designs - Banner & Download Control</h2>
+              <p className="body-medium" style={{ marginBottom: '2rem' }}>
+                Toggle banner display and download original images without watermark (admin only).
+              </p>
               <div style={{ display: 'grid', gap: '1rem' }}>
                 {designs.map((design) => (
-                  <div key={design.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: 'var(--bg-page)', border: '1px solid var(--border-light)' }}>
-                    <div>
-                      <p className="body-medium" style={{ fontWeight: 600, marginBottom: '0.25rem' }}>{design.name}</p>
+                  <div key={design.id} style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    padding: '1.5rem', 
+                    background: showOnBanner[design.id] ? 'var(--bg-vibrant-yellow)' : 'var(--bg-page)', 
+                    border: '3px solid var(--text-primary)',
+                    boxShadow: 'var(--shadow-bold)'
+                  }}>
+                    <div style={{ flex: 1 }}>
+                      <p className="body-medium" style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{design.name}</p>
                       <p className="caption">{design.collection.toUpperCase()} • {design.category}</p>
+                      {showOnBanner[design.id] && (
+                        <span style={{ 
+                          display: 'inline-block',
+                          marginTop: '0.5rem',
+                          padding: '0.25rem 0.75rem',
+                          background: 'var(--text-primary)',
+                          color: 'var(--text-inverse)',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase'
+                        }}>
+                          Displayed on Banner
+                        </span>
+                      )}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button className="btn-tertiary" style={{ padding: '0.5rem 1rem' }}>
-                        <Edit2 size={16} />
+                      <button 
+                        className="btn-tertiary" 
+                        style={{ padding: '0.75rem 1rem' }}
+                        onClick={() => toggleBannerDisplay(design.id)}
+                        title={showOnBanner[design.id] ? "Remove from banner" : "Show on banner"}
+                      >
+                        {showOnBanner[design.id] ? <EyeOff size={18} /> : <Eye size={18} />}
                       </button>
-                      <button className="btn-tertiary" style={{ padding: '0.5rem 1rem', color: 'var(--destructive)', borderColor: 'var(--destructive)' }}>
-                        <Trash2 size={16} />
+                      <button 
+                        className="btn-tertiary" 
+                        style={{ padding: '0.75rem 1rem' }}
+                        onClick={() => handleDownloadWithoutWatermark(design.id)}
+                        title="Download without watermark (admin only)"
+                      >
+                        <Download size={18} />
+                      </button>
+                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem' }}>
+                        <Edit2 size={18} />
+                      </button>
+                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem', borderColor: '#E74C3C', color: '#E74C3C' }}>
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
