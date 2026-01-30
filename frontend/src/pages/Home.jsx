@@ -7,6 +7,13 @@ const Home = () => {
     <div className="home-page">
       {/* Hero Banner with Pattern Collage & Oversized Typography */}
       <section className="hero-banner">
+        {/* Small Geometric Decorations */}
+        <div className="hero-geometric-decoration geo-1" style={{ '--initial-rotation': '15deg' }}></div>
+        <div className="hero-geometric-decoration geo-2" style={{ '--initial-rotation': '-10deg' }}></div>
+        <div className="hero-geometric-decoration geo-3" style={{ '--initial-rotation': '25deg' }}></div>
+        <div className="hero-geometric-decoration geo-4" style={{ '--initial-rotation': '0deg' }}></div>
+        <div className="hero-geometric-decoration geo-5" style={{ '--initial-rotation': '-20deg' }}></div>
+        
         <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
           <div className="hero-pattern-collage">
             {/* Pattern tiles - bold mood board style */}
