@@ -1,18 +1,52 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Upload, Plus, Edit2, Trash2 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Upload, Plus, Edit2, Trash2, Download, Eye, EyeOff } from 'lucide-react';
 import { designs, fabrics, collections } from '../mockData';
 import { useToast } from '../hooks/use-toast';
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState('designs');
+  const [showOnBanner, setShowOnBanner] = useState({
+    'design-001': true,
+    'design-002': false,
+    'design-003': false
+  });
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  // Check if user is admin (in real implementation, check auth state)
+  const isAdminAuthenticated = true; // Mock - should check actual auth
+
+  React.useEffect(() => {
+    if (!isAdminAuthenticated) {
+      navigate('/admin-login');
+    }
+  }, [isAdminAuthenticated, navigate]);
 
   const handleUploadDesign = (e) => {
     e.preventDefault();
     toast({
-      title: "Design uploaded",
-      description: "New design has been added to the collection.",
+      title: "Design uploaded with watermark",
+      description: "Watermark has been automatically applied to the uploaded image.",
+    });
+  };
+
+  const handleDownloadWithoutWatermark = (designId) => {
+    toast({
+      title: "Downloading without watermark",
+      description: "Admin download: Original image without watermark.",
+    });
+    // In real implementation: fetch original image from server
+  };
+
+  const toggleBannerDisplay = (designId) => {
+    setShowOnBanner(prev => ({
+      ...prev,
+      [designId]: !prev[designId]
+    }));
+    toast({
+      title: showOnBanner[designId] ? "Removed from banner" : "Added to banner",
+      description: `Design ${showOnBanner[designId] ? 'hidden from' : 'displayed on'} homepage banner.`,
     });
   };
 
@@ -27,11 +61,26 @@ const Admin = () => {
   return (
     <div className="admin-page">
       <section className="section-container">
-        <Link to="/dashboard" className="btn-tertiary" style={{ marginBottom: '2rem' }}>
-          <ArrowLeft size={18} style={{ marginRight: '0.5rem' }} /> Back to Dashboard
-        </Link>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+          <Link to="/dashboard" className="btn-tertiary">
+            <ArrowLeft size={18} style={{ marginRight: '0.5rem' }} /> Back to Dashboard
+          </Link>
+          <div style={{ 
+            padding: '0.75rem 1.5rem', 
+            background: 'var(--bg-vibrant-yellow)', 
+            border: '3px solid var(--text-primary)',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            fontSize: '0.875rem'
+          }}>
+            Admin Mode - Secure Access
+          </div>
+        </div>
 
-        <h1 className="heading-1" style={{ marginBottom: '3rem' }}>Admin Panel</h1>
+        <h1 className="heading-1" style={{ marginBottom: '1rem' }}>ADMIN PANEL</h1>
+        <p className="body-medium" style={{ marginBottom: '3rem' }}>
+          Manage designs, upload images with automatic watermarking, control banner display, and download original files.
+        </p>
 
         {/* Section Tabs */}
         <div className="dashboard-tabs">
