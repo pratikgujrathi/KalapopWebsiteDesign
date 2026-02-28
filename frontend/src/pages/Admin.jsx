@@ -15,7 +15,9 @@ const Admin = () => {
     slot1: null,
     slot2: null,
     slot3: null,
-    slot4: null
+    slot4: null,
+    slot5: null,
+    slot6: null
   });
   const { toast } = useToast();
   const navigate = useNavigate();
