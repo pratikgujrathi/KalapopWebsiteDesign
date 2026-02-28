@@ -105,10 +105,16 @@ const Admin = () => {
         {/* Section Tabs */}
         <div className="dashboard-tabs">
           <button
+            className={`tab-button ${activeSection === 'banner' ? 'active' : ''}`}
+            onClick={() => setActiveSection('banner')}
+          >
+            <Upload size={18} style={{ marginRight: '0.5rem' }} /> Homepage Banner Images
+          </button>
+          <button
             className={`tab-button ${activeSection === 'designs' ? 'active' : ''}`}
             onClick={() => setActiveSection('designs')}
           >
-            <Edit2 size={18} style={{ marginRight: '0.5rem' }} /> Manage Designs & Banner
+            <Edit2 size={18} style={{ marginRight: '0.5rem' }} /> Manage Designs
           </button>
           <button
             className={`tab-button ${activeSection === 'fabrics' ? 'active' : ''}`}
@@ -117,6 +123,104 @@ const Admin = () => {
             <Plus size={18} style={{ marginRight: '0.5rem' }} /> Manage Fabrics
           </button>
         </div>
+
+        {/* Banner Image Upload Section */}
+        {activeSection === 'banner' && (
+          <div>
+            <div className="admin-section" style={{ background: 'var(--bg-vibrant-yellow)', color: 'var(--text-primary)' }}>
+              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Upload Homepage Banner Images</h2>
+              <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch' }}>
+                Upload pattern images that will appear in the hero banner collage. These images replace the CSS patterns and create a curated visual composition.
+              </p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem' }}>
+                {/* Banner Slot 1 - Large */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 1 (Large)</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 800x400px</p>
+                  {bannerSlots.slot1 && (
+                    <img src={bannerSlots.slot1} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot1', e)}
+                    className="form-input"
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                </div>
+
+                {/* Banner Slot 2 - Small */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 2 (Small)</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 400x400px</p>
+                  {bannerSlots.slot2 && (
+                    <img src={bannerSlots.slot2} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot2', e)}
+                    className="form-input"
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                </div>
+
+                {/* Banner Slot 3 - Medium */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 3 (Medium)</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 400x400px</p>
+                  {bannerSlots.slot3 && (
+                    <img src={bannerSlots.slot3} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot3', e)}
+                    className="form-input"
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                </div>
+
+                {/* Banner Slot 4 - Wide */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 4 (Wide)</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 800x400px</p>
+                  {bannerSlots.slot4 && (
+                    <img src={bannerSlots.slot4} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot4', e)}
+                    className="form-input"
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Manage Designs Section */}
         {activeSection === 'designs' && (
