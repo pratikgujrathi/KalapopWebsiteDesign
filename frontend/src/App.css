@@ -1527,9 +1527,22 @@ main {
     border-width: 2px;
   }
   
-  .fashion-item {
-    height: 280px;
+  .fashion-grid {
+    gap: 2.5rem;
   }
+  
+  .fashion-card {
+    width: 250px;
+  }
+  
+  .fashion-card-image {
+    height: 200px;
+  }
+  
+  .fashion-card-title {
+    font-size: 1.25rem;
+  }
+}
   
   .section-title {
     font-size: clamp(1.25rem, 5vw, 1.75rem);
