@@ -132,91 +132,163 @@ const Admin = () => {
             <div className="admin-section" style={{ background: 'var(--bg-vibrant-yellow)', color: 'var(--text-primary)' }}>
               <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Upload Homepage Banner Images</h2>
               <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch' }}>
-                Upload pattern images that will appear in the hero banner collage. These images replace the CSS patterns and create a curated visual composition.
+                Upload pattern images for the hero banner collage. Upload 6 images to replace the default patterns. Slot labels will disappear after upload.
               </p>
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem' }}>
-                {/* Banner Slot 1 - Large */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+                {/* Banner Slot 1 */}
                 <div style={{ 
                   padding: '2rem', 
                   background: 'var(--bg-page)', 
                   border: '3px solid var(--text-primary)',
                   boxShadow: 'var(--shadow-bold)'
                 }}>
-                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 1 (Large)</h3>
-                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 800x400px</p>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 1</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
                   {bannerSlots.slot1 && (
-                    <img src={bannerSlots.slot1} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                    <img src={bannerSlots.slot1} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot1 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
                   )}
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleBannerImageUpload('slot1', e)}
                     className="form-input"
-                    style={{ marginBottom: '0.5rem' }}
+                    style={{ fontSize: '0.875rem' }}
                   />
                 </div>
 
-                {/* Banner Slot 2 - Small */}
+                {/* Banner Slot 2 */}
                 <div style={{ 
                   padding: '2rem', 
                   background: 'var(--bg-page)', 
                   border: '3px solid var(--text-primary)',
                   boxShadow: 'var(--shadow-bold)'
                 }}>
-                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 2 (Small)</h3>
-                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 400x400px</p>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 2</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
                   {bannerSlots.slot2 && (
-                    <img src={bannerSlots.slot2} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                    <img src={bannerSlots.slot2} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot2 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
                   )}
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleBannerImageUpload('slot2', e)}
                     className="form-input"
-                    style={{ marginBottom: '0.5rem' }}
+                    style={{ fontSize: '0.875rem' }}
                   />
                 </div>
 
-                {/* Banner Slot 3 - Medium */}
+                {/* Banner Slot 3 */}
                 <div style={{ 
                   padding: '2rem', 
                   background: 'var(--bg-page)', 
                   border: '3px solid var(--text-primary)',
                   boxShadow: 'var(--shadow-bold)'
                 }}>
-                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 3 (Medium)</h3>
-                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 400x400px</p>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 3</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
                   {bannerSlots.slot3 && (
-                    <img src={bannerSlots.slot3} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                    <img src={bannerSlots.slot3} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot3 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
                   )}
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleBannerImageUpload('slot3', e)}
                     className="form-input"
-                    style={{ marginBottom: '0.5rem' }}
+                    style={{ fontSize: '0.875rem' }}
                   />
                 </div>
 
-                {/* Banner Slot 4 - Wide */}
+                {/* Banner Slot 4 */}
                 <div style={{ 
                   padding: '2rem', 
                   background: 'var(--bg-page)', 
                   border: '3px solid var(--text-primary)',
                   boxShadow: 'var(--shadow-bold)'
                 }}>
-                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Banner Slot 4 (Wide)</h3>
-                  <p className="body-small" style={{ marginBottom: '1rem' }}>Recommended: 800x400px</p>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 4</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
                   {bannerSlots.slot4 && (
-                    <img src={bannerSlots.slot4} alt="Banner preview" style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                    <img src={bannerSlots.slot4} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot4 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
                   )}
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleBannerImageUpload('slot4', e)}
                     className="form-input"
-                    style={{ marginBottom: '0.5rem' }}
+                    style={{ fontSize: '0.875rem' }}
+                  />
+                </div>
+
+                {/* Banner Slot 5 */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 5</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
+                  {bannerSlots.slot5 && (
+                    <img src={bannerSlots.slot5} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot5 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot5', e)}
+                    className="form-input"
+                    style={{ fontSize: '0.875rem' }}
+                  />
+                </div>
+
+                {/* Banner Slot 6 */}
+                <div style={{ 
+                  padding: '2rem', 
+                  background: 'var(--bg-page)', 
+                  border: '3px solid var(--text-primary)',
+                  boxShadow: 'var(--shadow-bold)'
+                }}>
+                  <h3 className="heading-5" style={{ marginBottom: '1rem' }}>Slot 6</h3>
+                  <p className="body-small" style={{ marginBottom: '1rem' }}>400x360px</p>
+                  {bannerSlots.slot6 && (
+                    <img src={bannerSlots.slot6} alt="Banner preview" style={{ width: '100%', height: '120px', objectFit: 'cover', marginBottom: '1rem', borderRadius: '8px' }} />
+                  )}
+                  {!bannerSlots.slot6 && (
+                    <div style={{ width: '100%', height: '120px', background: '#f0f0f0', marginBottom: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', color: '#999' }}>
+                      No image uploaded
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleBannerImageUpload('slot6', e)}
+                    className="form-input"
+                    style={{ fontSize: '0.875rem' }}
                   />
                 </div>
               </div>
