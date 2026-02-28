@@ -91,6 +91,25 @@ const Admin = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('kalapop_admin_auth');
+    localStorage.removeItem('kalapop_admin_session');
+    toast({
+      title: "Logged out",
+      description: "You have been logged out successfully.",
+    });
+    navigate('/admin-login');
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ padding: '3rem', textAlign: 'center', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p className="body-large">Authenticating...</p>
+      </div>
+    );
+  }
+
+
   return (
     <div className="admin-page">
       <section className="section-container">
