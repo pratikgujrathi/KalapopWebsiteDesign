@@ -115,7 +115,7 @@ const Home = () => {
       </section>
 
       {/* Kalapop Studio Section - Bubble Font Style */}
-      <section style={{ background: 'var(--bg-page)', padding: '6rem 3rem' }} data-testid="kalapop-studio-section">
+      <section style={{ background: 'var(--bg-page)', padding: '4rem 3rem 2rem' }} data-testid="kalapop-studio-section">
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span className="bubble-text" style={{ 
@@ -150,9 +150,9 @@ const Home = () => {
       </section>
 
       {/* How It Works - With Pattern Images */}
-      <section className="process-section" data-testid="process-section">
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>How It Works</h2>
+      <section className="process-section" style={{ paddingTop: '3rem' }} data-testid="process-section">
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '1rem' }}>How It Works</h2>
           <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
             Discover, Subscribe, Download — Simple access to professional textile patterns.
           </p>
@@ -182,17 +182,17 @@ const Home = () => {
       </section>
 
       {/* Featured Pattern Strip - 8 items, No labels */}
-      <section style={{ background: 'var(--bg-page)', padding: '6rem 3rem' }} data-testid="featured-patterns-section">
-        <div style={{ maxWidth: '1600px', margin: '0 auto' }}>
-          <h2 className="heading-2" style={{ marginBottom: '3rem', textAlign: 'center' }}>Featured Patterns</h2>
+      <section style={{ background: 'var(--bg-page)', padding: '4rem 3rem' }} data-testid="featured-patterns-section">
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Featured Patterns</h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1.5rem'
+            gap: '1rem'
           }}>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
               <div key={num} data-testid={`featured-pattern-${num}`} style={{
-                height: '280px',
+                height: '200px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 border: '3px solid var(--text-primary)',
@@ -218,17 +218,17 @@ const Home = () => {
       </section>
 
       {/* Pattern to Fashion - 3 boxes, clean labels */}
-      <section style={{ background: '#F8F9FA', padding: '6rem 3rem' }} data-testid="pattern-to-fashion-section">
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 className="heading-2" style={{ marginBottom: '3rem', textAlign: 'center' }}>Pattern to Fashion</h2>
+      <section style={{ background: '#F8F9FA', padding: '4rem 3rem' }} data-testid="pattern-to-fashion-section">
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Pattern to Fashion</h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '2rem'
+            gap: '1.5rem'
           }}>
             {/* Fashion Box 1 */}
             <div data-testid="fashion-box-1" style={{
-              height: '400px',
+              height: '280px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -251,7 +251,7 @@ const Home = () => {
             
             {/* Fashion Box 2 */}
             <div data-testid="fashion-box-2" style={{
-              height: '400px',
+              height: '280px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -274,7 +274,7 @@ const Home = () => {
 
             {/* Fashion Box 3 */}
             <div data-testid="fashion-box-3" style={{
-              height: '400px',
+              height: '280px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -299,19 +299,19 @@ const Home = () => {
       </section>
 
       {/* Philosophy Section - Compact with styled printing note */}
-      <section className="philosophy-section" data-testid="philosophy-section">
-        <div className="section-narrow" style={{ position: 'relative', zIndex: 2 }}>
-          <h2 className="heading-3" style={{ marginBottom: '1.5rem', textAlign: 'center', fontSize: '1.75rem' }}>
+      <section className="philosophy-section" style={{ padding: '3rem 2rem' }} data-testid="philosophy-section">
+        <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+          <h2 style={{ marginBottom: '1rem', textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.5rem', textTransform: 'uppercase' }}>
             {philosophyContent.heading}
           </h2>
-          <p className="body-medium" style={{ maxWidth: '65ch', margin: '0 auto', textAlign: 'center', fontSize: '1.1rem' }}>
+          <p style={{ maxWidth: '60ch', margin: '0 auto', textAlign: 'center', fontSize: '1.15rem', lineHeight: 1.6 }}>
             {philosophyContent.body}
           </p>
           <p style={{ 
-            marginTop: '2.5rem', 
+            marginTop: '1.5rem', 
             textAlign: 'center', 
             fontFamily: '"Pacifico", "Lobster", cursive',
-            fontSize: '1.5rem',
+            fontSize: '1.6rem',
             background: 'linear-gradient(135deg, #FF6B9D 0%, #C44FE2 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
