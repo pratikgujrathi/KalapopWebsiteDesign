@@ -6,30 +6,15 @@ export const collections = [
     name: 'Starter Collection',
     tier: 'starter',
     access: 'Non-exclusive',
-    description: 'Curated surface patterns created for modern brands and boutiques. Entry-level access to foundational designs.',
-    designCount: 25,
+    description: 'Curated surface patterns for modern brands and boutiques. Entry-level access to foundational designs perfect for emerging designers.',
+    designCount: 50,
     priceRange: 'Accessible for emerging brands',
     features: [
-      'Access to 25 base patterns',
-      'Standard resolution previews',
+      'Access to 50 base patterns',
+      'High resolution downloads',
       'Non-exclusive usage rights',
-      'Email support'
-    ]
-  },
-  {
-    id: 'controlled',
-    name: 'Controlled Collection',
-    tier: 'controlled',
-    access: 'Limited usage',
-    description: 'Expanded library with exclusive patterns and priority access. Designed for established brands seeking distinctive surfaces.',
-    designCount: 75,
-    priceRange: 'Professional tier',
-    features: [
-      'Access to 75 premium patterns',
-      'High resolution previews',
-      'Limited usage licensing',
-      'Priority support',
-      'Early access to new releases'
+      'Email support',
+      'Commercial license included'
     ]
   },
   {
@@ -37,8 +22,8 @@ export const collections = [
     name: 'Exclusive Collection',
     tier: 'exclusive',
     access: 'Commissioned / Original',
-    description: 'Complete archive with custom design consultation. Bespoke surface solutions with unlimited creative freedom.',
-    designCount: '150+',
+    description: 'Complete archive with custom design consultation. Bespoke surface solutions with unlimited creative freedom for established brands.',
+    designCount: '200+',
     priceRange: 'Premium commissioned work',
     features: [
       'Full pattern library access',
@@ -46,7 +31,8 @@ export const collections = [
       'Dedicated design consultant',
       'Unlimited usage rights',
       'Custom pattern development',
-      'Exclusive colorway options'
+      'Exclusive colorway options',
+      'Priority support'
     ]
   }
 ];
