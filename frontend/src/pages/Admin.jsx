@@ -13,26 +13,27 @@ const Admin = () => {
   });
   
   // Banner Images State (9 slots)
-  const [bannerImages, setBannerImages] = useState({
-    slot1: null, slot2: null, slot3: null,
-    slot4: null, slot5: null, slot6: null,
-    slot7: null, slot8: null, slot9: null
+  const [bannerImages, setBannerImages] = useState(() => {
+    const stored = localStorage.getItem('kalapop_banner_images');
+    return stored ? JSON.parse(stored) : {};
   });
   
   // Featured Patterns State (8 slots)
-  const [featuredPatterns, setFeaturedPatterns] = useState({
-    pattern1: null, pattern2: null, pattern3: null, pattern4: null,
-    pattern5: null, pattern6: null, pattern7: null, pattern8: null
+  const [featuredPatterns, setFeaturedPatterns] = useState(() => {
+    const stored = localStorage.getItem('kalapop_featured_patterns');
+    return stored ? JSON.parse(stored) : {};
   });
   
   // Pattern to Fashion State (3 slots)
-  const [fashionImages, setFashionImages] = useState({
-    fashion1: null, fashion2: null, fashion3: null
+  const [fashionImages, setFashionImages] = useState(() => {
+    const stored = localStorage.getItem('kalapop_fashion_images');
+    return stored ? JSON.parse(stored) : {};
   });
   
   // Process Section Images (3 slots)
-  const [processImages, setProcessImages] = useState({
-    discover: null, subscribe: null, download: null
+  const [processImages, setProcessImages] = useState(() => {
+    const stored = localStorage.getItem('kalapop_process_images');
+    return stored ? JSON.parse(stored) : {};
   });
   
   const { toast } = useToast();
