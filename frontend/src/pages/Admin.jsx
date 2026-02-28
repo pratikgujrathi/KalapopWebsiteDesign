@@ -22,14 +22,25 @@ const Admin = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Check if user is admin (in real implementation, check auth state)
-  const isAdminAuthenticated = true; // Mock - should check actual auth
+  // Check if user is admin authenticated
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   React.useEffect(() => {
-    if (!isAdminAuthenticated) {
+    const authStatus = localStorage.getItem('kalapop_admin_auth');
+    const sessionTime = localStorage.getItem('kalapop_admin_session');
+    
+    // Check if session is valid (24 hours)
+    const isSessionValid = sessionTime && (Date.now() - parseInt(sessionTime)) < 24 * 60 * 60 * 1000;
+    
+    if (authStatus === 'true' && isSessionValid) {
+      setIsAuthenticated(true);
+    } else {
+      // Clear invalid session
+      localStorage.removeItem('kalapop_admin_auth');
+      localStorage.removeItem('kalapop_admin_session');
       navigate('/admin-login');
     }
-  }, [isAdminAuthenticated, navigate]);
+  }, [navigate]);
 
   const handleUploadDesign = (e) => {
     e.preventDefault();
