@@ -120,7 +120,7 @@ export const designs = [
   {
     id: 'design-003',
     name: 'Fractured Light',
-    collection: 'controlled',
+    collection: 'exclusive',
     description: 'Angular planes intersect to capture shifting perspectives. A study in controlled chaos and visual tension.',
     category: 'Abstract',
     colors: ['#8E44AD', '#F1C40F', '#34495E'],
@@ -134,7 +134,7 @@ export const designs = [
   {
     id: 'design-004',
     name: 'Woven Memory',
-    collection: 'controlled',
+    collection: 'starter',
     description: 'Grid structures break and reform, suggesting textile construction at macro scale. Digital interpretation of hand-woven texture.',
     category: 'Textural',
     colors: ['#7F8C8D', '#BDC3C7', '#2C3E50'],
