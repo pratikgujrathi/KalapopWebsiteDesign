@@ -165,14 +165,11 @@ const Home = () => {
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span style={{ 
-              background: 'linear-gradient(135deg, #FF6B9D 0%, #C44FE2 50%, #7B68EE 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              color: '#FFA07A',
               fontFamily: '"Pacifico", "Lobster", cursive',
               fontSize: 'clamp(3rem, 8vw, 5rem)',
               fontWeight: 400,
-              textShadow: '3px 3px 0 rgba(196, 79, 226, 0.3)',
+              textShadow: '3px 3px 0 rgba(255, 160, 122, 0.3)',
               filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.1))'
             }}>Kalapop</span>
             <span style={{ 
@@ -184,7 +181,7 @@ const Home = () => {
             }}>Studio</span>
           </h2>
           <p className="body-large" style={{ 
-            fontSize: '1.25rem', 
+            fontSize: '1.35rem', 
             lineHeight: '1.8',
             color: 'var(--text-primary)',
             maxWidth: '75ch',
@@ -322,7 +319,7 @@ const Home = () => {
       {/* Philosophy Section */}
       <section className="philosophy-section" style={{ padding: '3rem 2rem' }} data-testid="philosophy-section">
         <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-          <h2 style={{ marginBottom: '1rem', textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.5rem', textTransform: 'uppercase' }}>
+          <h2 style={{ marginBottom: '1rem', textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.6rem', textTransform: 'uppercase' }}>
             {philosophyContent.heading}
           </h2>
           <p style={{ maxWidth: '60ch', margin: '0 auto', textAlign: 'center', fontSize: '1.15rem', lineHeight: 1.6 }}>
@@ -333,13 +330,10 @@ const Home = () => {
             textAlign: 'center', 
             fontFamily: '"Pacifico", "Lobster", cursive',
             fontSize: '1.6rem',
-            background: 'linear-gradient(135deg, #FF6B9D 0%, #C44FE2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: '#FF0000',
             fontWeight: 400
           }}>
-            Optional fabric printing with small batches & low MOQ
+            Kalapop offers fabric printing for selected patterns in small quantity or low MOQ
           </p>
         </div>
       </section>
