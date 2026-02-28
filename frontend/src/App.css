@@ -372,47 +372,12 @@ main {
 /* Hero Section - Bold Maximalist with Typography Pattern */
 .hero-banner {
   background: var(--bg-vibrant-purple);
-  padding: 6rem 3rem 8rem;
+  padding: 4rem 3rem 5rem;
   position: relative;
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
-}
-
-/* Large Background Typography Pattern */
-.hero-banner::before {
-  content: 'KALAPOP';
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 30vw;
-  font-weight: 900;
-  color: rgba(255, 87, 34, 0.15);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  transform: rotate(-5deg);
-  pointer-events: none;
-  z-index: 1;
-  text-transform: uppercase;
-}
-
-.hero-banner::after {
-  content: 'SURFACE';
-  position: absolute;
-  bottom: -15%;
-  right: -10%;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 25vw;
-  font-weight: 900;
-  color: rgba(255, 0, 128, 0.12);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  transform: rotate(3deg);
-  pointer-events: none;
-  z-index: 1;
-  text-transform: uppercase;
 }
 
 .hero-pattern-collage {
