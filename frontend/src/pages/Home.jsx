@@ -162,6 +162,22 @@ const Home = () => {
         </div>
       </section>
 
+      {/* What is Kalapop Section - NEW */}
+      <section style={{ background: 'var(--bg-page)', padding: '6rem 3rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 className="heading-2" style={{ marginBottom: '2rem' }}>What is Kalapop?</h2>
+          <p className="body-large" style={{ 
+            fontSize: '1.25rem', 
+            lineHeight: '1.8',
+            color: 'var(--text-primary)',
+            maxWidth: '75ch',
+            margin: '0 auto'
+          }}>
+            Kalapop is a curated surface design studio offering production-ready textile patterns for modern fashion brands. Designers can access seamless patterns through subscription and use them for commercial collections. Fabric printing is available as an optional service for those who need small-batch production.
+          </p>
+        </div>
+      </section>
+
       {/* Process Section - Bold Editorial Blocks */}
       <section className="process-section">
         <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
