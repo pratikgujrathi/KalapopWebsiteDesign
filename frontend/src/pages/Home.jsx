@@ -130,19 +130,54 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Pattern to Fashion */}
+      {/* Pattern to Fashion - Card Style */}
       <section className="fashion-section" data-testid="pattern-to-fashion-section">
-        <h2 className="section-title">Pattern to Fashion</h2>
+        <h2 className="section-title" style={{ color: 'white', marginBottom: '2rem' }}>Pattern to Fashion</h2>
         <div className="fashion-grid">
-          {[1, 2, 3].map((num) => (
-            <div key={num} className="fashion-item" data-testid={`fashion-box-${num}`}>
-              {fashionImages[`fashion${num}`] ? (
-                <img src={getImageUrl(fashionImages[`fashion${num}`])} alt={`Fashion ${num}`} />
+          {/* Card 1 */}
+          <div className="fashion-card" data-testid="fashion-box-1">
+            <div className="fashion-card-image">
+              {fashionImages.fashion1 ? (
+                <img src={getImageUrl(fashionImages.fashion1)} alt="Fashion 1" />
               ) : (
-                <div className="fashion-placeholder" data-variant={num}></div>
+                <div className={`pattern-preview abstract-geometric-1`}></div>
               )}
             </div>
-          ))}
+            <div className="fashion-card-content">
+              <h3 className="fashion-card-title">Summer Dress</h3>
+              <p className="fashion-card-desc">Vibrant patterns for lightweight summer collections.</p>
+            </div>
+          </div>
+          
+          {/* Card 2 */}
+          <div className="fashion-card" data-testid="fashion-box-2">
+            <div className="fashion-card-image">
+              {fashionImages.fashion2 ? (
+                <img src={getImageUrl(fashionImages.fashion2)} alt="Fashion 2" />
+              ) : (
+                <div className={`pattern-preview abstract-organic-1`}></div>
+              )}
+            </div>
+            <div className="fashion-card-content">
+              <h3 className="fashion-card-title">Resort Wear</h3>
+              <p className="fashion-card-desc">Elegant prints for resort and vacation styles.</p>
+            </div>
+          </div>
+          
+          {/* Card 3 */}
+          <div className="fashion-card" data-testid="fashion-box-3">
+            <div className="fashion-card-image">
+              {fashionImages.fashion3 ? (
+                <img src={getImageUrl(fashionImages.fashion3)} alt="Fashion 3" />
+              ) : (
+                <div className={`pattern-preview abstract-texture-1`}></div>
+              )}
+            </div>
+            <div className="fashion-card-content">
+              <h3 className="fashion-card-title">Casual Chic</h3>
+              <p className="fashion-card-desc">Modern patterns for everyday fashion statements.</p>
+            </div>
+          </div>
         </div>
       </section>
 
