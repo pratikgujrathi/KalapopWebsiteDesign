@@ -11,6 +11,12 @@ const Admin = () => {
     'design-002': false,
     'design-003': false
   });
+  const [bannerSlots, setBannerSlots] = useState({
+    slot1: null,
+    slot2: null,
+    slot3: null,
+    slot4: null
+  });
   const { toast } = useToast();
   const navigate = useNavigate();
 
