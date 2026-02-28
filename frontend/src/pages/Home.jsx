@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { philosophyContent, processSteps } from '../mockData';
 
 const Home = () => {
+  // State for admin-uploaded images from localStorage
+  const [bannerImages, setBannerImages] = useState({});
+  const [featuredPatterns, setFeaturedPatterns] = useState({});
+  const [fashionImages, setFashionImages] = useState({});
+  const [processImages, setProcessImages] = useState({});
+
+  // Load images from localStorage on mount
+  useEffect(() => {
+    const loadImages = () => {
+      const storedBanner = localStorage.getItem('kalapop_banner_images');
+      const storedFeatured = localStorage.getItem('kalapop_featured_patterns');
+      const storedFashion = localStorage.getItem('kalapop_fashion_images');
+      const storedProcess = localStorage.getItem('kalapop_process_images');
+
+      if (storedBanner) setBannerImages(JSON.parse(storedBanner));
+      if (storedFeatured) setFeaturedPatterns(JSON.parse(storedFeatured));
+      if (storedFashion) setFashionImages(JSON.parse(storedFashion));
+      if (storedProcess) setProcessImages(JSON.parse(storedProcess));
+    };
+
+    loadImages();
+    
+    // Listen for storage changes (when admin uploads)
+    window.addEventListener('storage', loadImages);
+    
+    // Custom event for same-tab updates
+    window.addEventListener('kalapop-image-update', loadImages);
+    
+    return () => {
+      window.removeEventListener('storage', loadImages);
+      window.removeEventListener('kalapop-image-update', loadImages);
+    };
+  }, []);
+
   return (
     <div className="home-page" data-testid="home-page">
       {/* Hero Banner - 9 Square Images in Elegant Grid */}
@@ -106,7 +140,11 @@ const Home = () => {
                   e.currentTarget.style.zIndex = '1';
                 }}
                 >
-                  <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic', 'texture'][num - 1]}-1`} style={{ opacity: 0.85 }}></div>
+                  {bannerImages[`slot${num}`] ? (
+                    <img src={bannerImages[`slot${num}`]} alt={`Banner ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic', 'texture'][num - 1]}-1`} style={{ opacity: 0.85 }}></div>
+                  )}
                 </div>
               ))}
             </div>
@@ -161,7 +199,15 @@ const Home = () => {
           {processSteps.map((step) => (
             <div key={step.id} className="process-block" style={{ textAlign: 'center' }} data-testid={`process-step-${step.id}`}>
               <div className="process-block-pattern" data-testid={`process-img-${step.id}`}>
-                <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
+                {processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'] ? (
+                  <img 
+                    src={processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download']} 
+                    alt={step.title} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                ) : (
+                  <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
+                )}
               </div>
               <h3 className="heading-3" style={{ 
                 marginBottom: '1.5rem',
@@ -210,25 +256,29 @@ const Home = () => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-bold)';
               }}
               >
-                <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic'][(num - 1) % 8]}-1`} style={{ opacity: 0.9 }}></div>
+                {featuredPatterns[`pattern${num}`] ? (
+                  <img src={featuredPatterns[`pattern${num}`]} alt={`Featured ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic'][(num - 1) % 8]}-1`} style={{ opacity: 0.9 }}></div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pattern to Fashion - 3 boxes, clean labels */}
+      {/* Pattern to Fashion - 3 vertical boxes like fashion mockups */}
       <section style={{ background: '#F8F9FA', padding: '4rem 3rem' }} data-testid="pattern-to-fashion-section">
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Pattern to Fashion</h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '1.5rem'
           }}>
-            {/* Fashion Box 1 */}
+            {/* Fashion Box 1 - Vertical Rectangle */}
             <div data-testid="fashion-box-1" style={{
-              height: '280px',
+              height: '420px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -241,17 +291,21 @@ const Home = () => {
             onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <div style={{
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(135deg, #E0E0E0 25%, #F5F5F5 25%, #F5F5F5 50%, #E0E0E0 50%, #E0E0E0 75%, #F5F5F5 75%)',
-                backgroundSize: '40px 40px'
-              }}></div>
+              {fashionImages.fashion1 ? (
+                <img src={fashionImages.fashion1} alt="Fashion 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(135deg, #E0E0E0 25%, #F5F5F5 25%, #F5F5F5 50%, #E0E0E0 50%, #E0E0E0 75%, #F5F5F5 75%)',
+                  backgroundSize: '40px 40px'
+                }}></div>
+              )}
             </div>
             
-            {/* Fashion Box 2 */}
+            {/* Fashion Box 2 - Vertical Rectangle */}
             <div data-testid="fashion-box-2" style={{
-              height: '280px',
+              height: '420px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -264,17 +318,21 @@ const Home = () => {
             onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <div style={{
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(45deg, #FFE5E5 30%, #FFF0F0 30%, #FFF0F0 50%, #FFE5E5 50%)',
-                backgroundSize: '60px 60px'
-              }}></div>
+              {fashionImages.fashion2 ? (
+                <img src={fashionImages.fashion2} alt="Fashion 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(45deg, #FFE5E5 30%, #FFF0F0 30%, #FFF0F0 50%, #FFE5E5 50%)',
+                  backgroundSize: '60px 60px'
+                }}></div>
+              )}
             </div>
 
-            {/* Fashion Box 3 */}
+            {/* Fashion Box 3 - Vertical Rectangle */}
             <div data-testid="fashion-box-3" style={{
-              height: '280px',
+              height: '420px',
               borderRadius: '16px',
               overflow: 'hidden',
               border: '3px solid var(--text-primary)',
@@ -287,12 +345,16 @@ const Home = () => {
             onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <div style={{
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(60deg, #E8F5E9 20%, #C8E6C9 40%, #A5D6A7 60%, #81C784 80%)',
-                backgroundSize: '100% 100%'
-              }}></div>
+              {fashionImages.fashion3 ? (
+                <img src={fashionImages.fashion3} alt="Fashion 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(60deg, #E8F5E9 20%, #C8E6C9 40%, #A5D6A7 60%, #81C784 80%)',
+                  backgroundSize: '100% 100%'
+                }}></div>
+              )}
             </div>
           </div>
         </div>
@@ -318,7 +380,7 @@ const Home = () => {
             backgroundClip: 'text',
             fontWeight: 400
           }}>
-            Optional fabric printing available through our print partners
+            Optional fabric printing with small batches & low MOQ
           </p>
         </div>
       </section>
