@@ -152,7 +152,7 @@ const Home = () => {
       {/* How It Works - With Pattern Images */}
       <section className="process-section" style={{ paddingTop: '3rem' }} data-testid="process-section">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '1rem' }}>How It Works</h2>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '1rem' }}>How It Works</h2>
           <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
             Discover, Subscribe, Download — Simple access to professional textile patterns.
           </p>
@@ -184,7 +184,7 @@ const Home = () => {
       {/* Featured Pattern Strip - 8 items, No labels */}
       <section style={{ background: 'var(--bg-page)', padding: '4rem 3rem' }} data-testid="featured-patterns-section">
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Featured Patterns</h2>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Featured Patterns</h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
@@ -220,7 +220,7 @@ const Home = () => {
       {/* Pattern to Fashion - 3 boxes, clean labels */}
       <section style={{ background: '#F8F9FA', padding: '4rem 3rem' }} data-testid="pattern-to-fashion-section">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Pattern to Fashion</h2>
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Pattern to Fashion</h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
