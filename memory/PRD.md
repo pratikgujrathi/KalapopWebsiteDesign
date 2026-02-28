@@ -6,7 +6,7 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 ## Core Requirements
 - A visually striking, design-led website that feels like a creative studio
 - Key pages: Home, Collections, Design Detail, How It Works, Login/Dashboard, and a hidden Admin panel
-- **Homepage:** Hero banner with uploadable images, "Kalapop Studio" section, 3-step process, 8 Featured Patterns, 3 lifestyle mockups
+- **Homepage:** Hero banner with 9 uploadable images, "Kalapop Studio" section (bubble font), 3-step process, 8 Featured Patterns, 3 Pattern to Fashion boxes
 - **Admin Panel:** Secured by login with credentials. Manage all user-facing images and design assets
 - **Design Protection:** Public-facing design previews must be watermarked
 
@@ -29,21 +29,27 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: February 28, 2025
+### Session: February 28, 2025 (Latest)
 
-**Frontend Refinements Completed:**
-1. **Admin Panel Sign Out Button** - Added pink "Sign Out" button that clears localStorage and redirects to `/admin-login`
-2. **Banner Image Grid** - Changed from tilted layout to straight, rectangular, rounded 2x3 grid
-3. **"Kalapop Studio" Heading** - "Kalapop" in bold pink (#F02070), "Studio" in black
-4. **Featured Patterns Section** - Expanded from 6 to 8 items in 4-column grid
-5. **Mock Designs Section** - Expanded from 2 to 3 models (Apparel, Home Textiles, Accessories)
-6. **Process Section** - Moved above Featured Patterns, updated content to "Discover, Subscribe, Download"
-7. **Printing Section** - Removed as separate section, integrated as note under philosophy text
+**Homepage Refinements:**
+1. **Banner Images** - 9 images in elegant 3x3 grid with glassmorphism background, hover effects
+2. **"Kalapop Studio"** - Bubble font (Pacifico) with pink-purple gradient on "Kalapop"
+3. **Featured Patterns** - 8 items in 4-column grid, NO labels (removed Pattern 1, Pattern 2 etc)
+4. **Pattern to Fashion** - Renamed from "Mock Designs", 3 clean boxes without text overlays
+5. **Philosophy Section** - Reduced heading size, smaller body text
+6. **Optional Printing** - Larger cursive text (Pacifico font) with pink gradient
 
-### Previous Sessions
+**Admin Panel Enhancements:**
+1. **Banner Images (9)** - Upload slots for all 9 hero banner images
+2. **Featured Patterns (8)** - Upload slots for 8 featured pattern images
+3. **Pattern to Fashion (3)** - Upload slots for 3 lifestyle/fashion images
+4. **Process Steps (3)** - Upload slots for Discover, Subscribe, Download step images
+5. **Sign Out button** - Pink styled button that clears auth and redirects
+
+### Previous Session Work
 - Multiple design iterations (Pixel Pushers dark theme -> minimalist white -> bold maximalist)
 - Complete frontend scaffolding with multi-page React application
-- Admin panel with mocked functionality for banner images, designs, fabrics
+- Admin panel with mocked functionality
 - SEO implementation (meta tags, Open Graph)
 - File backups in `/app/backup/`
 
@@ -94,13 +100,13 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
         │   ├── Footer.jsx
         │   └── Header.jsx
         ├── pages/
-        │   ├── Admin.jsx (with Sign Out button)
+        │   ├── Admin.jsx (6 section tabs, image upload cards)
         │   ├── AdminLogin.jsx
-        │   ├── Home.jsx (all sections updated)
+        │   ├── Home.jsx (9 banner images, bubble font, clean sections)
         │   └── ... (other pages)
-        ├── App.css (bold maximalist styles)
+        ├── App.css (Pacifico font added)
         ├── App.js
-        └── mockData.js (updated process steps)
+        └── mockData.js
 ```
 
 ## Known Issues
@@ -108,6 +114,7 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 - All data is mocked (P0 - backend integration needed)
 
 ## Notes for Future Development
-- User prefers staged implementation with screenshot approval
+- User prefers fewer iterations - implement thoroughly first time
 - Maintain bold maximalist aesthetic with vibrant colors
 - Keep process boxes small, purple background (#D397F8) for banner
+- Use Pacifico/cursive fonts for decorative text elements
