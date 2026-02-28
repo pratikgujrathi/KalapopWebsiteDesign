@@ -1258,7 +1258,7 @@ main {
 
 /* Featured Section */
 .featured-section {
-  background: var(--bg-page);
+  background: #ED77C2;
   padding: 3rem 1.5rem;
 }
 
@@ -1278,6 +1278,7 @@ main {
   box-shadow: var(--shadow-bold);
   transition: transform 0.3s ease;
   cursor: pointer;
+  background: var(--bg-page);
 }
 
 .featured-item:hover {
@@ -1290,62 +1291,88 @@ main {
   object-fit: cover;
 }
 
-/* Fashion Section */
+/* Fashion Section - Card Style */
 .fashion-section {
-  background: #F8F9FA;
-  padding: 3rem 1.5rem;
+  background: #2D5A3D;
+  padding: 4rem 1.5rem;
+  overflow: visible;
 }
 
 .fashion-grid {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 2rem 0;
 }
 
-.fashion-item {
-  height: 350px;
-  border-radius: 14px;
+.fashion-card {
+  width: 280px;
+  background: #F5F5F0;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+  overflow: visible;
+  position: relative;
+}
+
+.fashion-card:nth-child(1) {
+  transform: rotate(-8deg);
+}
+
+.fashion-card:nth-child(2) {
+  transform: rotate(0deg) translateY(-20px);
+}
+
+.fashion-card:nth-child(3) {
+  transform: rotate(8deg);
+}
+
+.fashion-card:hover {
+  transform: rotate(0deg) translateY(-30px) scale(1.05);
+  z-index: 10;
+}
+
+.fashion-card-image {
+  width: calc(100% - 24px);
+  height: 280px;
+  margin: 12px 12px 0 12px;
+  border-radius: 12px;
   overflow: hidden;
   border: 3px solid var(--text-primary);
-  box-shadow: var(--shadow-bold);
-  transition: transform 0.3s ease;
-  cursor: pointer;
+  background: var(--bg-page);
 }
 
-.fashion-item:hover {
-  transform: translateY(-6px);
-}
-
-.fashion-item img {
+.fashion-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.fashion-placeholder {
-  width: 100%;
-  height: 100%;
+.fashion-card-content {
+  padding: 1.25rem;
+  text-align: center;
 }
 
-.fashion-placeholder[data-variant="1"] {
-  background: linear-gradient(135deg, #E0E0E0 25%, #F5F5F5 25%, #F5F5F5 50%, #E0E0E0 50%, #E0E0E0 75%, #F5F5F5 75%);
-  background-size: 40px 40px;
+.fashion-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
 }
 
-.fashion-placeholder[data-variant="2"] {
-  background: linear-gradient(45deg, #FFE5E5 30%, #FFF0F0 30%, #FFF0F0 50%, #FFE5E5 50%);
-  background-size: 60px 60px;
-}
-
-.fashion-placeholder[data-variant="3"] {
-  background: linear-gradient(60deg, #E8F5E9 20%, #C8E6C9 40%, #A5D6A7 60%, #81C784 80%);
+.fashion-card-desc {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
 }
 
 /* Philosophy Section */
 .philosophy-section {
-  background: var(--bg-vibrant-blue);
+  background: #ED7787;
   padding: 3rem 1.5rem;
 }
 
@@ -1361,6 +1388,7 @@ main {
   font-size: clamp(1.25rem, 3vw, 1.6rem);
   text-transform: uppercase;
   margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
 .philosophy-body {
@@ -1368,12 +1396,14 @@ main {
   line-height: 1.6;
   max-width: 60ch;
   margin: 0 auto;
+  color: var(--text-primary);
 }
 
 .philosophy-printing {
   margin-top: 1.5rem;
-  font-family: 'Pacifico', cursive;
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
   color: #FFD700;
 }
 
