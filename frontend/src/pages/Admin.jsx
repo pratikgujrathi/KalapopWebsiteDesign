@@ -57,21 +57,36 @@ const Admin = () => {
   const handleImageUpload = (category, slot, e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      
-      if (category === 'banner') {
-        setBannerImages(prev => ({ ...prev, [slot]: imageUrl }));
-        toast({ title: "Banner image updated", description: `Slot ${slot.replace('slot', '')} uploaded successfully.` });
-      } else if (category === 'featured') {
-        setFeaturedPatterns(prev => ({ ...prev, [slot]: imageUrl }));
-        toast({ title: "Featured pattern updated", description: `Pattern ${slot.replace('pattern', '')} uploaded.` });
-      } else if (category === 'fashion') {
-        setFashionImages(prev => ({ ...prev, [slot]: imageUrl }));
-        toast({ title: "Fashion image updated", description: "Pattern to Fashion image uploaded." });
-      } else if (category === 'process') {
-        setProcessImages(prev => ({ ...prev, [slot]: imageUrl }));
-        toast({ title: "Process image updated", description: `${slot.charAt(0).toUpperCase() + slot.slice(1)} step image uploaded.` });
-      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        
+        if (category === 'banner') {
+          const updated = { ...bannerImages, [slot]: base64Image };
+          setBannerImages(updated);
+          localStorage.setItem('kalapop_banner_images', JSON.stringify(updated));
+          toast({ title: "Banner image updated", description: `Slot ${slot.replace('slot', '')} uploaded and saved.` });
+        } else if (category === 'featured') {
+          const updated = { ...featuredPatterns, [slot]: base64Image };
+          setFeaturedPatterns(updated);
+          localStorage.setItem('kalapop_featured_patterns', JSON.stringify(updated));
+          toast({ title: "Featured pattern updated", description: `Pattern ${slot.replace('pattern', '')} uploaded and saved.` });
+        } else if (category === 'fashion') {
+          const updated = { ...fashionImages, [slot]: base64Image };
+          setFashionImages(updated);
+          localStorage.setItem('kalapop_fashion_images', JSON.stringify(updated));
+          toast({ title: "Fashion image updated", description: "Pattern to Fashion image uploaded and saved." });
+        } else if (category === 'process') {
+          const updated = { ...processImages, [slot]: base64Image };
+          setProcessImages(updated);
+          localStorage.setItem('kalapop_process_images', JSON.stringify(updated));
+          toast({ title: "Process image updated", description: `${slot.charAt(0).toUpperCase() + slot.slice(1)} step image uploaded and saved.` });
+        }
+        
+        // Dispatch custom event for same-tab updates
+        window.dispatchEvent(new Event('kalapop-image-update'));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
