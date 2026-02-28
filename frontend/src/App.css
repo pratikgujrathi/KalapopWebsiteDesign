@@ -1432,12 +1432,23 @@ main {
   }
   
   .fashion-grid {
-    grid-template-columns: 1fr;
-    max-width: 350px;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
   }
   
-  .fashion-item {
-    height: 300px;
+  .fashion-card {
+    width: 280px;
+  }
+  
+  .fashion-card:nth-child(1),
+  .fashion-card:nth-child(2),
+  .fashion-card:nth-child(3) {
+    transform: rotate(0deg);
+  }
+  
+  .fashion-card-image {
+    height: 240px;
   }
 }
 
