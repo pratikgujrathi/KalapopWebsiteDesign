@@ -192,18 +192,18 @@ export const designs = [
 export const processSteps = [
   {
     id: 1,
-    title: 'Discover',
-    description: 'Explore a curated library of seamless textile patterns designed for fashion collections.'
+    title: 'Subscribe',
+    description: 'Choose a plan that fits your design needs.'
   },
   {
     id: 2,
-    title: 'License & Download',
-    description: 'Subscribe to access commercially licensed patterns ready for production.'
+    title: 'Download',
+    description: 'Access high-resolution seamless patterns with commercial rights.'
   },
   {
     id: 3,
-    title: 'Produce (Optional)',
-    description: 'Manufacture with your own supplier or use our optional small-batch print service.'
+    title: 'Create',
+    description: 'Print with your manufacturer or use our optional print partner.'
   }
 ];
 
