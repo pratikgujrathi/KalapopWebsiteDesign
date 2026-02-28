@@ -5,12 +5,33 @@ import { collections, philosophyContent, processSteps } from '../mockData';
 const Home = () => {
   return (
     <div className="home-page">
-      {/* Hero Banner - Updated with Left Text & Right Visual */}
+      {/* Hero Banner - Updated with Left Text & Right Visual with Purple Background */}
       <section className="hero-banner" style={{ 
-        background: 'var(--bg-page)', 
+        background: 'var(--bg-vibrant-purple)', 
         minHeight: '85vh',
-        padding: '4rem 3rem'
+        padding: '6rem 3rem',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Background Typography Pattern */}
+        <div style={{
+          position: 'absolute',
+          top: '-20%',
+          left: '-10%',
+          fontFamily: 'Archivo Black, sans-serif',
+          fontSize: '30vw',
+          fontWeight: 900,
+          color: 'rgba(255, 87, 34, 0.15)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+          transform: 'rotate(-5deg)',
+          pointerEvents: 'none',
+          zIndex: 1,
+          textTransform: 'uppercase'
+        }}>
+          KALAPOP
+        </div>
+        
         <div style={{ 
           maxWidth: '1600px', 
           margin: '0 auto',
@@ -66,46 +87,109 @@ const Home = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE - Visual Block with Pattern Composition */}
+          {/* RIGHT SIDE - Pattern Collage (Admin Uploadable) */}
           <div style={{ position: 'relative' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateRows: 'repeat(2, 200px)',
+              gap: '1.5rem',
               position: 'relative'
             }}>
-              {/* Large Pattern Preview 1 */}
+              {/* Banner Image 1 - Large (Admin Uploadable) */}
               <div style={{
-                gridColumn: '1 / -1',
-                height: '280px',
-                borderRadius: '24px',
+                gridColumn: '1 / 3',
+                gridRow: '1 / 2',
+                borderRadius: '16px',
                 overflow: 'hidden',
                 border: '4px solid var(--text-primary)',
-                background: 'var(--bg-page)'
+                background: 'var(--bg-page)',
+                boxShadow: 'var(--shadow-bold)',
+                transform: 'rotate(-2deg)'
               }}>
                 <div className="pattern-preview abstract-geometric-1" style={{ opacity: 0.8 }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '8px',
+                  right: '8px',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '4px 8px',
+                  fontSize: '0.7rem',
+                  borderRadius: '4px'
+                }}>Admin Upload Slot 1</div>
               </div>
               
-              {/* Pattern Preview 2 */}
+              {/* Banner Image 2 - Small (Admin Uploadable) */}
               <div style={{
-                height: '200px',
-                borderRadius: '24px',
+                gridColumn: '3 / 4',
+                gridRow: '1 / 2',
+                borderRadius: '16px',
                 overflow: 'hidden',
                 border: '4px solid var(--text-primary)',
-                background: 'var(--bg-page)'
+                background: 'var(--bg-page)',
+                boxShadow: 'var(--shadow-bold)',
+                transform: 'rotate(3deg)'
               }}>
                 <div className="pattern-preview abstract-organic-1" style={{ opacity: 0.8 }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '8px',
+                  right: '8px',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '4px 8px',
+                  fontSize: '0.7rem',
+                  borderRadius: '4px'
+                }}>Slot 2</div>
               </div>
               
-              {/* Pattern Preview 3 */}
+              {/* Banner Image 3 - Medium (Admin Uploadable) */}
               <div style={{
-                height: '200px',
-                borderRadius: '24px',
+                gridColumn: '1 / 2',
+                gridRow: '2 / 3',
+                borderRadius: '16px',
                 overflow: 'hidden',
                 border: '4px solid var(--text-primary)',
-                background: 'var(--bg-page)'
+                background: 'var(--bg-page)',
+                boxShadow: 'var(--shadow-bold)',
+                transform: 'rotate(-1deg)'
+              }}>
+                <div className="pattern-preview abstract-texture-1" style={{ opacity: 0.8 }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '8px',
+                  right: '8px',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '4px 8px',
+                  fontSize: '0.7rem',
+                  borderRadius: '4px'
+                }}>Slot 3</div>
+              </div>
+              
+              {/* Banner Image 4 - Wide (Admin Uploadable) */}
+              <div style={{
+                gridColumn: '2 / 4',
+                gridRow: '2 / 3',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '4px solid var(--text-primary)',
+                background: 'var(--bg-page)',
+                boxShadow: 'var(--shadow-bold)',
+                transform: 'rotate(2deg)'
               }}>
                 <div className="pattern-preview abstract-optical-1" style={{ opacity: 0.8 }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '8px',
+                  right: '8px',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '4px 8px',
+                  fontSize: '0.7rem',
+                  borderRadius: '4px'
+                }}>Slot 4</div>
               </div>
             </div>
           </div>
