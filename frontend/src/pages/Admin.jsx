@@ -64,6 +64,20 @@ const Admin = () => {
     });
   };
 
+  const handleBannerImageUpload = (slot, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setBannerSlots(prev => ({
+        ...prev,
+        [slot]: URL.createObjectURL(file)
+      }));
+      toast({
+        title: `Banner ${slot} updated`,
+        description: "Image uploaded successfully for homepage banner collage.",
+      });
+    }
+  };
+
   return (
     <div className="admin-page">
       <section className="section-container">
