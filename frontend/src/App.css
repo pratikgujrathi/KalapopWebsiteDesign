@@ -1372,8 +1372,9 @@ main {
 
 /* Philosophy Section */
 .philosophy-section {
-  background: #ED7787;
+  background: #EDDD77;
   padding: 3rem 1.5rem;
+  margin-top: 3rem;
 }
 
 .philosophy-container {
@@ -1383,16 +1384,15 @@ main {
 }
 
 .philosophy-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.25rem, 3vw, 1.6rem);
-  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2rem);
   margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
 .philosophy-body {
-  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
   line-height: 1.6;
   max-width: 60ch;
   margin: 0 auto;
@@ -1404,7 +1404,7 @@ main {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: clamp(1.3rem, 3vw, 1.7rem);
-  color: #FFD700;
+  color: #77EDA2;
 }
 
 /* ==========================================
