@@ -192,18 +192,18 @@ export const designs = [
 export const processSteps = [
   {
     id: 1,
-    title: 'Discover Design',
-    description: 'Curated surface patterns created for modern brands and boutiques.'
+    title: 'Discover',
+    description: 'Explore a curated library of seamless textile patterns designed for fashion collections.'
   },
   {
     id: 2,
-    title: 'Choose & Prepare',
-    description: 'Select scale, fabric suitability, and finishing — made print-ready with design intelligence.'
+    title: 'License & Download',
+    description: 'Subscribe to access commercially licensed patterns ready for production.'
   },
   {
     id: 3,
-    title: 'Print in Small Batches',
-    description: 'Produced on demand with trusted partners, without excess inventory.'
+    title: 'Produce (Optional)',
+    description: 'Manufacture with your own supplier or use our optional small-batch print service.'
   }
 ];
 
