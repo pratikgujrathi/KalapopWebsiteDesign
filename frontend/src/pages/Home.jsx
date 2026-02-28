@@ -330,7 +330,7 @@ const Home = () => {
             textAlign: 'center', 
             fontFamily: '"Pacifico", "Lobster", cursive',
             fontSize: '1.6rem',
-            color: '#FF0000',
+            color: '#FFD700',
             fontWeight: 400
           }}>
             Kalapop offers fabric printing for selected patterns in small quantity or low MOQ
