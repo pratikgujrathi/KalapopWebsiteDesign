@@ -2,40 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { philosophyContent, processSteps } from '../mockData';
 
+const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Home = () => {
-  // State for admin-uploaded images from localStorage
+  // State for admin-uploaded images from backend
   const [bannerImages, setBannerImages] = useState({});
   const [featuredPatterns, setFeaturedPatterns] = useState({});
   const [fashionImages, setFashionImages] = useState({});
   const [processImages, setProcessImages] = useState({});
 
-  // Load images from localStorage on mount
+  // Load images from backend on mount
   useEffect(() => {
-    const loadImages = () => {
-      const storedBanner = localStorage.getItem('kalapop_banner_images');
-      const storedFeatured = localStorage.getItem('kalapop_featured_patterns');
-      const storedFashion = localStorage.getItem('kalapop_fashion_images');
-      const storedProcess = localStorage.getItem('kalapop_process_images');
-
-      if (storedBanner) setBannerImages(JSON.parse(storedBanner));
-      if (storedFeatured) setFeaturedPatterns(JSON.parse(storedFeatured));
-      if (storedFashion) setFashionImages(JSON.parse(storedFashion));
-      if (storedProcess) setProcessImages(JSON.parse(storedProcess));
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/site-images`);
+        if (response.ok) {
+          const data = await response.json();
+          setBannerImages(data.banner_images || {});
+          setFeaturedPatterns(data.featured_patterns || {});
+          setFashionImages(data.fashion_images || {});
+          setProcessImages(data.process_images || {});
+        }
+      } catch (error) {
+        console.error('Error fetching site images:', error);
+      }
     };
 
-    loadImages();
+    fetchImages();
     
-    // Listen for storage changes (when admin uploads)
-    window.addEventListener('storage', loadImages);
-    
-    // Custom event for same-tab updates
-    window.addEventListener('kalapop-image-update', loadImages);
+    // Listen for update events from admin panel
+    const handleUpdate = () => fetchImages();
+    window.addEventListener('kalapop-image-update', handleUpdate);
     
     return () => {
-      window.removeEventListener('storage', loadImages);
-      window.removeEventListener('kalapop-image-update', loadImages);
+      window.removeEventListener('kalapop-image-update', handleUpdate);
     };
   }, []);
+
+  // Helper to get full image URL
+  const getImageUrl = (path) => {
+    if (!path) return null;
+    return path.startsWith('/api') ? `${API_URL}${path}` : path;
+  };
 
   return (
     <div className="home-page" data-testid="home-page">
@@ -106,7 +114,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE - 9 Square Images (3x3 Grid) - Exclusive Aesthetic */}
+          {/* RIGHT SIDE - 9 Square Images (3x3 Grid) */}
           <div style={{ position: 'relative' }} data-testid="banner-image-grid">
             <div style={{
               display: 'grid',
@@ -141,7 +149,7 @@ const Home = () => {
                 }}
                 >
                   {bannerImages[`slot${num}`] ? (
-                    <img src={bannerImages[`slot${num}`]} alt={`Banner ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={getImageUrl(bannerImages[`slot${num}`])} alt={`Banner ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic', 'texture'][num - 1]}-1`} style={{ opacity: 0.85 }}></div>
                   )}
@@ -152,11 +160,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Kalapop Studio Section - Bubble Font Style */}
+      {/* Kalapop Studio Section */}
       <section style={{ background: 'var(--bg-page)', padding: '4rem 3rem 2rem' }} data-testid="kalapop-studio-section">
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span className="bubble-text" style={{ 
+            <span style={{ 
               background: 'linear-gradient(135deg, #FF6B9D 0%, #C44FE2 50%, #7B68EE 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -187,7 +195,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How It Works - With Pattern Images */}
+      {/* How It Works */}
       <section className="process-section" style={{ paddingTop: '3rem' }} data-testid="process-section">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '1rem' }}>How It Works</h2>
@@ -201,7 +209,7 @@ const Home = () => {
               <div className="process-block-pattern" data-testid={`process-img-${step.id}`}>
                 {processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'] ? (
                   <img 
-                    src={processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download']} 
+                    src={getImageUrl(processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'])} 
                     alt={step.title} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                   />
@@ -227,7 +235,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Pattern Strip - 8 items, No labels */}
+      {/* Featured Patterns - 8 items */}
       <section style={{ background: 'var(--bg-page)', padding: '4rem 3rem' }} data-testid="featured-patterns-section">
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Featured Patterns</h2>
@@ -257,7 +265,7 @@ const Home = () => {
               }}
               >
                 {featuredPatterns[`pattern${num}`] ? (
-                  <img src={featuredPatterns[`pattern${num}`]} alt={`Featured ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={getImageUrl(featuredPatterns[`pattern${num}`])} alt={`Featured ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
                   <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic'][(num - 1) % 8]}-1`} style={{ opacity: 0.9 }}></div>
                 )}
@@ -267,7 +275,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Pattern to Fashion - 3 vertical boxes like fashion mockups */}
+      {/* Pattern to Fashion - 3 vertical boxes */}
       <section style={{ background: '#F8F9FA', padding: '4rem 3rem' }} data-testid="pattern-to-fashion-section">
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>Pattern to Fashion</h2>
@@ -276,91 +284,42 @@ const Home = () => {
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '1.5rem'
           }}>
-            {/* Fashion Box 1 - Vertical Rectangle */}
-            <div data-testid="fashion-box-1" style={{
-              height: '420px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              border: '3px solid var(--text-primary)',
-              background: 'var(--bg-page)',
-              position: 'relative',
-              boxShadow: 'var(--shadow-bold)',
-              cursor: 'pointer',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {fashionImages.fashion1 ? (
-                <img src={fashionImages.fashion1} alt="Fashion 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(135deg, #E0E0E0 25%, #F5F5F5 25%, #F5F5F5 50%, #E0E0E0 50%, #E0E0E0 75%, #F5F5F5 75%)',
-                  backgroundSize: '40px 40px'
-                }}></div>
-              )}
-            </div>
-            
-            {/* Fashion Box 2 - Vertical Rectangle */}
-            <div data-testid="fashion-box-2" style={{
-              height: '420px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              border: '3px solid var(--text-primary)',
-              background: 'var(--bg-page)',
-              position: 'relative',
-              boxShadow: 'var(--shadow-bold)',
-              cursor: 'pointer',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {fashionImages.fashion2 ? (
-                <img src={fashionImages.fashion2} alt="Fashion 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(45deg, #FFE5E5 30%, #FFF0F0 30%, #FFF0F0 50%, #FFE5E5 50%)',
-                  backgroundSize: '60px 60px'
-                }}></div>
-              )}
-            </div>
-
-            {/* Fashion Box 3 - Vertical Rectangle */}
-            <div data-testid="fashion-box-3" style={{
-              height: '420px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              border: '3px solid var(--text-primary)',
-              background: 'var(--bg-page)',
-              position: 'relative',
-              boxShadow: 'var(--shadow-bold)',
-              cursor: 'pointer',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {fashionImages.fashion3 ? (
-                <img src={fashionImages.fashion3} alt="Fashion 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(60deg, #E8F5E9 20%, #C8E6C9 40%, #A5D6A7 60%, #81C784 80%)',
-                  backgroundSize: '100% 100%'
-                }}></div>
-              )}
-            </div>
+            {[1, 2, 3].map((num) => (
+              <div key={num} data-testid={`fashion-box-${num}`} style={{
+                height: '420px',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '3px solid var(--text-primary)',
+                background: 'var(--bg-page)',
+                position: 'relative',
+                boxShadow: 'var(--shadow-bold)',
+                cursor: 'pointer',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                {fashionImages[`fashion${num}`] ? (
+                  <img src={getImageUrl(fashionImages[`fashion${num}`])} alt={`Fashion ${num}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    background: num === 1 
+                      ? 'linear-gradient(135deg, #E0E0E0 25%, #F5F5F5 25%, #F5F5F5 50%, #E0E0E0 50%, #E0E0E0 75%, #F5F5F5 75%)'
+                      : num === 2 
+                      ? 'linear-gradient(45deg, #FFE5E5 30%, #FFF0F0 30%, #FFF0F0 50%, #FFE5E5 50%)'
+                      : 'linear-gradient(60deg, #E8F5E9 20%, #C8E6C9 40%, #A5D6A7 60%, #81C784 80%)',
+                    backgroundSize: num === 3 ? '100% 100%' : '40px 40px'
+                  }}></div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Philosophy Section - Compact with styled printing note */}
+      {/* Philosophy Section */}
       <section className="philosophy-section" style={{ padding: '3rem 2rem' }} data-testid="philosophy-section">
         <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
           <h2 style={{ marginBottom: '1rem', textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.5rem', textTransform: 'uppercase' }}>
