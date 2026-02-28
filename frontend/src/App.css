@@ -1542,7 +1542,6 @@ main {
   .fashion-card-title {
     font-size: 1.25rem;
   }
-}
   
   .section-title {
     font-size: clamp(1.25rem, 5vw, 1.75rem);
