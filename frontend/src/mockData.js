@@ -192,18 +192,18 @@ export const designs = [
 export const processSteps = [
   {
     id: 1,
-    title: 'Subscribe',
-    description: 'Choose a plan that fits your design needs.'
+    title: 'Discover',
+    description: 'Browse our curated library of production-ready surface patterns.'
   },
   {
     id: 2,
-    title: 'Download',
-    description: 'Access high-resolution seamless patterns with commercial rights.'
+    title: 'Subscribe',
+    description: 'Choose a plan that fits your design needs and budget.'
   },
   {
     id: 3,
-    title: 'Create',
-    description: 'Print with your manufacturer or use our optional print partner.'
+    title: 'Download',
+    description: 'Get high-resolution seamless patterns with commercial rights.'
   }
 ];
 

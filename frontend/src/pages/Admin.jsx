@@ -114,18 +114,36 @@ const Admin = () => {
     <div className="admin-page">
       <section className="section-container">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <Link to="/dashboard" className="btn-tertiary">
+          <Link to="/dashboard" className="btn-tertiary" data-testid="back-to-dashboard-btn">
             <ArrowLeft size={18} style={{ marginRight: '0.5rem' }} /> Back to Dashboard
           </Link>
-          <div style={{ 
-            padding: '0.75rem 1.5rem', 
-            background: 'var(--bg-vibrant-yellow)', 
-            border: '3px solid var(--text-primary)',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            fontSize: '0.875rem'
-          }}>
-            Admin Mode - Secure Access
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ 
+              padding: '0.75rem 1.5rem', 
+              background: 'var(--bg-vibrant-yellow)', 
+              border: '3px solid var(--text-primary)',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              fontSize: '0.875rem'
+            }}>
+              Admin Mode - Secure Access
+            </div>
+            <button 
+              onClick={handleLogout} 
+              className="btn-tertiary"
+              data-testid="admin-signout-btn"
+              style={{ 
+                padding: '0.75rem 1.5rem',
+                background: 'var(--bg-vibrant-pink)',
+                color: 'var(--text-inverse)',
+                border: '3px solid var(--text-primary)',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                fontSize: '0.875rem'
+              }}
+            >
+              Sign Out
+            </button>
           </div>
         </div>
 
