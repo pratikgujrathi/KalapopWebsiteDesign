@@ -5,55 +5,108 @@ import { collections, philosophyContent, processSteps } from '../mockData';
 const Home = () => {
   return (
     <div className="home-page">
-      {/* Hero Banner with Pattern Collage & Oversized Typography */}
-      <section className="hero-banner">
-        <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
-          <div className="hero-pattern-collage">
-            {/* Pattern tiles - bold mood board style */}
-            <div className="pattern-tile large">
-              <div className="pattern-preview abstract-geometric-1"></div>
-            </div>
-            <div className="pattern-tile">
-              <div className="pattern-preview abstract-organic-1"></div>
-            </div>
-            <div className="pattern-tile">
-              <div className="pattern-preview abstract-texture-1"></div>
-            </div>
-            <div className="pattern-tile tall">
-              <div className="pattern-preview abstract-angular-1"></div>
-            </div>
-            <div className="pattern-tile">
-              <div className="pattern-preview abstract-layered-1"></div>
-            </div>
-            {/* Empty space tile with image pattern */}
-            <div className="pattern-tile" style={{ 
-              background: 'var(--bg-page)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+      {/* Hero Banner - Updated with Left Text & Right Visual */}
+      <section className="hero-banner" style={{ 
+        background: 'var(--bg-page)', 
+        minHeight: '85vh',
+        padding: '4rem 3rem'
+      }}>
+        <div style={{ 
+          maxWidth: '1600px', 
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '5rem',
+          alignItems: 'center',
+          position: 'relative',
+          zIndex: 2
+        }}>
+          {/* LEFT SIDE - Text Block */}
+          <div>
+            <div style={{
+              display: 'inline-block',
+              padding: '0.5rem 1.5rem',
+              background: 'var(--bg-vibrant-orange)',
+              border: '3px solid var(--text-primary)',
+              marginBottom: '2rem',
+              fontFamily: 'Space Grotesk, sans-serif',
+              fontWeight: 700,
+              fontSize: '0.875rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em'
             }}>
-              <div className="pattern-preview abstract-geometric-1" style={{ opacity: 0.4 }}></div>
+              Surface Design Studio
             </div>
-            <div className="pattern-tile wide">
-              <div className="pattern-preview abstract-optical-1"></div>
-            </div>
-          </div>
-          
-          <div className="hero-content">
-            <div className="hero-tagline">Surface Design Studio</div>
-            <h1 className="heading-display" style={{ marginBottom: '2rem', color: '#1A1A1A' }}>
-              BOLD PATTERNS<br/>FOR MODERN<br/>BRANDS
+            
+            <h1 className="heading-display" style={{ 
+              marginBottom: '2rem',
+              fontSize: 'clamp(3.5rem, 8vw, 7rem)',
+              lineHeight: '1'
+            }}>
+              Bold Patterns<br/>for Modern<br/>Brands
             </h1>
-            <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto 3rem', fontSize: '1.5rem', fontWeight: 500 }}>
+            
+            <p className="body-large" style={{ 
+              marginBottom: '3rem',
+              maxWidth: '50ch',
+              fontSize: '1.25rem',
+              lineHeight: '1.7',
+              color: 'var(--text-primary)'
+            }}>
               Design-led surface studio creating curated patterns for boutiques, designers, and creative professionals.
             </p>
-            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link to="/collections" className="btn-primary">
-                Explore Collections
+            
+            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+              <Link to="/collections" className="btn-primary" style={{ fontSize: '1rem' }}>
+                Browse Patterns
               </Link>
-              <Link to="/how-it-works" className="btn-secondary">
-                How It Works
+              <Link to="/how-it-works" className="btn-secondary" style={{ fontSize: '1rem' }}>
+                View Subscription Plans
               </Link>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE - Visual Block with Pattern Composition */}
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '2rem',
+              position: 'relative'
+            }}>
+              {/* Large Pattern Preview 1 */}
+              <div style={{
+                gridColumn: '1 / -1',
+                height: '280px',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '4px solid var(--text-primary)',
+                background: 'var(--bg-page)'
+              }}>
+                <div className="pattern-preview abstract-geometric-1" style={{ opacity: 0.8 }}></div>
+              </div>
+              
+              {/* Pattern Preview 2 */}
+              <div style={{
+                height: '200px',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '4px solid var(--text-primary)',
+                background: 'var(--bg-page)'
+              }}>
+                <div className="pattern-preview abstract-organic-1" style={{ opacity: 0.8 }}></div>
+              </div>
+              
+              {/* Pattern Preview 3 */}
+              <div style={{
+                height: '200px',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '4px solid var(--text-primary)',
+                background: 'var(--bg-page)'
+              }}>
+                <div className="pattern-preview abstract-optical-1" style={{ opacity: 0.8 }}></div>
+              </div>
             </div>
           </div>
         </div>
