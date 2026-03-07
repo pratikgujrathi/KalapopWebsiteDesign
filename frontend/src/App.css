@@ -4,7 +4,7 @@
    ======================================== */
 
 /* Import Google Fonts - Bold Display Fonts + Decorative */
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
 
 
 /* CSS Variables - Bold Maximalist System */
@@ -1098,6 +1098,7 @@ main {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 3rem;
 }
 
 .hero-buttons .btn-primary,
@@ -1154,17 +1155,19 @@ main {
 
 .studio-kalapop-new {
   color: #FA328E;
-  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-family: 'Bodoni Moda', 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 700;
   font-style: italic;
+  letter-spacing: 0.02em;
 }
 
 .studio-word-new {
-  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-family: 'Bodoni Moda', 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: 0.02em;
 }
 
 .studio-description-new {
@@ -1301,15 +1304,15 @@ main {
 }
 
 .featured-grid {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .featured-item {
-  height: 180px;
+  height: 320px;
   border-radius: 10px;
   overflow: hidden;
   border: 3px solid var(--text-primary);
@@ -1541,7 +1544,7 @@ main {
   }
   
   .featured-item {
-    height: 140px;
+    height: 240px;
     border-width: 2px;
   }
   
