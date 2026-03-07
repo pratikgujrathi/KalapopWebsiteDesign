@@ -187,7 +187,7 @@ const Home = () => {
 
       {/* Pattern to Fashion - Card Style */}
       <section className="fashion-section" data-testid="pattern-to-fashion-section">
-        <h2 className="section-title" style={{ color: 'white', marginBottom: '2rem' }}>Pattern to Fashion</h2>
+        <h2 className="section-title" style={{ color: 'var(--text-primary)', marginBottom: '2rem' }}>Pattern to Fashion</h2>
         <div className="fashion-grid">
           {/* Card 1 */}
           <article className="fashion-card" data-testid="fashion-box-1">

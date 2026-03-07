@@ -1133,7 +1133,7 @@ main {
 
 /* NEW Kalapop Studio Section */
 .studio-section-new {
-  background: #EDDD77;
+  background: #F1FF57;
   padding: 4rem 1.5rem;
   margin-top: 0;
 }
@@ -1158,7 +1158,6 @@ main {
   font-family: 'Bodoni Moda', 'Playfair Display', serif;
   font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.02em;
 }
 
@@ -1334,7 +1333,7 @@ main {
 
 /* Fashion Section - Card Style */
 .fashion-section {
-  background: #2D5A3D;
+  background: #60DBAA;
   padding: 4rem 1.5rem;
   overflow: visible;
 }
