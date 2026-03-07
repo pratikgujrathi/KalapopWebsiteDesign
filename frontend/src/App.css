@@ -4,7 +4,7 @@
    ======================================== */
 
 /* Import Google Fonts - Bold Display Fonts + Decorative */
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Marcellus&display=swap');
 
 
 /* CSS Variables - Bold Maximalist System */
@@ -1155,18 +1155,20 @@ main {
 
 .studio-kalapop-new {
   color: #FA328E;
-  font-family: 'Bodoni Moda', 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .studio-word-new {
-  font-family: 'Bodoni Moda', 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 700;
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .studio-description-new {
@@ -1411,48 +1413,302 @@ main {
 }
 
 /* ==========================================
-   TABLET RESPONSIVE (max-width: 1024px)
+   TABLET/IPAD RESPONSIVE (max-width: 1024px)
    ========================================== */
 @media (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
     gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .hero-text {
+    order: 1;
   }
   
   .hero-images-stack {
-    max-width: 500px;
+    order: 2;
+    max-width: 600px;
     margin: 0 auto;
-    flex-direction: column;
+    flex-direction: row;
   }
   
   .hero-stack-image {
+    width: 50%;
+    height: 280px;
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+  
+  .hero-buttons {
+    margin-bottom: 2rem;
+  }
+  
+  .studio-section-new {
+    padding: 3rem 1.5rem;
+  }
+  
+  .studio-title-new {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .studio-kalapop-new,
+  .studio-word-new {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+  
+  .studio-description-new {
+    font-size: 1.15rem;
+    padding: 0 1rem;
+  }
+  
+  .studio-pointers {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .pointer-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .pointer-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .pointer-title {
+    font-size: 1.1rem;
+  }
+  
+  .pointer-desc {
+    font-size: 0.9rem;
+  }
+  
+  .process-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 100%;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .process-block {
+    padding: 1.5rem 1rem;
+  }
+  
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .featured-item {
+    height: 280px;
+  }
+  
+  .fashion-grid {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .fashion-card {
+    width: 220px;
+  }
+  
+  .fashion-card:nth-child(1) {
+    transform: rotate(-5deg);
+  }
+  
+  .fashion-card:nth-child(2) {
+    transform: rotate(0deg) translateY(-15px);
+  }
+  
+  .fashion-card:nth-child(3) {
+    transform: rotate(5deg);
+  }
+  
+  .fashion-card-image {
+    height: 220px;
+  }
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE (max-width: 767px)
+   ========================================== */
+@media (max-width: 767px) {
+  .hero-banner {
+    padding: 1.5rem 1rem 0;
+  }
+  
+  .hero-container {
+    gap: 1.5rem;
+  }
+  
+  .hero-badge {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+    margin-bottom: 1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
     width: 100%;
-    height: 200px;
+    max-width: 250px;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .hero-images-stack {
+    max-width: 100%;
+    border-width: 3px;
+    border-radius: 12px;
+    flex-direction: row;
+  }
+  
+  .hero-stack-image {
+    width: 50%;
+    height: 150px;
+  }
+  
+  .studio-section-new {
+    padding: 2.5rem 1rem;
+  }
+  
+  .studio-title-new {
+    gap: 0.15rem;
+    margin-bottom: 1rem;
+  }
+  
+  .studio-kalapop-new,
+  .studio-word-new {
+    font-size: clamp(1.6rem, 9vw, 2.5rem);
+    letter-spacing: 0.05em;
+  }
+  
+  .studio-description-new {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
   }
   
   .studio-pointers {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 2rem auto 0;
+    gap: 1.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .studio-pointer {
+    padding: 1rem;
+  }
+  
+  .pointer-icon {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .pointer-title {
+    font-size: 1.05rem;
+  }
+  
+  .pointer-desc {
+    font-size: 0.85rem;
+  }
+  
+  .process-section {
+    padding: 2rem 1rem;
+  }
+  
+  .process-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
   }
   
   .process-grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  
+  .process-block {
+    padding: 1.25rem 1rem;
+  }
+  
+  .process-block-pattern {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .process-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .process-desc {
+    font-size: 0.9rem;
+  }
+  
+  .featured-section {
+    padding: 2rem 1rem;
   }
   
   .featured-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+  
+  .featured-item {
+    height: 200px;
+    border-width: 2px;
+    border-radius: 8px;
+  }
+  
+  .fashion-section {
+    padding: 2.5rem 1rem;
   }
   
   .fashion-grid {
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 1rem 0;
   }
   
   .fashion-card {
-    width: 280px;
+    width: 260px;
   }
   
   .fashion-card:nth-child(1),
@@ -1462,109 +1718,51 @@ main {
   }
   
   .fashion-card-image {
-    height: 240px;
+    height: 220px;
+    margin: 10px 10px 0 10px;
+    width: calc(100% - 20px);
+  }
+  
+  .fashion-card-content {
+    padding: 1rem;
+  }
+  
+  .fashion-card-title {
+    font-size: 1.2rem;
+  }
+  
+  .fashion-card-desc {
+    font-size: 0.85rem;
   }
 }
 
 /* ==========================================
-   MOBILE RESPONSIVE (max-width: 767px)
+   SMALL MOBILE (max-width: 480px)
    ========================================== */
-@media (max-width: 767px) {
-  .hero-banner {
-    padding: 2rem 1rem 0;
-  }
-  
-  .hero-badge {
-    font-size: 0.65rem;
-    padding: 0.4rem 1rem;
-  }
-  
+@media (max-width: 480px) {
   .hero-title {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
-  }
-  
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .hero-buttons .btn-primary,
-  .hero-buttons .btn-secondary {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .hero-images-stack {
-    max-width: 100%;
-    flex-direction: column;
+    font-size: clamp(1.3rem, 8vw, 1.8rem);
   }
   
   .hero-stack-image {
-    width: 100%;
-    height: 180px;
-  }
-  
-  .studio-section-new {
-    padding: 3rem 1rem;
+    height: 120px;
   }
   
   .studio-kalapop-new,
   .studio-word-new {
-    font-size: clamp(2rem, 10vw, 3rem);
-  }
-  
-  .studio-description-new {
-    font-size: 1rem;
-  }
-  
-  .pointer-icon {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .process-section,
-  .featured-section,
-  .fashion-section {
-    padding: 2.5rem 1rem;
-  }
-  
-  .process-block {
-    padding: 1.5rem 1rem;
-  }
-  
-  .process-block-pattern {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .featured-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    font-size: clamp(1.4rem, 10vw, 2rem);
   }
   
   .featured-item {
-    height: 240px;
-    border-width: 2px;
-  }
-  
-  .fashion-grid {
-    gap: 2.5rem;
+    height: 160px;
   }
   
   .fashion-card {
-    width: 250px;
+    width: 240px;
   }
   
   .fashion-card-image {
-    height: 200px;
-  }
-  
-  .fashion-card-title {
-    font-size: 1.25rem;
-  }
-  
-  .section-title {
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    height: 180px;
   }
 }
 
