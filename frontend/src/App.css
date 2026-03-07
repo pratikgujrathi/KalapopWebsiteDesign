@@ -4,7 +4,7 @@
    ======================================== */
 
 /* Import Google Fonts - Bold Display Fonts + Decorative */
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&family=Pacifico&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
 
 
 /* CSS Variables - Bold Maximalist System */
@@ -1044,7 +1044,7 @@ main {
 /* Hero Banner */
 .hero-banner {
   background: var(--bg-vibrant-purple);
-  padding: 3rem 1.5rem 4rem;
+  padding: 3rem 1.5rem 0;
   min-height: auto;
 }
 
@@ -1105,76 +1105,112 @@ main {
   font-size: 0.875rem;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 100px);
-  gap: 0.5rem;
-  background: rgba(255,255,255,0.1);
-  padding: 0.75rem;
+/* Hero Images Stack - 2 images vertical */
+.hero-images-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   border-radius: 16px;
-  backdrop-filter: blur(10px);
-}
-
-.hero-grid-item {
-  border-radius: 10px;
   overflow: hidden;
-  border: 3px solid var(--text-primary);
-  background: var(--bg-page);
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
+  border: 4px solid var(--text-primary);
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
 }
 
-.hero-grid-item:hover {
-  transform: scale(1.05);
-  z-index: 10;
+.hero-stack-image {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
 }
 
-.hero-grid-item img {
+.hero-stack-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* Studio Section */
-.studio-section {
-  background: var(--bg-page);
-  padding: 3rem 1.5rem 2rem;
+/* NEW Kalapop Studio Section */
+.studio-section-new {
+  background: #EDDD77;
+  padding: 4rem 1.5rem;
+  margin-top: 0;
 }
 
-.studio-container {
-  max-width: 900px;
+.studio-container-new {
+  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
 }
 
-.studio-title {
+.studio-title-new {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.studio-kalapop {
-  color: #FFA07A;
-  font-family: 'Pacifico', cursive;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  text-shadow: 2px 2px 0 rgba(255, 160, 122, 0.3);
+.studio-kalapop-new {
+  color: #FA328E;
+  font-family: 'Libre Baskerville', 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 700;
 }
 
-.studio-word {
-  font-family: 'Pacifico', cursive;
-  font-size: clamp(2.5rem, 7vw, 5rem);
+.studio-word-new {
+  font-family: 'Libre Baskerville', 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 700;
   color: var(--text-primary);
 }
 
-.studio-description {
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-  line-height: 1.8;
-  max-width: 75ch;
-  margin: 0 auto;
+.studio-description-new {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 1.7;
+  max-width: 70ch;
+  margin: 0 auto 3rem;
+  color: var(--text-primary);
+}
+
+/* Studio Pointers */
+.studio-pointers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.studio-pointer {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.pointer-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  background: var(--text-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EDDD77;
+}
+
+.pointer-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.pointer-desc {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: #333;
+  line-height: 1.5;
 }
 
 /* Section Titles */
@@ -1370,43 +1406,6 @@ main {
   line-height: 1.5;
 }
 
-/* Philosophy Section */
-.philosophy-section {
-  background: #EDDD77;
-  padding: 3rem 1.5rem;
-  margin-top: 3rem;
-}
-
-.philosophy-container {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.philosophy-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.philosophy-body {
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
-  line-height: 1.6;
-  max-width: 60ch;
-  margin: 0 auto;
-  color: var(--text-primary);
-}
-
-.philosophy-printing {
-  margin-top: 1.5rem;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(1.3rem, 3vw, 1.7rem);
-  color: #77EDA2;
-}
-
 /* ==========================================
    TABLET RESPONSIVE (max-width: 1024px)
    ========================================== */
@@ -1416,10 +1415,19 @@ main {
     gap: 2rem;
   }
   
-  .hero-grid {
-    max-width: 400px;
+  .hero-images-stack {
+    max-width: 500px;
     margin: 0 auto;
-    grid-template-rows: repeat(3, 90px);
+  }
+  
+  .hero-stack-image {
+    height: 220px;
+  }
+  
+  .studio-pointers {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 2rem auto 0;
   }
   
   .process-grid {
@@ -1457,7 +1465,7 @@ main {
    ========================================== */
 @media (max-width: 767px) {
   .hero-banner {
-    padding: 2rem 1rem 3rem;
+    padding: 2rem 1rem 0;
   }
   
   .hero-badge {
@@ -1480,32 +1488,36 @@ main {
     max-width: 280px;
   }
   
-  .hero-grid {
-    max-width: 320px;
-    grid-template-rows: repeat(3, 80px);
-    gap: 0.4rem;
-    padding: 0.5rem;
+  .hero-images-stack {
+    max-width: 100%;
   }
   
-  .hero-grid-item {
-    border-width: 2px;
+  .hero-stack-image {
+    height: 180px;
   }
   
-  .studio-section,
-  .process-section,
-  .featured-section,
-  .fashion-section,
-  .philosophy-section {
-    padding: 2.5rem 1rem;
+  .studio-section-new {
+    padding: 3rem 1rem;
   }
   
-  .studio-kalapop,
-  .studio-word {
+  .studio-kalapop-new,
+  .studio-word-new {
     font-size: clamp(2rem, 10vw, 3rem);
   }
   
-  .studio-description {
+  .studio-description-new {
     font-size: 1rem;
+  }
+  
+  .pointer-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .process-section,
+  .featured-section,
+  .fashion-section {
+    padding: 2.5rem 1rem;
   }
   
   .process-block {
