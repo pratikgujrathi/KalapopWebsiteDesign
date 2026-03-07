@@ -5,7 +5,7 @@ import { Palette, FileCheck, Printer } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Banner images - using uploaded images
+// Banner images - optimized with descriptive names for SEO
 const BANNER_IMAGE_1 = "https://customer-assets.emergentagent.com/job_55db3810-dbd9-4c37-9856-95460402dcf4/artifacts/njd5cche_pgujrati_create_a_stylish_bright_colored_design_pattern_mood__c626fb47-9154-4f3f-bed8-6e2e89c6e318_0.png";
 const BANNER_IMAGE_2 = "https://customer-assets.emergentagent.com/job_55db3810-dbd9-4c37-9856-95460402dcf4/artifacts/v9mux4eo_pgujrati_create_a_stylish_bright_colored_design_pattern_mood__531ddc23-7de4-438f-99e4-a7b886f0b842_2.png";
 
@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="home-page" data-testid="home-page">
-      {/* Hero Banner - 2 Images stacked vertically */}
+      {/* Hero Banner - 2 Images side by side */}
       <section className="hero-banner" data-testid="hero-banner" style={{ marginBottom: 0 }}>
         <div className="hero-container">
           {/* Text Block */}
@@ -62,13 +62,25 @@ const Home = () => {
             </div>
           </div>
 
-          {/* 2 Images Stacked Vertically */}
+          {/* 2 Images Side by Side */}
           <div className="hero-images-stack" data-testid="banner-image-stack">
             <div className="hero-stack-image">
-              <img src={BANNER_IMAGE_1} alt="Fashion Pattern Moodboard 1" />
+              <img 
+                src={BANNER_IMAGE_1} 
+                alt="Colorful fashion textile patterns moodboard featuring vibrant prints" 
+                loading="eager"
+                width="400"
+                height="400"
+              />
             </div>
             <div className="hero-stack-image">
-              <img src={BANNER_IMAGE_2} alt="Fashion Pattern Moodboard 2" />
+              <img 
+                src={BANNER_IMAGE_2} 
+                alt="Modern surface design patterns for contemporary fashion brands" 
+                loading="eager"
+                width="400"
+                height="400"
+              />
             </div>
           </div>
         </div>
@@ -88,7 +100,7 @@ const Home = () => {
           {/* Three Pointers */}
           <div className="studio-pointers">
             <div className="studio-pointer">
-              <div className="pointer-icon">
+              <div className="pointer-icon" aria-label="Pattern Library Icon">
                 <Palette size={32} strokeWidth={1.5} />
               </div>
               <h3 className="pointer-title">Curated Pattern Library</h3>
@@ -96,7 +108,7 @@ const Home = () => {
             </div>
             
             <div className="studio-pointer">
-              <div className="pointer-icon">
+              <div className="pointer-icon" aria-label="Commercial License Icon">
                 <FileCheck size={32} strokeWidth={1.5} />
               </div>
               <h3 className="pointer-title">Commercial Licensing</h3>
@@ -104,7 +116,7 @@ const Home = () => {
             </div>
             
             <div className="studio-pointer">
-              <div className="pointer-icon">
+              <div className="pointer-icon" aria-label="Fabric Printing Icon">
                 <Printer size={32} strokeWidth={1.5} />
               </div>
               <h3 className="pointer-title">Small-Batch Fabric Printing</h3>
@@ -122,12 +134,18 @@ const Home = () => {
         </div>
         <div className="process-grid">
           {processSteps.map((step) => (
-            <div key={step.id} className="process-block" data-testid={`process-step-${step.id}`}>
+            <article key={step.id} className="process-block" data-testid={`process-step-${step.id}`}>
               <div className="process-block-pattern">
                 {processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'] ? (
-                  <img src={getImageUrl(processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'])} alt={step.title} />
+                  <img 
+                    src={getImageUrl(processImages[step.id === 1 ? 'discover' : step.id === 2 ? 'subscribe' : 'download'])} 
+                    alt={`${step.title} - Kalapop pattern subscription step`}
+                    loading="lazy"
+                    width="60"
+                    height="60"
+                  />
                 ) : (
-                  <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`}></div>
+                  <div className={`pattern-preview abstract-${step.id === 1 ? 'geometric' : step.id === 2 ? 'organic' : 'texture'}-1`} role="img" aria-label={`${step.title} pattern preview`}></div>
                 )}
               </div>
               <h3 className="process-title" style={{ color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)' }}>
@@ -136,23 +154,33 @@ const Home = () => {
               <p className="process-desc" style={{ color: step.id === 3 ? 'var(--text-inverse)' : 'var(--text-primary)' }}>
                 {step.description}
               </p>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Featured Patterns */}
+      {/* Featured Patterns - 4 items */}
       <section className="featured-section" data-testid="featured-patterns-section">
         <h2 className="section-title">Featured Patterns</h2>
-        <div className="featured-grid">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <div key={num} className="featured-item" data-testid={`featured-pattern-${num}`}>
+        <div className="featured-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+          {[1, 2, 3, 4].map((num) => (
+            <article key={num} className="featured-item" data-testid={`featured-pattern-${num}`}>
               {featuredPatterns[`pattern${num}`] ? (
-                <img src={getImageUrl(featuredPatterns[`pattern${num}`])} alt={`Featured ${num}`} />
+                <img 
+                  src={getImageUrl(featuredPatterns[`pattern${num}`])} 
+                  alt={`Featured textile pattern ${num} - Premium surface design for fashion`}
+                  loading="lazy"
+                  width="300"
+                  height="180"
+                />
               ) : (
-                <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular', 'layered', 'optical', 'geometric', 'organic'][(num - 1) % 8]}-1`}></div>
+                <div 
+                  className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular'][num - 1]}-1`} 
+                  role="img" 
+                  aria-label={`Featured pattern ${num} preview`}
+                ></div>
               )}
-            </div>
+            </article>
           ))}
         </div>
       </section>
@@ -162,49 +190,67 @@ const Home = () => {
         <h2 className="section-title" style={{ color: 'white', marginBottom: '2rem' }}>Pattern to Fashion</h2>
         <div className="fashion-grid">
           {/* Card 1 */}
-          <div className="fashion-card" data-testid="fashion-box-1">
+          <article className="fashion-card" data-testid="fashion-box-1">
             <div className="fashion-card-image">
               {fashionImages.fashion1 ? (
-                <img src={getImageUrl(fashionImages.fashion1)} alt="Fashion 1" />
+                <img 
+                  src={getImageUrl(fashionImages.fashion1)} 
+                  alt="Summer dress with Kalapop textile pattern design"
+                  loading="lazy"
+                  width="256"
+                  height="280"
+                />
               ) : (
-                <div className={`pattern-preview abstract-geometric-1`}></div>
+                <div className="pattern-preview abstract-geometric-1" role="img" aria-label="Summer dress pattern preview"></div>
               )}
             </div>
             <div className="fashion-card-content">
               <h3 className="fashion-card-title">Summer Dress</h3>
               <p className="fashion-card-desc">Vibrant patterns for lightweight summer collections.</p>
             </div>
-          </div>
+          </article>
           
           {/* Card 2 */}
-          <div className="fashion-card" data-testid="fashion-box-2">
+          <article className="fashion-card" data-testid="fashion-box-2">
             <div className="fashion-card-image">
               {fashionImages.fashion2 ? (
-                <img src={getImageUrl(fashionImages.fashion2)} alt="Fashion 2" />
+                <img 
+                  src={getImageUrl(fashionImages.fashion2)} 
+                  alt="Resort wear featuring elegant Kalapop print designs"
+                  loading="lazy"
+                  width="256"
+                  height="280"
+                />
               ) : (
-                <div className={`pattern-preview abstract-organic-1`}></div>
+                <div className="pattern-preview abstract-organic-1" role="img" aria-label="Resort wear pattern preview"></div>
               )}
             </div>
             <div className="fashion-card-content">
               <h3 className="fashion-card-title">Resort Wear</h3>
               <p className="fashion-card-desc">Elegant prints for resort and vacation styles.</p>
             </div>
-          </div>
+          </article>
           
           {/* Card 3 */}
-          <div className="fashion-card" data-testid="fashion-box-3">
+          <article className="fashion-card" data-testid="fashion-box-3">
             <div className="fashion-card-image">
               {fashionImages.fashion3 ? (
-                <img src={getImageUrl(fashionImages.fashion3)} alt="Fashion 3" />
+                <img 
+                  src={getImageUrl(fashionImages.fashion3)} 
+                  alt="Casual chic fashion with modern Kalapop patterns"
+                  loading="lazy"
+                  width="256"
+                  height="280"
+                />
               ) : (
-                <div className={`pattern-preview abstract-texture-1`}></div>
+                <div className="pattern-preview abstract-texture-1" role="img" aria-label="Casual chic pattern preview"></div>
               )}
             </div>
             <div className="fashion-card-content">
               <h3 className="fashion-card-title">Casual Chic</h3>
               <p className="fashion-card-desc">Modern patterns for everyday fashion statements.</p>
             </div>
-          </div>
+          </article>
         </div>
       </section>
     </div>
