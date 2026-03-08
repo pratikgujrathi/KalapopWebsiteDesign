@@ -11,6 +11,8 @@ from typing import List, Optional, Dict
 import uuid
 from datetime import datetime, timezone
 import shutil
+import base64
+from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
 
 
 ROOT_DIR = Path(__file__).parent
@@ -54,6 +56,15 @@ class SiteImagesResponse(BaseModel):
     featured_patterns: Dict[str, Optional[str]] = {}
     fashion_images: Dict[str, Optional[str]] = {}
     process_images: Dict[str, Optional[str]] = {}
+
+class FashionMockupRequest(BaseModel):
+    pattern_name: str
+    pattern_description: str
+    pattern_colors: List[str] = []
+
+class FashionMockupResponse(BaseModel):
+    success: bool
+    mockups: Dict[str, str]  # garment_type -> base64 image
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
@@ -175,6 +186,49 @@ async def delete_site_image(category: str, slot: str):
                 file_path.unlink()
     
     return {"success": True, "message": "Image deleted"}
+
+# Fashion Mockup Generation Endpoint
+@api_router.post("/generate-fashion-mockups", response_model=FashionMockupResponse)
+async def generate_fashion_mockups(request: FashionMockupRequest):
+    """Generate AI fashion mockups for a pattern"""
+    
+    api_key = os.environ.get('EMERGENT_LLM_KEY')
+    if not api_key:
+        raise HTTPException(status_code=500, detail="API key not configured")
+    
+    garment_types = {
+        "coord_set": "Modern Coord Set - matching top and bottom set",
+        "sun_dress": "Sun Dress - flowy summer dress",
+        "smart_shirt": "Smart Shirt - formal button-up shirt",
+        "tote_bag": "Tote Bag - large fabric tote bag"
+    }
+    
+    mockups = {}
+    image_gen = OpenAIImageGeneration(api_key=api_key)
+    
+    color_description = ", ".join(request.pattern_colors) if request.pattern_colors else "vibrant colors"
+    
+    for garment_key, garment_desc in garment_types.items():
+        try:
+            prompt = f"Professional fashion product photography of a {garment_desc} featuring a {request.pattern_name} textile pattern. The pattern has {request.pattern_description}. Colors: {color_description}. Clean white background, studio lighting, high-end fashion catalog style, no model, just the garment displayed flat or on invisible mannequin."
+            
+            images = await image_gen.generate_images(
+                prompt=prompt,
+                model="gpt-image-1",
+                number_of_images=1
+            )
+            
+            if images and len(images) > 0:
+                image_base64 = base64.b64encode(images[0]).decode('utf-8')
+                mockups[garment_key] = image_base64
+            else:
+                mockups[garment_key] = ""
+                
+        except Exception as e:
+            logger.error(f"Error generating {garment_key} mockup: {str(e)}")
+            mockups[garment_key] = ""
+    
+    return {"success": True, "mockups": mockups}
 
 # Include the router in the main app
 app.include_router(api_router)

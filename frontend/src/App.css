@@ -779,6 +779,42 @@ main {
   margin-bottom: 2rem;
 }
 
+
+/* Fashion Mockups Grid */
+.fashion-mockups-section {
+  padding: 2rem 0;
+}
+
+.mockups-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .mockups-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mockups-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hero-pattern-collage {
@@ -1085,12 +1121,14 @@ main {
 }
 
 .hero-description {
-  font-size: clamp(0.95rem, 2vw, 1.125rem);
+  font-family: 'Bodoni Moda', 'Playfair Display', serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 50ch;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 400;
 }
 
 .hero-buttons {
@@ -1172,12 +1210,13 @@ main {
 }
 
 .studio-description-new {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-family: 'Bodoni Moda', 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
   line-height: 1.7;
   max-width: 70ch;
   margin: 0 auto 3rem;
   color: var(--text-primary);
+  font-weight: 400;
 }
 
 /* Studio Pointers */
