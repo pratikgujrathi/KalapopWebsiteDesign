@@ -127,10 +127,10 @@ const DesignDetail = () => {
           <div className="design-info-panel">
             <div>
               <span className="collection-badge">{design.collection.toUpperCase()}</span>
-              <h1 className="heading-1" style={{ marginBottom: '1rem' }}>
+              <h1 className="heading-3" style={{ marginBottom: '1rem', fontSize: '1.75rem' }}>
                 {design.name}
               </h1>
-              <p className="body-large" style={{ marginBottom: '2rem' }}>
+              <p className="body-medium" style={{ marginBottom: '1.5rem' }}>
                 {design.description}
               </p>
             </div>
@@ -180,33 +180,6 @@ const DesignDetail = () => {
                 </div>
               </div>
             </div>
-
-            {recommendedFabricsList.length > 0 && (
-              <div className="info-section">
-                <h3 className="heading-4" style={{ marginBottom: '1rem' }}>Recommended Fabrics</h3>
-                <p className="body-small" style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
-                  Select fabrics suitable for this design. This helps us prepare your order accurately.
-                </p>
-                <div className="fabric-grid">
-                  {recommendedFabricsList.map((fabric) => (
-                    <div
-                      key={fabric.id}
-                      className={`fabric-option ${selectedFabrics.includes(fabric.id) ? 'selected' : ''}`}
-                      onClick={() => handleFabricToggle(fabric.id)}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <p className="body-medium" style={{ fontWeight: 600 }}>{fabric.name}</p>
-                        <p className="caption">{fabric.weight}</p>
-                      </div>
-                      <p className="body-small" style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                        {fabric.description}
-                      </p>
-                      <p className="caption">Suitable for: {fabric.suitability}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="info-section" style={{ background: 'var(--bg-section)' }}>
               <h3 className="heading-4" style={{ marginBottom: '1rem' }}>Request Access</h3>
@@ -357,6 +330,42 @@ const DesignDetail = () => {
             </div>
           )}
         </div>
+
+        {/* Recommended Fabrics Section - Below Mockups */}
+        {recommendedFabricsList.length > 0 && (
+          <div className="recommended-fabrics-section" style={{ marginTop: '3rem' }}>
+            <h2 className="heading-3" style={{ marginBottom: '0.5rem' }}>Recommended Fabrics</h2>
+            <p className="body-small" style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
+              Select fabrics suitable for this design. This helps us prepare your order accurately.
+            </p>
+            <div className="fabric-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+              {recommendedFabricsList.map((fabric) => (
+                <div
+                  key={fabric.id}
+                  className={`fabric-option ${selectedFabrics.includes(fabric.id) ? 'selected' : ''}`}
+                  onClick={() => handleFabricToggle(fabric.id)}
+                  style={{
+                    padding: '1.25rem',
+                    background: selectedFabrics.includes(fabric.id) ? 'var(--bg-vibrant-yellow)' : 'var(--bg-page)',
+                    border: '2px solid var(--text-primary)',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                    <p className="body-medium" style={{ fontWeight: 600 }}>{fabric.name}</p>
+                    <p className="caption">{fabric.weight}</p>
+                  </div>
+                  <p className="body-small" style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                    {fabric.description}
+                  </p>
+                  <p className="caption">Suitable for: {fabric.suitability}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

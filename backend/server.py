@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 import shutil
 import base64
-from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
+from emergentintegrations.llm.gemeni.image_generation import GeminiImageGeneration
 
 
 ROOT_DIR = Path(__file__).parent
@@ -187,14 +187,14 @@ async def delete_site_image(category: str, slot: str):
     
     return {"success": True, "message": "Image deleted"}
 
-# Fashion Mockup Generation Endpoint
+# Fashion Mockup Generation Endpoint - Using Google Gemini (Imagen)
 @api_router.post("/generate-fashion-mockups", response_model=FashionMockupResponse)
 async def generate_fashion_mockups(request: FashionMockupRequest):
-    """Generate AI fashion mockups for a pattern"""
+    """Generate AI fashion mockups for a pattern using Google Gemini Imagen"""
     
-    api_key = os.environ.get('EMERGENT_LLM_KEY')
+    api_key = os.environ.get('GOOGLE_GEMINI_API_KEY')
     if not api_key:
-        raise HTTPException(status_code=500, detail="API key not configured")
+        raise HTTPException(status_code=500, detail="Google Gemini API key not configured")
     
     garment_types = {
         "coord_set": "Modern Coord Set - matching top and bottom set",
@@ -204,7 +204,7 @@ async def generate_fashion_mockups(request: FashionMockupRequest):
     }
     
     mockups = {}
-    image_gen = OpenAIImageGeneration(api_key=api_key)
+    image_gen = GeminiImageGeneration(api_key=api_key)
     
     color_description = ", ".join(request.pattern_colors) if request.pattern_colors else "vibrant colors"
     
@@ -214,7 +214,7 @@ async def generate_fashion_mockups(request: FashionMockupRequest):
             
             images = await image_gen.generate_images(
                 prompt=prompt,
-                model="gpt-image-1",
+                model="imagen-4.0-fast-generate-001",
                 number_of_images=1
             )
             

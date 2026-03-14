@@ -146,6 +146,62 @@ const Admin = () => {
     navigate('/admin-login');
   };
 
+  const handleDeletePattern = async (category, slot) => {
+    if (!window.confirm('Are you sure you want to delete this pattern?')) return;
+    
+    try {
+      const response = await fetch(`${API_URL}/api/site-images/${category}/${slot}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        // Update local state
+        if (category === 'banner') {
+          setBannerImages(prev => {
+            const updated = { ...prev };
+            delete updated[slot];
+            return updated;
+          });
+        } else if (category === 'featured') {
+          setFeaturedPatterns(prev => {
+            const updated = { ...prev };
+            delete updated[slot];
+            return updated;
+          });
+        } else if (category === 'fashion') {
+          setFashionImages(prev => {
+            const updated = { ...prev };
+            delete updated[slot];
+            return updated;
+          });
+        } else if (category === 'process') {
+          setProcessImages(prev => {
+            const updated = { ...prev };
+            delete updated[slot];
+            return updated;
+          });
+        }
+
+        toast({ 
+          title: "Pattern deleted", 
+          description: "The pattern has been removed successfully." 
+        });
+
+        // Trigger refresh event for homepage
+        window.dispatchEvent(new Event('kalapop-image-update'));
+      } else {
+        throw new Error('Delete failed');
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      toast({ 
+        title: "Delete failed", 
+        description: "Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
   if (!isAuthenticated) {
     return (
       <div style={{ padding: '3rem', textAlign: 'center', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -155,21 +211,48 @@ const Admin = () => {
   }
 
   // Reusable Image Upload Card Component
-  const ImageUploadCard = ({ label, currentImage, onUpload, size = "120px" }) => (
+  const ImageUploadCard = ({ label, currentImage, onUpload, onDelete, size = "120px" }) => (
     <div style={{ 
       padding: '1rem', 
       background: 'var(--bg-page)', 
       border: '2px solid var(--text-primary)',
       boxShadow: '4px 4px 0 rgba(0,0,0,0.1)',
-      borderRadius: '8px'
+      borderRadius: '8px',
+      position: 'relative'
     }}>
       <p className="caption" style={{ marginBottom: '0.75rem', fontSize: '0.75rem' }}>{label}</p>
       {currentImage ? (
-        <img 
-          src={currentImage.startsWith('/api') ? `${API_URL}${currentImage}` : currentImage} 
-          alt={label} 
-          style={{ width: '100%', height: size, objectFit: 'cover', marginBottom: '0.75rem', borderRadius: '6px', border: '1px solid #ddd' }} 
-        />
+        <>
+          <img 
+            src={currentImage.startsWith('/api') ? `${API_URL}${currentImage}` : currentImage} 
+            alt={label} 
+            style={{ width: '100%', height: size, objectFit: 'cover', marginBottom: '0.75rem', borderRadius: '6px', border: '1px solid #ddd' }} 
+          />
+          {onDelete && (
+            <button
+              onClick={onDelete}
+              style={{
+                position: 'absolute',
+                top: '0.5rem',
+                right: '0.5rem',
+                background: '#E74C3C',
+                color: 'white',
+                border: 'none',
+                borderRadius: '50%',
+                width: '28px',
+                height: '28px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              }}
+              title="Delete pattern"
+            >
+              <Trash2 size={14} />
+            </button>
+          )}
+        </>
       ) : (
         <div style={{ width: '100%', height: size, background: '#f5f5f5', marginBottom: '0.75rem', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #ccc' }}>
           <Image size={24} color="#999" />
@@ -280,7 +363,7 @@ const Admin = () => {
           <div className="admin-section" style={{ background: 'var(--bg-vibrant-purple)', padding: '2rem' }} data-testid="section-banner">
             <h2 className="heading-3" style={{ marginBottom: '1rem' }}>Homepage Banner Images</h2>
             <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch' }}>
-              Upload 9 pattern images for the hero banner grid.
+              Upload 9 pattern images for the hero banner grid. Click the red button to delete.
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
@@ -290,6 +373,7 @@ const Admin = () => {
                   label={`Slot ${num}`}
                   currentImage={bannerImages[`slot${num}`]}
                   onUpload={(e) => handleImageUpload('banner', `slot${num}`, e)}
+                  onDelete={bannerImages[`slot${num}`] ? () => handleDeletePattern('banner', `slot${num}`) : null}
                   size="100px"
                 />
               ))}
@@ -302,7 +386,7 @@ const Admin = () => {
           <div className="admin-section" style={{ background: 'var(--bg-vibrant-yellow)', padding: '2rem' }} data-testid="section-featured">
             <h2 className="heading-3" style={{ marginBottom: '1rem' }}>Featured Patterns</h2>
             <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch' }}>
-              Upload 8 pattern images for the Featured Patterns section.
+              Upload 8 pattern images for the Featured Patterns section. Click the red button to delete.
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
@@ -312,6 +396,7 @@ const Admin = () => {
                   label={`Pattern ${num}`}
                   currentImage={featuredPatterns[`pattern${num}`]}
                   onUpload={(e) => handleImageUpload('featured', `pattern${num}`, e)}
+                  onDelete={featuredPatterns[`pattern${num}`] ? () => handleDeletePattern('featured', `pattern${num}`) : null}
                   size="120px"
                 />
               ))}
