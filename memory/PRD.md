@@ -1,13 +1,14 @@
 # Kalapop - B2B Surface Design Studio
 
 ## Original Problem Statement
-Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. The project has undergone several major design iterations, settling on a "bold, maximalist" aesthetic. The entire application is currently a frontend-only prototype using mock data, with backend integration planned as a future phase.
+Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. The project has undergone several major design iterations, settling on a "bold, maximalist" aesthetic. A FastAPI backend with MongoDB has been implemented for image management and API endpoints.
 
 ## Core Requirements
 - A visually striking, design-led website that feels like a creative studio
 - Key pages: Home, Collections, Design Detail, How It Works, Login/Dashboard, and a hidden Admin panel
 - **Homepage:** Hero banner with 9 uploadable images, "Kalapop Studio" section (bubble font), 3-step process, 8 Featured Patterns, 3 Pattern to Fashion boxes
-- **Admin Panel:** Secured by login with credentials. Manage all user-facing images and design assets
+- **Admin Panel:** Secured by login with credentials. Manage all user-facing images and design assets with DELETE functionality
+- **Design Detail Page:** CSS-based fashion mockups showing patterns on garments (Coord Set, Sun Dress, Shirt, Tote Bag)
 - **Design Protection:** Public-facing design previews must be watermarked
 
 ## User Personas
@@ -29,7 +30,22 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: February 28, 2025 (Latest)
+### Session: March 14, 2026 (Latest)
+
+**CSS-Based Fashion Mockups:**
+1. **Pattern Visualization** - CSS clip-path garment shapes showing patterns on: Modern Coord Set, Sun Dress, Smart Shirt, Tote Bag
+2. **No API Cost** - Instant mockup generation using CSS (free alternative to AI image generation)
+3. **Responsive Design** - Mockups grid adapts to mobile/tablet
+
+**Design Detail Page Improvements:**
+1. **Smaller Title** - Pattern name now uses heading-3 instead of heading-1
+2. **Fabric Section Moved** - "Recommended Fabrics" now appears below the mockups section
+
+**Admin Panel Enhancements:**
+1. **Delete Pattern Button** - Red trash button on each image card for Banner and Featured sections
+2. **Delete API Endpoint** - Backend `/api/site-images/{category}/{slot}` DELETE endpoint
+
+### Session: February 28, 2025
 
 **Homepage Refinements:**
 1. **Banner Images** - 9 images in elegant 3x3 grid with glassmorphism background, hover effects
@@ -39,7 +55,7 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 5. **Philosophy Section** - Reduced heading size, smaller body text
 6. **Optional Printing** - Larger cursive text (Pacifico font) with pink gradient
 
-**Admin Panel Enhancements:**
+**Admin Panel (Base):**
 1. **Banner Images (9)** - Upload slots for all 9 hero banner images
 2. **Featured Patterns (8)** - Upload slots for 8 featured pattern images
 3. **Pattern to Fashion (3)** - Upload slots for 3 lifestyle/fashion images

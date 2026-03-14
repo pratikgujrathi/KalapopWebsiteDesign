@@ -1900,3 +1900,194 @@ main {
     font-size: clamp(2.5rem, 8vw, 5rem);
   }
 }
+
+/* ========================================
+   CSS-Based Fashion Mockups
+   ======================================== */
+
+.css-mockup-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.css-mockup-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-bold);
+  transition: transform 0.3s ease;
+}
+
+.css-mockup-card:hover {
+  transform: translateY(-8px);
+}
+
+.css-mockup-preview {
+  height: 280px;
+  background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.css-mockup-label {
+  padding: 1.25rem;
+  text-align: center;
+  background: white;
+}
+
+.css-mockup-label h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Garment Silhouettes with Pattern Fill */
+.garment-silhouette {
+  width: 200px;
+  height: 240px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.garment-shape {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.2));
+}
+
+/* Coord Set - Two piece outfit */
+.garment-coord-set {
+  clip-path: polygon(
+    30% 0%, 70% 0%, 75% 5%, 80% 18%, 78% 32%, 72% 38%, 70% 42%,
+    72% 46%, 75% 52%, 74% 100%, 58% 100%, 55% 60%, 50% 58%, 45% 60%, 42% 100%, 26% 100%,
+    25% 52%, 28% 46%, 30% 42%, 28% 38%, 22% 32%, 20% 18%, 25% 5%
+  );
+}
+
+/* Sun Dress - Flowy A-line dress */
+.garment-sun-dress {
+  clip-path: polygon(
+    38% 0%, 62% 0%,
+    68% 4%, 72% 10%,
+    75% 18%, 72% 24%,
+    70% 30%, 72% 38%,
+    78% 55%, 85% 75%,
+    90% 100%, 10% 100%,
+    15% 75%, 22% 55%,
+    28% 38%, 30% 30%,
+    28% 24%, 25% 18%,
+    28% 10%, 32% 4%
+  );
+}
+
+/* Smart Shirt - Button up shirt */
+.garment-smart-shirt {
+  clip-path: polygon(
+    40% 0%, 46% 4%, 50% 6%, 54% 4%, 60% 0%,
+    68% 2%, 82% 10%, 95% 18%,
+    100% 38%, 88% 42%, 82% 38%,
+    80% 45%, 78% 100%,
+    22% 100%, 20% 45%, 18% 38%,
+    12% 42%, 0% 38%,
+    5% 18%, 18% 10%, 32% 2%
+  );
+}
+
+/* Tote Bag - Shopping bag */
+.garment-tote-bag {
+  clip-path: polygon(
+    28% 0%, 32% 0%, 34% 12%, 38% 18%,
+    62% 18%, 66% 12%, 68% 0%, 72% 0%,
+    74% 12%, 70% 20%,
+    78% 24%, 82% 100%,
+    18% 100%, 22% 24%,
+    30% 20%, 26% 12%
+  );
+}
+
+/* Pattern fill styles for garment shapes */
+.garment-shape.abstract-geometric-1 {
+  background: 
+    linear-gradient(45deg, #2C3E50 25%, transparent 25%),
+    linear-gradient(-45deg, #2C3E50 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #E74C3C 75%),
+    linear-gradient(-45deg, transparent 75%, #E74C3C 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+}
+
+.garment-shape.abstract-organic-1 {
+  background: 
+    radial-gradient(circle at 30% 30%, #27AE60 8%, transparent 8%),
+    radial-gradient(circle at 70% 60%, #F39C12 12%, transparent 12%),
+    radial-gradient(circle at 50% 80%, #E74C3C 6%, transparent 6%),
+    radial-gradient(circle at 20% 70%, #3498DB 10%, transparent 10%),
+    linear-gradient(135deg, #ECF0F1 0%, #BDC3C7 100%);
+  background-size: 50px 50px;
+}
+
+.garment-shape.abstract-angular-1 {
+  background: 
+    linear-gradient(135deg, #9B59B6 25%, transparent 25%),
+    linear-gradient(225deg, #1ABC9C 25%, transparent 25%),
+    linear-gradient(45deg, #E74C3C 25%, transparent 25%),
+    linear-gradient(315deg, #F1C40F 25%, transparent 25%);
+  background-size: 40px 40px;
+  background-color: #2C3E50;
+}
+
+.garment-shape.abstract-texture-1 {
+  background: 
+    repeating-linear-gradient(0deg, #D35400 0px, #D35400 2px, transparent 2px, transparent 8px),
+    repeating-linear-gradient(90deg, #2980B9 0px, #2980B9 2px, transparent 2px, transparent 8px),
+    linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 100%);
+  background-size: 30px 30px;
+}
+
+.garment-shape.abstract-optical-1 {
+  background: 
+    repeating-conic-gradient(from 0deg, #1A1A1A 0deg 10deg, #FFFFFF 10deg 20deg);
+  background-size: 40px 40px;
+}
+
+.garment-shape.abstract-botanical-1 {
+  background: 
+    radial-gradient(ellipse at 25% 25%, #27AE60 15%, transparent 15%),
+    radial-gradient(ellipse at 75% 75%, #2ECC71 12%, transparent 12%),
+    radial-gradient(ellipse at 50% 50%, #1ABC9C 8%, transparent 8%),
+    linear-gradient(180deg, #F0FFF0 0%, #E8F5E9 100%);
+  background-size: 45px 45px;
+}
+
+/* Responsive mockups grid */
+@media (max-width: 1024px) {
+  .css-mockup-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .css-mockup-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .css-mockup-preview {
+    height: 320px;
+  }
+  
+  .garment-silhouette {
+    width: 180px;
+    height: 220px;
+  }
+}
+

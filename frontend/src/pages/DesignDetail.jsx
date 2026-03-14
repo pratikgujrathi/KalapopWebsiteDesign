@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { designs, fabrics } from '../mockData';
-import { ArrowLeft, Loader2, Shirt, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Shirt } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -12,64 +12,23 @@ const DesignDetail = () => {
   const { toast } = useToast();
   const design = designs.find(d => d.id === id);
   const [selectedFabrics, setSelectedFabrics] = useState([]);
-  const [mockups, setMockups] = useState({});
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generationStarted, setGenerationStarted] = useState(false);
 
-  // Garment display names
-  const garmentLabels = {
-    coord_set: "Modern Coord Set",
-    sun_dress: "Sun Dress",
-    smart_shirt: "Smart Shirt",
-    tote_bag: "Tote Bag"
-  };
+  // Garment display names and CSS classes
+  const garmentTypes = [
+    { key: 'coord_set', label: 'Modern Coord Set', cssClass: 'garment-coord-set' },
+    { key: 'sun_dress', label: 'Sun Dress', cssClass: 'garment-sun-dress' },
+    { key: 'smart_shirt', label: 'Smart Shirt', cssClass: 'garment-smart-shirt' },
+    { key: 'tote_bag', label: 'Tote Bag', cssClass: 'garment-tote-bag' }
+  ];
 
-  // Auto-generate mockups when page loads
-  useEffect(() => {
-    if (design && !generationStarted) {
-      generateMockups();
+  // Get pattern image URL from mockData or featured patterns
+  const getPatternImageUrl = () => {
+    // Use the design thumbnail class to create a gradient/pattern
+    // Or fetch from featured patterns if available
+    if (design?.thumbnail) {
+      return null; // Will use CSS class
     }
-  }, [design]);
-
-  const generateMockups = async () => {
-    if (!design) return;
-    
-    setIsGenerating(true);
-    setGenerationStarted(true);
-    
-    try {
-      const response = await fetch(`${API_URL}/api/generate-fashion-mockups`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          pattern_name: design.name,
-          pattern_description: design.description,
-          pattern_colors: design.colors || []
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setMockups(data.mockups);
-          toast({
-            title: "Fashion Mockups Generated!",
-            description: "AI has created 4 fashion visualizations for this pattern.",
-          });
-        }
-      } else {
-        throw new Error('Generation failed');
-      }
-    } catch (error) {
-      console.error('Error generating mockups:', error);
-      toast({
-        title: "Generation in Progress",
-        description: "AI mockups are being created. This may take a moment.",
-        variant: "default"
-      });
-    } finally {
-      setIsGenerating(false);
-    }
+    return null;
   };
 
   if (!design) {
@@ -193,7 +152,7 @@ const DesignDetail = () => {
           </div>
         </div>
 
-        {/* AI Fashion Mockups Section */}
+        {/* CSS-Based Fashion Mockups Section */}
         <div className="fashion-mockups-section" style={{ marginTop: '4rem' }}>
           <div style={{ 
             display: 'flex', 
@@ -204,131 +163,36 @@ const DesignDetail = () => {
             gap: '1rem'
           }}>
             <div>
-              <h2 className="heading-2" style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Shirt size={28} />
+              <h2 className="heading-3" style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.5rem' }}>
+                <Shirt size={24} />
                 Fashion Mock Previews
               </h2>
               <p className="body-medium" style={{ color: 'var(--text-secondary)' }}>
-                AI-generated visualizations of this pattern on different garments
+                Visualize this pattern on different garments
               </p>
             </div>
-            {!isGenerating && Object.keys(mockups).length === 0 && (
-              <button 
-                onClick={generateMockups} 
-                className="btn-secondary"
-                disabled={isGenerating}
-              >
-                Generate Mockups
-              </button>
-            )}
           </div>
 
-          {isGenerating && (
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: 'column',
-              alignItems: 'center', 
-              justifyContent: 'center',
-              padding: '4rem 2rem',
-              background: 'var(--bg-section)',
-              borderRadius: '16px',
-              border: '3px solid var(--text-primary)'
-            }}>
-              <Loader2 size={48} className="animate-spin" style={{ marginBottom: '1.5rem' }} />
-              <h3 className="heading-3" style={{ marginBottom: '0.5rem' }}>Generating Fashion Mockups...</h3>
-              <p className="body-medium" style={{ color: 'var(--text-secondary)', textAlign: 'center' }}>
-                AI is creating 4 unique fashion visualizations for "{design.name}"
-              </p>
-            </div>
-          )}
-
-          {!isGenerating && Object.keys(mockups).length > 0 && (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '1.5rem'
-            }} className="mockups-grid">
-              {Object.entries(garmentLabels).map(([key, label]) => (
-                <div key={key} className="mockup-card" style={{
-                  background: 'white',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '3px solid var(--text-primary)',
-                  boxShadow: 'var(--shadow-bold)',
-                  transition: 'transform 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  <div style={{ 
-                    height: '280px', 
-                    background: '#f5f5f5',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden'
-                  }}>
-                    {mockups[key] ? (
-                      <img 
-                        src={`data:image/png;base64,${mockups[key]}`}
-                        alt={`${label} with ${design.name} pattern`}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    ) : (
-                      <div style={{ textAlign: 'center', color: '#999' }}>
-                        <ShoppingBag size={48} style={{ marginBottom: '0.5rem' }} />
-                        <p>Generating...</p>
-                      </div>
-                    )}
-                  </div>
-                  <div style={{ padding: '1.25rem', textAlign: 'center' }}>
-                    <h4 style={{ 
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: '1.25rem',
-                      fontWeight: 600,
-                      color: 'var(--text-primary)'
-                    }}>
-                      {label}
-                    </h4>
+          <div className="css-mockup-container">
+            {garmentTypes.map(({ key, label, cssClass }) => (
+              <div key={key} className="css-mockup-card" data-testid={`mockup-${key}`}>
+                <div className="css-mockup-preview">
+                  <div className="garment-silhouette">
+                    <div 
+                      className={`garment-shape ${cssClass} ${design.thumbnail}`}
+                      style={{
+                        backgroundSize: key === 'tote_bag' ? '60px 60px' : '80px 80px'
+                      }}
+                      title={`${design.name} on ${label}`}
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {!isGenerating && Object.keys(mockups).length === 0 && (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '1.5rem'
-            }} className="mockups-grid">
-              {Object.entries(garmentLabels).map(([key, label]) => (
-                <div key={key} className="mockup-card-placeholder" style={{
-                  background: '#f9f9f9',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '3px dashed #ccc',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <div style={{ 
-                    height: '200px', 
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#999'
-                  }}>
-                    <ShoppingBag size={48} style={{ marginBottom: '1rem' }} />
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-                      {label}
-                    </h4>
-                    <p style={{ fontSize: '0.875rem' }}>Click "Generate Mockups" to preview</p>
-                  </div>
+                <div className="css-mockup-label">
+                  <h4>{label}</h4>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Recommended Fabrics Section - Below Mockups */}
