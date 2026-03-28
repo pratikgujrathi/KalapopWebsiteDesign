@@ -3189,7 +3189,7 @@ main {
   background: #EAF578;
   padding: 3.5rem 2rem 4rem;
   border-radius: 40px;
-  margin: 0 1rem;
+  margin: 0;
   position: relative;
   z-index: 5;
 }
@@ -3330,7 +3330,7 @@ main {
   background: #2E704B;
   padding: 4rem 2rem;
   border-radius: 40px;
-  margin: 0 1rem;
+  margin: 0;
 }
 
 .pp-header-v2 {
@@ -3565,7 +3565,7 @@ main {
   .hero-v2 {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1.5rem 2rem;
+    padding: 2rem 1.5rem;
     min-height: auto;
     border-radius: 0;
   }
@@ -3573,30 +3573,30 @@ main {
   .hero-content-v2 {
     max-width: 100%;
     text-align: center;
+    flex: none;
   }
 
   .hero-title-v2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     text-align: center;
   }
 
   .hero-desc-v2 {
     text-align: center;
+    max-width: 100%;
   }
 
   .hero-image-v2 {
+    flex: none;
     width: 100%;
-    max-width: 320px;
-    height: 340px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
 
   .hero-collage {
-    border-radius: 20px;
-  }
-
-  .hero-collage img {
-    border-radius: 20px;
+    width: 320px;
+    height: 320px;
+    border-radius: 16px;
   }
 
   .hero-buttons-v2 {
@@ -3605,8 +3605,8 @@ main {
 
   .studio-v2 {
     border-radius: 30px;
-    padding: 3rem 1.5rem;
-    margin: -20px 0.75rem 0;
+    padding: 2.5rem 1.5rem;
+    margin: 0;
   }
 
   .studio-inner-v2 {
@@ -3616,6 +3616,7 @@ main {
 
   .studio-title-v2 {
     margin-top: -0.5rem;
+    font-size: 2rem;
   }
 
   .studio-cards-v2 {
@@ -3623,8 +3624,9 @@ main {
   }
 
   .how-works-v2 {
-    border-radius: 30px;
-    margin: 1rem 0.75rem;
+    border-radius: 0;
+    margin: 0;
+    padding: 3rem 1.5rem;
   }
 
   .steps-grid-v2 {
@@ -3635,7 +3637,8 @@ main {
 
   .pattern-product-v2 {
     border-radius: 30px;
-    margin: 0 0.75rem;
+    margin: 0;
+    padding: 3rem 1.5rem;
   }
 
   .pp-row {
@@ -3644,7 +3647,8 @@ main {
 
   .latest-v2 {
     border-radius: 30px;
-    margin: 1rem 0.75rem;
+    margin: 1rem 0;
+    padding: 3rem 1.5rem;
   }
 
   .latest-grid-v2 {
@@ -3653,10 +3657,11 @@ main {
 
   .cta-v2 {
     border-radius: 30px;
-    margin: 1rem 0.75rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+    padding: 3rem 1.5rem;
   }
 
   .section-title-v2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
