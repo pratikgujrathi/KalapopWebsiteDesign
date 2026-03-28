@@ -5,7 +5,7 @@ import { Search, Download, CreditCard } from 'lucide-react';
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Banner collage image (uploaded by user)
-const BANNER_COLLAGE_IMAGE = "https://customer-assets.emergentagent.com/job_ac53fef2-b223-41a6-943f-33daaf77d05e/artifacts/61omomwf_freepik_create-a-collage-as-individual-images-stitched-together-for-banner-image-that-looks-classic-design-aesthetics-without-typography-and-show-images-individually.-keep-the-collage-as-per-atta_0001.png";
+const BANNER_COLLAGE_IMAGE = "https://customer-assets.emergentagent.com/job_ac53fef2-b223-41a6-943f-33daaf77d05e/artifacts/szmxihmm_freepik_create-a-collage-as-individual-images-stitched-together-for-banner-image-that-looks-classic-design-aesthetics-without-typography-and-show-images-individually.-keep-the-collage-as-per-atta_0001.png";
 
 const Home = () => {
   const [featuredPatterns, setFeaturedPatterns] = useState({});
