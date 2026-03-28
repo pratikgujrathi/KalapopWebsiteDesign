@@ -4,8 +4,8 @@ import { Search, Download, CreditCard } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Default banner image
-const DEFAULT_BANNER_IMAGE = "https://customer-assets.emergentagent.com/job_55db3810-dbd9-4c37-9856-95460402dcf4/artifacts/njd5cche_pgujrati_create_a_stylish_bright_colored_design_pattern_mood__c626fb47-9154-4f3f-bed8-6e2e89c6e318_0.png";
+// Banner collage image (uploaded by user)
+const BANNER_COLLAGE_IMAGE = "https://customer-assets.emergentagent.com/job_ac53fef2-b223-41a6-943f-33daaf77d05e/artifacts/61omomwf_freepik_create-a-collage-as-individual-images-stitched-together-for-banner-image-that-looks-classic-design-aesthetics-without-typography-and-show-images-individually.-keep-the-collage-as-per-atta_0001.png";
 
 const Home = () => {
   const [featuredPatterns, setFeaturedPatterns] = useState({});
@@ -40,15 +40,15 @@ const Home = () => {
 
   return (
     <div className="home-page-v2" data-testid="home-page">
-      {/* Hero Banner - Pink Background with Single Tilted Image */}
+      {/* Hero Banner - Pink Background with Single Collage Image on Right */}
       <section className="hero-v2" data-testid="hero-banner">
         <div className="hero-content-v2">
           <span className="hero-badge-v2">Surface Design Studio</span>
           <h1 className="hero-title-v2">
-            Bold Patterns<br/>for Modern<br/>Brands
+            Bold Patterns for<br/>Modern Brands
           </h1>
           <p className="hero-desc-v2">
-            Curated textile patterns for fashion, interiors, and creative applications. Designed for high-end digital and physical applications.
+            Curated surface patterns for fashion, interiors, and creative collections. Designed for high-end digital and physical applications.
           </p>
           <div className="hero-buttons-v2">
             <Link to="/collections" className="btn-browse">Browse Patterns</Link>
@@ -57,19 +57,12 @@ const Home = () => {
         </div>
         
         <div className="hero-image-v2">
-          <div className="tilted-card main-card">
+          <div className="hero-collage">
             <img 
-              src={getImageUrl(bannerImages.slot1) || DEFAULT_BANNER_IMAGE} 
-              alt="Pattern moodboard"
+              src={BANNER_COLLAGE_IMAGE} 
+              alt="Pattern collage moodboard"
             />
           </div>
-          <div className="tilted-card accent-card">
-            <img 
-              src={getImageUrl(bannerImages.slot2) || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200"} 
-              alt="Texture sample"
-            />
-          </div>
-          <div className="floating-shape"></div>
         </div>
       </section>
 
