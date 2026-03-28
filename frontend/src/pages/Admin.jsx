@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Upload, Plus, Edit2, Trash2, Download, Eye, EyeOff, Image, Layout, Sparkles } from 'lucide-react';
-import { designs, fabrics, collections } from '../mockData';
+import { fabrics, collections } from '../mockData';
 import { useToast } from '../hooks/use-toast';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Default mock designs (will be replaced by backend data)
+const defaultDesigns = [
+  { id: 'design-001', name: 'Geometric Horizon', collection: 'starter', category: 'Geometric', style: 'Modern', thumbnail: 'abstract-geometric-1' },
+  { id: 'design-002', name: 'Organic Flow', collection: 'exclusive', category: 'Organic', style: 'Natural', thumbnail: 'abstract-organic-1' },
+  { id: 'design-003', name: 'Angular Vision', collection: 'starter', category: 'Angular', style: 'Bold', thumbnail: 'abstract-angular-1' },
+  { id: 'design-004', name: 'Texture Bloom', collection: 'exclusive', category: 'Texture', style: 'Artistic', thumbnail: 'abstract-texture-1' },
+  { id: 'design-005', name: 'Optical Illusion', collection: 'starter', category: 'Optical', style: 'Dynamic', thumbnail: 'abstract-optical-1' },
+  { id: 'design-006', name: 'Botanical Garden', collection: 'exclusive', category: 'Botanical', style: 'Natural', thumbnail: 'abstract-botanical-1' }
+];
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState('banner');
@@ -21,10 +31,21 @@ const Admin = () => {
   const [processImages, setProcessImages] = useState({});
   const [isUploading, setIsUploading] = useState(false);
   
+  // Designs state - managed locally with persistence
+  const [designs, setDesigns] = useState(() => {
+    const saved = localStorage.getItem('kalapop_designs');
+    return saved ? JSON.parse(saved) : defaultDesigns;
+  });
+  
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  // Save designs to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('kalapop_designs', JSON.stringify(designs));
+  }, [designs]);
 
   // Load images from backend on mount
   useEffect(() => {
@@ -198,6 +219,17 @@ const Admin = () => {
         title: "Delete failed", 
         description: "Please try again.",
         variant: "destructive"
+      });
+    }
+  };
+
+  // Delete design function
+  const handleDeleteDesign = (designId, designName) => {
+    if (window.confirm(`Are you sure you want to delete "${designName}"?`)) {
+      setDesigns(prevDesigns => prevDesigns.filter(d => d.id !== designId));
+      toast({
+        title: "Design deleted",
+        description: `"${designName}" has been removed successfully.`
       });
     }
   };
@@ -519,7 +551,7 @@ const Admin = () => {
             </div>
 
             <div className="admin-section">
-              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Existing Designs</h2>
+              <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Existing Designs ({designs.length})</h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
                 {designs.map((design) => (
                   <div key={design.id} style={{ 
@@ -537,22 +569,24 @@ const Admin = () => {
                       background: '#f5f5f5',
                       position: 'relative'
                     }}>
-                      <div className={`pattern-preview ${design.thumbnail}`} style={{ 
-                        width: '100%', 
-                        height: '100%'
-                      }}></div>
+                      {design.image_url ? (
+                        <img 
+                          src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                          alt={design.name}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <div className={`pattern-preview ${design.thumbnail}`} style={{ 
+                          width: '100%', 
+                          height: '100%'
+                        }}></div>
+                      )}
                       {/* Delete Button */}
                       <button 
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          if (window.confirm(`Are you sure you want to delete "${design.name}"?`)) {
-                            // Remove from local state (mock data)
-                            toast({
-                              title: "Design deleted",
-                              description: `${design.name} has been removed.`
-                            });
-                          }
+                          handleDeleteDesign(design.id, design.name);
                         }}
                         type="button"
                         style={{
@@ -563,8 +597,8 @@ const Admin = () => {
                           color: 'white',
                           border: 'none',
                           borderRadius: '50%',
-                          width: '36px',
-                          height: '36px',
+                          width: '40px',
+                          height: '40px',
                           cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
@@ -574,7 +608,7 @@ const Admin = () => {
                         }}
                         title={`Delete ${design.name}`}
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={20} />
                       </button>
                     </div>
                     

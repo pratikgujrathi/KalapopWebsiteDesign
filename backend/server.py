@@ -187,6 +187,85 @@ async def delete_site_image(category: str, slot: str):
     
     return {"success": True, "message": "Image deleted"}
 
+# Design Management Models
+class DesignCreate(BaseModel):
+    name: str
+    collection: str
+    category: str
+    style: str
+
+class DesignResponse(BaseModel):
+    id: str
+    name: str
+    collection: str
+    category: str
+    style: str
+    thumbnail: Optional[str] = None
+    image_url: Optional[str] = None
+    created_at: str
+
+# Design Management Endpoints
+@api_router.get("/designs")
+async def get_designs():
+    """Get all designs from database"""
+    designs = await db.designs.find({}, {"_id": 0}).to_list(100)
+    return {"success": True, "designs": designs}
+
+@api_router.post("/designs")
+async def create_design(name: str, collection: str, category: str, style: str, file: UploadFile = File(...)):
+    """Create a new design with image upload"""
+    design_id = str(uuid.uuid4())[:8]
+    
+    # Create designs directory
+    designs_dir = UPLOADS_DIR / "designs"
+    designs_dir.mkdir(exist_ok=True)
+    
+    # Save file
+    file_ext = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+    filename = f"{design_id}.{file_ext}"
+    file_path = designs_dir / filename
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    image_url = f"/api/images/designs/{filename}"
+    
+    design = {
+        "id": design_id,
+        "name": name,
+        "collection": collection,
+        "category": category,
+        "style": style,
+        "thumbnail": f"design-{design_id}",
+        "image_url": image_url,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.designs.insert_one(design)
+    
+    return {"success": True, "design": {k: v for k, v in design.items() if k != "_id"}}
+
+@api_router.delete("/designs/{design_id}")
+async def delete_design(design_id: str):
+    """Delete a design"""
+    # Find the design first
+    design = await db.designs.find_one({"id": design_id})
+    
+    if design:
+        # Delete the image file if it exists
+        image_url = design.get("image_url", "")
+        if image_url:
+            filename = image_url.split("/")[-1]
+            file_path = UPLOADS_DIR / "designs" / filename
+            if file_path.exists():
+                file_path.unlink()
+        
+        # Delete from database
+        await db.designs.delete_one({"id": design_id})
+        return {"success": True, "message": f"Design '{design.get('name', design_id)}' deleted successfully"}
+    
+    return {"success": False, "message": "Design not found"}
+
 # Fashion Mockup Generation Endpoint - Using Google Gemini (Imagen)
 @api_router.post("/generate-fashion-mockups", response_model=FashionMockupResponse)
 async def generate_fashion_mockups(request: FashionMockupRequest):
