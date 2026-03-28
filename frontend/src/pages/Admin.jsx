@@ -230,26 +230,32 @@ const Admin = () => {
           />
           {onDelete && (
             <button
-              onClick={onDelete}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onDelete();
+              }}
+              type="button"
               style={{
                 position: 'absolute',
-                top: '0.5rem',
-                right: '0.5rem',
+                top: '8px',
+                right: '8px',
                 background: '#E74C3C',
                 color: 'white',
                 border: 'none',
                 borderRadius: '50%',
-                width: '28px',
-                height: '28px',
+                width: '32px',
+                height: '32px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                zIndex: 100
               }}
-              title="Delete pattern"
+              title="Delete image"
             >
-              <Trash2 size={14} />
+              <Trash2 size={16} />
             </button>
           )}
         </>
