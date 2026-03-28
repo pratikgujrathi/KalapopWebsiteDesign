@@ -120,100 +120,100 @@ const Home = () => {
         </div>
       </section>
 
-      {/* From Pattern to Product - Green Background, Card Layout */}
+      {/* From Pattern to Product - Green Background, 2-column layout */}
       <section className="pattern-product-v2" data-testid="pattern-to-fashion-section">
         <div className="pp-header-v2">
           <h2 className="pp-title-v2">From Pattern to Product</h2>
           <p className="pp-subtitle-v2">See how our curated patterns transform into beautiful fashion and interior goods.</p>
         </div>
         <div className="pp-grid-v2">
-          {/* Pattern 1 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {featuredPatterns.pattern1 ? (
-                <img src={getImageUrl(featuredPatterns.pattern1)} alt="Pattern 1" />
-              ) : (
-                <div className="pp-card-placeholder pattern-bg-1"></div>
-              )}
+          {/* Row 1 */}
+          <div className="pp-row">
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {featuredPatterns.pattern1 ? (
+                  <img src={getImageUrl(featuredPatterns.pattern1)} alt="Pattern 1" />
+                ) : (
+                  <div className="pp-card-placeholder pattern-bg-1"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Floral Bloom</h3>
+                <p className="pp-card-category">Pattern</p>
+              </div>
             </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Floral Bloom</h3>
-              <p className="pp-card-category">Pattern</p>
-            </div>
-          </div>
-          
-          {/* Style 1 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {fashionImages.fashion1 ? (
-                <img src={getImageUrl(fashionImages.fashion1)} alt="Fashion Dress" />
-              ) : (
-                <div className="pp-card-placeholder style-bg"></div>
-              )}
-            </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Summer Dress</h3>
-              <p className="pp-card-category">Style</p>
-            </div>
-          </div>
-
-          {/* Pattern 2 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {featuredPatterns.pattern2 ? (
-                <img src={getImageUrl(featuredPatterns.pattern2)} alt="Pattern 2" />
-              ) : (
-                <div className="pp-card-placeholder pattern-bg-2"></div>
-              )}
-            </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Geometric Wave</h3>
-              <p className="pp-card-category">Pattern</p>
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {fashionImages.fashion1 ? (
+                  <img src={getImageUrl(fashionImages.fashion1)} alt="Summer Dress" />
+                ) : (
+                  <div className="pp-card-placeholder style-bg"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Summer Dress</h3>
+                <p className="pp-card-category">Style</p>
+              </div>
             </div>
           </div>
 
-          {/* Style 2 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {fashionImages.fashion2 ? (
-                <img src={getImageUrl(fashionImages.fashion2)} alt="Short Set" />
-              ) : (
-                <div className="pp-card-placeholder style-bg"></div>
-              )}
+          {/* Row 2 */}
+          <div className="pp-row">
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {featuredPatterns.pattern2 ? (
+                  <img src={getImageUrl(featuredPatterns.pattern2)} alt="Pattern 2" />
+                ) : (
+                  <div className="pp-card-placeholder pattern-bg-2"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Geometric Wave</h3>
+                <p className="pp-card-category">Pattern</p>
+              </div>
             </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Co-ord Set</h3>
-              <p className="pp-card-category">Style</p>
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {fashionImages.fashion2 ? (
+                  <img src={getImageUrl(fashionImages.fashion2)} alt="Co-ord Set" />
+                ) : (
+                  <div className="pp-card-placeholder style-bg"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Co-ord Set</h3>
+                <p className="pp-card-category">Style</p>
+              </div>
             </div>
           </div>
 
-          {/* Pattern 3 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {featuredPatterns.pattern3 ? (
-                <img src={getImageUrl(featuredPatterns.pattern3)} alt="Pattern 3" />
-              ) : (
-                <div className="pp-card-placeholder pattern-bg-3"></div>
-              )}
+          {/* Row 3 */}
+          <div className="pp-row">
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {featuredPatterns.pattern3 ? (
+                  <img src={getImageUrl(featuredPatterns.pattern3)} alt="Pattern 3" />
+                ) : (
+                  <div className="pp-card-placeholder pattern-bg-3"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Botanical Garden</h3>
+                <p className="pp-card-category">Pattern</p>
+              </div>
             </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Botanical Garden</h3>
-              <p className="pp-card-category">Pattern</p>
-            </div>
-          </div>
-
-          {/* Style 3 */}
-          <div className="pp-card-v2">
-            <div className="pp-card-image">
-              {fashionImages.fashion3 ? (
-                <img src={getImageUrl(fashionImages.fashion3)} alt="Cushion" />
-              ) : (
-                <div className="pp-card-placeholder style-bg"></div>
-              )}
-            </div>
-            <div className="pp-card-info">
-              <h3 className="pp-card-title">Home Cushion</h3>
-              <p className="pp-card-category">Style</p>
+            <div className="pp-card-v2">
+              <div className="pp-card-image">
+                {fashionImages.fashion3 ? (
+                  <img src={getImageUrl(fashionImages.fashion3)} alt="Cushion" />
+                ) : (
+                  <div className="pp-card-placeholder style-bg"></div>
+                )}
+              </div>
+              <div className="pp-card-info">
+                <h3 className="pp-card-title">Home Cushion</h3>
+                <p className="pp-card-category">Style</p>
+              </div>
             </div>
           </div>
         </div>
