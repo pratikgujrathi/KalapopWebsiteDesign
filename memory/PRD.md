@@ -30,32 +30,38 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: March 28, 2026 (Latest)
+### Session: March 28, 2026 (Latest Update)
 
-**Complete UI Redesign:**
-1. **Homepage - New Color Scheme:**
-   - Hero banner: Pink background (#FF4A8A)
-   - Kalapop Studio section: Yellow-green/lime (#DAFF7A)
-   - How It Works: Beige background with colored icons (pink #FF99AF, red #FF6B6B, green #79D48A)
-   - From Pattern to Product: Green background (#2E704B)
-   - CTA section: Coral/terracotta gradient (#E57C63)
+**Homepage V2 - Exact Match to Design Reference:**
+1. **Hero Banner:**
+   - Pink background (#FF4A8A)
+   - Single tilted pattern image (reduced width)
+   - Black text for title
+   - Purple "Surface Design Studio" badge (#9B59B6)
+   - Floating accent image and shape
 
-2. **Pattern Detail Page - New Layout:**
-   - Large pattern image with "NEW COLLECTION" badge
-   - Info panel: Title, Premium License badge (pink), Vector + Raster badge (yellow)
-   - Download Pattern button (pink), Save to Library button (yellow)
-   - Pattern specs (Dimensions, File Format, Color Profile)
-   - "Pattern in Application" section with yellow-green background
-   - Related Patterns section at bottom
+2. **Kalapop Studio Section:**
+   - Yellow background (#FFEB3B)
+   - Full width with curved bottom edge (border-radius: 60px)
+   - Feature cards with pink/gray checkmarks
+   - Increased font size
 
-3. **Admin Panel - Delete Functionality:**
-   - Red trash button on each image card (Banner, Featured sections)
-   - Backend DELETE endpoint `/api/site-images/{category}/{slot}` working
-   - Instructions updated to show "Click the red button to delete"
+3. **How It Works:**
+   - White background
+   - Larger section title (2rem)
+   - Pink, Red, Green circular icons
 
-4. **Mobile Responsive Layout:**
-   - All sections stack vertically on mobile
-   - Optimized touch targets and spacing
+4. **From Pattern to Product:**
+   - Green background (#2E704B)
+   - Centered layout
+   - Pattern + Product rows side by side
+
+5. **Latest Additions:**
+   - Pattern cards with white broad border below
+   - Beige background
+
+6. **Admin Delete Functionality:**
+   - Red trash buttons working on all image cards
 
 ### Session: March 14, 2026
 
