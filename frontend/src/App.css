@@ -3123,15 +3123,15 @@ main {
 
 /* Hero Image - Single Collage Image */
 .hero-image-v2 {
-  flex: 0 0 45%;
+  flex: 0 0 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hero-collage {
-  width: 400px;
-  height: 400px;
+  width: 480px;
+  height: 480px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
