@@ -404,22 +404,38 @@ const Admin = () => {
           </div>
         )}
 
-        {/* SECTION 3: Pattern to Fashion (3 slots) */}
+        {/* SECTION 3: Pattern to Product (Patterns + Styles) */}
         {activeSection === 'fashion' && (
           <div className="admin-section" style={{ background: 'var(--bg-vibrant-orange)', padding: '2rem' }} data-testid="section-fashion">
-            <h2 className="heading-3" style={{ marginBottom: '1rem', color: 'var(--text-inverse)' }}>Pattern to Fashion</h2>
+            <h2 className="heading-3" style={{ marginBottom: '1rem', color: 'var(--text-inverse)' }}>Pattern to Product</h2>
             <p className="body-medium" style={{ marginBottom: '2rem', maxWidth: '70ch', color: 'var(--text-inverse)' }}>
-              Upload 3 fashion mockup images showing patterns on clothing.
+              Upload pattern images and their corresponding style/product images for the "Pattern to Product" section.
             </p>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
-              {['Look 1', 'Look 2', 'Look 3'].map((label, idx) => (
+            <h3 className="heading-4" style={{ marginBottom: '1rem', color: 'var(--text-inverse)' }}>Patterns</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+              {['Pattern 1', 'Pattern 2', 'Pattern 3'].map((label, idx) => (
                 <ImageUploadCard
-                  key={idx}
+                  key={`pattern-${idx}`}
+                  label={label}
+                  currentImage={featuredPatterns[`pattern${idx + 1}`]}
+                  onUpload={(e) => handleImageUpload('featured', `pattern${idx + 1}`, e)}
+                  onDelete={featuredPatterns[`pattern${idx + 1}`] ? () => handleDeletePattern('featured', `pattern${idx + 1}`) : null}
+                  size="120px"
+                />
+              ))}
+            </div>
+
+            <h3 className="heading-4" style={{ marginBottom: '1rem', color: 'var(--text-inverse)' }}>Styles (Products)</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+              {['Summer Dress', 'Co-ord Set', 'Home Cushion'].map((label, idx) => (
+                <ImageUploadCard
+                  key={`style-${idx}`}
                   label={label}
                   currentImage={fashionImages[`fashion${idx + 1}`]}
                   onUpload={(e) => handleImageUpload('fashion', `fashion${idx + 1}`, e)}
-                  size="180px"
+                  onDelete={fashionImages[`fashion${idx + 1}`] ? () => handleDeletePattern('fashion', `fashion${idx + 1}`) : null}
+                  size="150px"
                 />
               ))}
             </div>

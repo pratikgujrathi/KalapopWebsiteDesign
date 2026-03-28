@@ -3034,19 +3034,18 @@ main {
    ======================================== */
 .hero-v2 {
   background: #FF4A8A;
-  padding: 2rem 3rem 2rem 4rem;
+  padding: 3rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  min-height: 500px;
+  gap: 3rem;
+  min-height: 520px;
   border-radius: 0;
 }
 
 .hero-content-v2 {
-  max-width: 450px;
+  flex: 0 0 45%;
   text-align: left;
-  flex-shrink: 0;
 }
 
 .hero-badge-v2 {
@@ -3064,22 +3063,23 @@ main {
 
 .hero-title-v2 {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 3rem;
-  line-height: 1.05;
+  font-size: 2.5rem;
+  line-height: 1.15;
   color: #1A1A1A;
   text-transform: uppercase;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   text-align: left;
 }
 
 .hero-desc-v2 {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   color: #1A1A1A;
   margin-bottom: 2rem;
   opacity: 0.85;
   text-align: left;
+  max-width: 400px;
 }
 
 .hero-buttons-v2 {
@@ -3123,25 +3123,22 @@ main {
 
 /* Hero Image - Single Collage Image */
 .hero-image-v2 {
-  position: relative;
-  flex: 1;
-  max-width: 550px;
-  height: 480px;
+  flex: 0 0 50%;
+  height: 460px;
 }
 
 .hero-collage {
   width: 100%;
   height: 100%;
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
 .hero-collage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px;
 }
 
 .tilted-card {
@@ -3190,7 +3187,7 @@ main {
   background: #EAF578;
   padding: 3.5rem 2rem 4rem;
   border-radius: 40px;
-  margin: -30px 1rem 0;
+  margin: 2rem 1rem 0;
   position: relative;
   z-index: 5;
 }
@@ -3325,7 +3322,7 @@ main {
 }
 
 /* ========================================
-   PATTERN TO PRODUCT V2 - Centered Grid
+   PATTERN TO PRODUCT V2 - Card Layout with White Border
    ======================================== */
 .pattern-product-v2 {
   background: #2E704B;
@@ -3355,62 +3352,70 @@ main {
 }
 
 .pp-grid-v2 {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.pp-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.pp-item {
-  border-radius: 20px;
+.pp-card-v2 {
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 1;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
-.pp-item img {
+.pp-card-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.pp-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
 }
 
-.pattern-item {
-  background: #f0f0f0;
-}
-
-.product-item {
-  background: #D4A574;
-}
-
-.pp-placeholder {
+.pp-card-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
+  color: #999;
 }
 
-.pp-placeholder.pink-pattern { background: linear-gradient(135deg, #FFE4E8, #FFD0D8); }
-.pp-placeholder.dark-pattern { background: #1a3a2a; }
-.pp-placeholder.sand-pattern { background: #E8DDD0; }
+.pp-card-placeholder.pattern-bg-1 { background: linear-gradient(135deg, #FFE4E8, #FFD0D8); }
+.pp-card-placeholder.pattern-bg-2 { background: linear-gradient(135deg, #E8F4FD, #D0E8F8); }
+.pp-card-placeholder.pattern-bg-3 { background: linear-gradient(135deg, #F0FFF0, #D8F5D8); }
+.pp-card-placeholder.style-bg { background: #E8DDD0; }
 
-.pp-label {
-  font-size: 0.85rem;
-  color: white;
-  background: rgba(0,0,0,0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+.pp-card-info {
+  padding: 1rem 1.25rem;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+}
+
+.pp-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 0.25rem;
+}
+
+.pp-card-category {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ========================================
-   LATEST ADDITIONS V2 - White Border Below
+   LATEST ADDITIONS V2 - Card Layout with White Border
    ======================================== */
 .latest-v2 {
   background: #F5F0E8;
@@ -3447,11 +3452,20 @@ main {
   text-decoration: none;
   display: flex;
   flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.latest-card-v2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .latest-image-v2 {
   aspect-ratio: 1;
-  border-radius: 16px 16px 0 0;
   overflow: hidden;
   background: white;
 }
@@ -3460,14 +3474,32 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px 16px 0 0;
+}
+
+.latest-info-v2 {
+  padding: 1rem 1.25rem;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+}
+
+.latest-name-v2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 0.25rem;
+}
+
+.latest-category-v2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .latest-border-v2 {
-  height: 20px;
-  background: white;
-  border-radius: 0 0 16px 16px;
-  border-top: 2px solid #f0f0f0;
+  display: none;
 }
 
 /* ========================================

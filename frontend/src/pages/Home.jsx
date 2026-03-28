@@ -45,7 +45,7 @@ const Home = () => {
         <div className="hero-content-v2">
           <span className="hero-badge-v2">Surface Design Studio</span>
           <h1 className="hero-title-v2">
-            Bold Patterns for<br/>Modern Brands
+            Bold Patterns for Modern Brands
           </h1>
           <p className="hero-desc-v2">
             Curated surface patterns for fashion, interiors, and creative collections. Designed for high-end digital and physical applications.
@@ -120,90 +120,130 @@ const Home = () => {
         </div>
       </section>
 
-      {/* From Pattern to Product - Green Background, Centered */}
+      {/* From Pattern to Product - Green Background, Card Layout */}
       <section className="pattern-product-v2" data-testid="pattern-to-fashion-section">
         <div className="pp-header-v2">
           <h2 className="pp-title-v2">From Pattern to Product</h2>
           <p className="pp-subtitle-v2">See how our curated patterns transform into beautiful fashion and interior goods.</p>
         </div>
         <div className="pp-grid-v2">
-          {/* Row 1 */}
-          <div className="pp-row">
-            <div className="pp-item pattern-item">
+          {/* Pattern 1 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
               {featuredPatterns.pattern1 ? (
-                <img src={getImageUrl(featuredPatterns.pattern1)} alt="Pattern" />
+                <img src={getImageUrl(featuredPatterns.pattern1)} alt="Pattern 1" />
               ) : (
-                <div className="pp-placeholder pink-pattern"></div>
+                <div className="pp-card-placeholder pattern-bg-1"></div>
               )}
             </div>
-            <div className="pp-item product-item">
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Floral Bloom</h3>
+              <p className="pp-card-category">Pattern</p>
+            </div>
+          </div>
+          
+          {/* Style 1 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
               {fashionImages.fashion1 ? (
-                <img src={getImageUrl(fashionImages.fashion1)} alt="Dress" />
+                <img src={getImageUrl(fashionImages.fashion1)} alt="Fashion Dress" />
               ) : (
-                <div className="pp-placeholder">
-                  <span className="pp-label">Pattern + Dress</span>
-                </div>
+                <div className="pp-card-placeholder style-bg"></div>
               )}
             </div>
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Summer Dress</h3>
+              <p className="pp-card-category">Style</p>
+            </div>
           </div>
-          {/* Row 2 */}
-          <div className="pp-row">
-            <div className="pp-item pattern-item">
+
+          {/* Pattern 2 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
               {featuredPatterns.pattern2 ? (
-                <img src={getImageUrl(featuredPatterns.pattern2)} alt="Pattern" />
+                <img src={getImageUrl(featuredPatterns.pattern2)} alt="Pattern 2" />
               ) : (
-                <div className="pp-placeholder dark-pattern"></div>
+                <div className="pp-card-placeholder pattern-bg-2"></div>
               )}
             </div>
-            <div className="pp-item product-item">
-              {fashionImages.fashion2 ? (
-                <img src={getImageUrl(fashionImages.fashion2)} alt="Shirt" />
-              ) : (
-                <div className="pp-placeholder">
-                  <span className="pp-label">Pattern + Shortset</span>
-                </div>
-              )}
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Geometric Wave</h3>
+              <p className="pp-card-category">Pattern</p>
             </div>
           </div>
-          {/* Row 3 */}
-          <div className="pp-row">
-            <div className="pp-item pattern-item">
-              {featuredPatterns.pattern3 ? (
-                <img src={getImageUrl(featuredPatterns.pattern3)} alt="Pattern" />
+
+          {/* Style 2 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
+              {fashionImages.fashion2 ? (
+                <img src={getImageUrl(fashionImages.fashion2)} alt="Short Set" />
               ) : (
-                <div className="pp-placeholder sand-pattern"></div>
+                <div className="pp-card-placeholder style-bg"></div>
               )}
             </div>
-            <div className="pp-item product-item">
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Co-ord Set</h3>
+              <p className="pp-card-category">Style</p>
+            </div>
+          </div>
+
+          {/* Pattern 3 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
+              {featuredPatterns.pattern3 ? (
+                <img src={getImageUrl(featuredPatterns.pattern3)} alt="Pattern 3" />
+              ) : (
+                <div className="pp-card-placeholder pattern-bg-3"></div>
+              )}
+            </div>
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Botanical Garden</h3>
+              <p className="pp-card-category">Pattern</p>
+            </div>
+          </div>
+
+          {/* Style 3 */}
+          <div className="pp-card-v2">
+            <div className="pp-card-image">
               {fashionImages.fashion3 ? (
                 <img src={getImageUrl(fashionImages.fashion3)} alt="Cushion" />
               ) : (
-                <div className="pp-placeholder">
-                  <span className="pp-label">Pattern + Cushion</span>
-                </div>
+                <div className="pp-card-placeholder style-bg"></div>
               )}
+            </div>
+            <div className="pp-card-info">
+              <h3 className="pp-card-title">Home Cushion</h3>
+              <p className="pp-card-category">Style</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Additions - Patterns with white border */}
+      {/* Latest Additions - Patterns with card layout */}
       <section className="latest-v2" data-testid="featured-patterns-section">
         <div className="latest-header-v2">
           <h2 className="section-title-v2">Latest Additions</h2>
           <Link to="/collections" className="view-link-v2">View All Library →</Link>
         </div>
         <div className="latest-grid-v2">
-          {[1, 2, 3, 4].map((num) => (
-            <Link to={`/design/design-00${num}`} key={num} className="latest-card-v2" data-testid={`featured-pattern-${num}`}>
+          {[
+            { num: 1, name: 'Geometric Horizon', category: 'Geometric' },
+            { num: 2, name: 'Organic Flow', category: 'Organic' },
+            { num: 3, name: 'Texture Bloom', category: 'Texture' },
+            { num: 4, name: 'Angular Vision', category: 'Angular' }
+          ].map((item) => (
+            <Link to={`/design/design-00${item.num}`} key={item.num} className="latest-card-v2" data-testid={`featured-pattern-${item.num}`}>
               <div className="latest-image-v2">
-                {featuredPatterns[`pattern${num}`] ? (
-                  <img src={getImageUrl(featuredPatterns[`pattern${num}`])} alt={`Pattern ${num}`} />
+                {featuredPatterns[`pattern${item.num}`] ? (
+                  <img src={getImageUrl(featuredPatterns[`pattern${item.num}`])} alt={item.name} />
                 ) : (
-                  <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular'][num - 1]}-1`}></div>
+                  <div className={`pattern-preview abstract-${['geometric', 'organic', 'texture', 'angular'][item.num - 1]}-1`}></div>
                 )}
               </div>
-              <div className="latest-border-v2"></div>
+              <div className="latest-info-v2">
+                <h3 className="latest-name-v2">{item.name}</h3>
+                <p className="latest-category-v2">{item.category}</p>
+              </div>
             </Link>
           ))}
         </div>
