@@ -3034,23 +3034,24 @@ main {
    ======================================== */
 .hero-v2 {
   background: #FF4A8A;
-  padding: 3rem 2rem 4rem;
+  padding: 2rem 3rem 2rem 4rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  min-height: 480px;
-  border-radius: 0 0 40px 40px;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 500px;
+  border-radius: 0;
 }
 
 .hero-content-v2 {
-  max-width: 420px;
+  max-width: 450px;
   text-align: left;
+  flex-shrink: 0;
 }
 
 .hero-badge-v2 {
   display: inline-block;
-  background: #9B59B6;
+  background: #AF69FF;
   color: white;
   padding: 0.5rem 1.25rem;
   border-radius: 25px;
@@ -3063,7 +3064,7 @@ main {
 
 .hero-title-v2 {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 2.75rem;
+  font-size: 3rem;
   line-height: 1.05;
   color: #1A1A1A;
   text-transform: uppercase;
@@ -3123,8 +3124,9 @@ main {
 /* Hero Image - Single Collage Image */
 .hero-image-v2 {
   position: relative;
-  width: 380px;
-  height: 420px;
+  flex: 1;
+  max-width: 550px;
+  height: 480px;
 }
 
 .hero-collage {
@@ -3185,7 +3187,7 @@ main {
    KALAPOP STUDIO V2 - Yellow with Curve
    ======================================== */
 .studio-v2 {
-  background: #F7F288;
+  background: #EAF578;
   padding: 3.5rem 2rem 4rem;
   border-radius: 40px;
   margin: -30px 1rem 0;
@@ -3236,8 +3238,8 @@ main {
 }
 
 .card-check {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -3247,8 +3249,9 @@ main {
   color: white;
 }
 
-.card-check.pink { background: #FF99AF; }
-.card-check.gray { background: #E0E0E0; color: #666; }
+.card-check.pink { background: #FF6B9D; }
+.card-check.orange { background: #FF9F43; }
+.card-check.blue { background: #54A0FF; }
 
 .card-text-v2 {
   font-family: 'DM Sans', sans-serif;
@@ -3522,9 +3525,9 @@ main {
   .hero-v2 {
     flex-direction: column;
     text-align: center;
-    padding: 2.5rem 1.5rem 3rem;
+    padding: 2rem 1.5rem 2rem;
     min-height: auto;
-    border-radius: 0 0 30px 30px;
+    border-radius: 0;
   }
 
   .hero-content-v2 {
@@ -3542,8 +3545,9 @@ main {
   }
 
   .hero-image-v2 {
-    width: 280px;
-    height: 300px;
+    width: 100%;
+    max-width: 320px;
+    height: 340px;
     margin: 0 auto;
   }
 

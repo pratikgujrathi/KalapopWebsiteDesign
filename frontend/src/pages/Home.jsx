@@ -81,11 +81,11 @@ const Home = () => {
               <span className="card-text-v2">Curated Pattern Library</span>
             </div>
             <div className="studio-card-v2">
-              <span className="card-check gray">✓</span>
+              <span className="card-check orange">✓</span>
               <span className="card-text-v2">Commercial Licensing</span>
             </div>
             <div className="studio-card-v2">
-              <span className="card-check gray">✓</span>
+              <span className="card-check blue">✓</span>
               <span className="card-text-v2">Small Batch Fabric Printing</span>
             </div>
           </div>
