@@ -520,26 +520,76 @@ const Admin = () => {
 
             <div className="admin-section">
               <h2 className="heading-3" style={{ marginBottom: '1.5rem' }}>Existing Designs</h2>
-              <div style={{ display: 'grid', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
                 {designs.map((design) => (
                   <div key={design.id} style={{ 
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
-                    padding: '1.5rem', background: showOnBanner[design.id] ? 'var(--bg-vibrant-yellow)' : 'var(--bg-page)', 
-                    border: '3px solid var(--text-primary)', boxShadow: 'var(--shadow-bold)'
+                    background: showOnBanner[design.id] ? 'var(--bg-vibrant-yellow)' : 'var(--bg-page)', 
+                    border: '3px solid var(--text-primary)', 
+                    boxShadow: 'var(--shadow-bold)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    position: 'relative'
                   }}>
-                    <div style={{ flex: 1 }}>
-                      <p className="body-medium" style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{design.name}</p>
-                      <p className="caption">{design.collection.toUpperCase()} • {design.category}</p>
+                    {/* Design Image Preview */}
+                    <div style={{ 
+                      width: '100%', 
+                      height: '180px', 
+                      background: '#f5f5f5',
+                      position: 'relative'
+                    }}>
+                      <div className={`pattern-preview ${design.thumbnail}`} style={{ 
+                        width: '100%', 
+                        height: '100%'
+                      }}></div>
+                      {/* Delete Button */}
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (window.confirm(`Are you sure you want to delete "${design.name}"?`)) {
+                            // Remove from local state (mock data)
+                            toast({
+                              title: "Design deleted",
+                              description: `${design.name} has been removed.`
+                            });
+                          }
+                        }}
+                        type="button"
+                        style={{
+                          position: 'absolute',
+                          top: '10px',
+                          right: '10px',
+                          background: '#E74C3C',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '36px',
+                          height: '36px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                          zIndex: 10
+                        }}
+                        title={`Delete ${design.name}`}
+                      >
+                        <Trash2 size={18} />
+                      </button>
                     </div>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem' }} onClick={() => toggleBannerDisplay(design.id)}>
-                        {showOnBanner[design.id] ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem' }} onClick={() => handleDownloadWithoutWatermark(design.id)}>
-                        <Download size={18} />
-                      </button>
-                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem' }}><Edit2 size={18} /></button>
-                      <button className="btn-tertiary" style={{ padding: '0.75rem 1rem', borderColor: '#E74C3C', color: '#E74C3C' }}><Trash2 size={18} /></button>
+                    
+                    {/* Design Info */}
+                    <div style={{ padding: '1rem' }}>
+                      <p className="body-medium" style={{ fontWeight: 700, marginBottom: '0.25rem' }}>{design.name}</p>
+                      <p className="caption" style={{ marginBottom: '0.75rem' }}>{design.collection.toUpperCase()} • {design.category}</p>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button className="btn-tertiary" style={{ padding: '0.5rem 0.75rem', fontSize: '0.75rem' }} onClick={() => toggleBannerDisplay(design.id)}>
+                          {showOnBanner[design.id] ? <><EyeOff size={14} /> Hide</> : <><Eye size={14} /> Show</>}
+                        </button>
+                        <button className="btn-tertiary" style={{ padding: '0.5rem 0.75rem', fontSize: '0.75rem' }} onClick={() => handleDownloadWithoutWatermark(design.id)}>
+                          <Download size={14} /> Download
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
