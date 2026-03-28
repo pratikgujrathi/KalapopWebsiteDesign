@@ -30,7 +30,34 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: March 14, 2026 (Latest)
+### Session: March 28, 2026 (Latest)
+
+**Complete UI Redesign:**
+1. **Homepage - New Color Scheme:**
+   - Hero banner: Pink background (#FF4A8A)
+   - Kalapop Studio section: Yellow-green/lime (#DAFF7A)
+   - How It Works: Beige background with colored icons (pink #FF99AF, red #FF6B6B, green #79D48A)
+   - From Pattern to Product: Green background (#2E704B)
+   - CTA section: Coral/terracotta gradient (#E57C63)
+
+2. **Pattern Detail Page - New Layout:**
+   - Large pattern image with "NEW COLLECTION" badge
+   - Info panel: Title, Premium License badge (pink), Vector + Raster badge (yellow)
+   - Download Pattern button (pink), Save to Library button (yellow)
+   - Pattern specs (Dimensions, File Format, Color Profile)
+   - "Pattern in Application" section with yellow-green background
+   - Related Patterns section at bottom
+
+3. **Admin Panel - Delete Functionality:**
+   - Red trash button on each image card (Banner, Featured sections)
+   - Backend DELETE endpoint `/api/site-images/{category}/{slot}` working
+   - Instructions updated to show "Click the red button to delete"
+
+4. **Mobile Responsive Layout:**
+   - All sections stack vertically on mobile
+   - Optimized touch targets and spacing
+
+### Session: March 14, 2026
 
 **CSS-Based Fashion Mockups:**
 1. **Pattern Visualization** - CSS clip-path garment shapes showing patterns on: Modern Coord Set, Sun Dress, Smart Shirt, Tote Bag
