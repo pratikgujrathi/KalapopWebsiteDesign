@@ -8,7 +8,8 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 - Key pages: Home, Collections, Design Detail, How It Works, Login/Dashboard, and a hidden Admin panel
 - **Homepage:** Hero banner with 9 uploadable images, "Kalapop Studio" section (bubble font), 3-step process, 8 Featured Patterns, 3 Pattern to Fashion boxes
 - **Admin Panel:** Secured by login with credentials. Manage all user-facing images and design assets with DELETE functionality
-- **Design Detail Page:** CSS-based fashion mockups showing patterns on garments (Coord Set, Sun Dress, Shirt, Tote Bag)
+- **Collections Page:** Displays designs uploaded via Admin panel (synced with backend)
+- **Design Detail Page:** Shows pattern image, CSS-based fashion mockups, and back navigation
 - **Design Protection:** Public-facing design previews must be watermarked
 
 ## User Personas
@@ -30,7 +31,30 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: March 28, 2026 (Latest Update)
+### Session: April 1, 2026 (Latest Update)
+
+**Collections & Design Detail Page Backend Integration:**
+1. **Removed Dummy Data** - Collections.jsx and DesignDetail.jsx no longer use mockData.js
+2. **Backend API Integration:**
+   - Collections fetches from `/api/designs` endpoint
+   - Design Detail fetches specific design by ID
+   - Both pages show "No designs uploaded" when empty
+3. **Admin Design Upload Fixed:**
+   - Upload form now properly calls `POST /api/designs` with multipart/form-data
+   - New designs appear immediately in Admin "Existing Designs" section
+   - Designs sync to Collections page in real-time
+4. **Delete Sync Working:**
+   - Deleting from Admin removes design from backend
+   - Collections page reflects deletion immediately
+5. **Detail Page Navigation:**
+   - Added "Back to Collections" button
+   - Pattern images display correctly from backend
+   - Related patterns section shows other designs
+6. **Image Display:**
+   - Collections grid shows actual uploaded images with KALAPOP watermark
+   - Detail page shows pattern image in hero section and application mockups
+
+### Session: March 28, 2026
 
 **Homepage V2 - Exact Match to Design Reference:**
 1. **Hero Banner:**
@@ -107,21 +131,14 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 ## Prioritized Backlog
 
 ### P0 - Critical (Next Phase)
-1. **Full Backend Integration**
-   - FastAPI endpoints for designs, admin users, fabrics
-   - MongoDB models and database connection
-   - Server-side image uploads with watermarking
-   - Replace all mock data with live API calls
-
-2. **Secure Admin Authentication**
+1. **Secure Admin Authentication**
    - Move credentials from frontend to backend `.env`
    - Implement proper server-side authentication flow
    - Session management with JWT tokens
 
 ### P1 - Important
-1. **Subscription Tiers** - Backend logic for license types (Free, Premium, Pro)
-2. **Image Upload Functionality** - Real file uploads for admin banner images and designs
-3. **Watermark Generation** - Server-side watermarking for design previews
+1. **Subscription Tiers** - Backend logic for license types (Starter, Exclusive)
+2. **Watermark Generation** - Server-side watermarking for design previews (currently CSS overlay)
 
 ### P2 - Future Enhancements
 1. **"Request Order" Flow** - User inquiry submission system
@@ -160,7 +177,15 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## Known Issues
 - Admin authentication is client-side only (security vulnerability - P0 fix)
-- All data is mocked (P0 - backend integration needed)
+
+## Completed Features
+- ✅ Collections page synced with Admin Design tab (no more mockData)
+- ✅ Design upload from Admin saves to backend
+- ✅ Design deletion from Admin removes from Collections
+- ✅ Design Detail page shows uploaded images
+- ✅ Back navigation works on Detail page
+- ✅ Homepage image management (Banner, Featured, Fashion, Process)
+- ✅ CSS-based fashion mockups on Detail page
 
 ## Notes for Future Development
 - User prefers fewer iterations - implement thoroughly first time

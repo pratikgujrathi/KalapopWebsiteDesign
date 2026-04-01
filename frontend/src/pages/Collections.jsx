@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { collections, designs } from '../mockData';
+import { collections } from '../mockData';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Collections = () => {
   const location = useLocation();
   const hash = location.hash.replace('#', '');
+  const [designs, setDesigns] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch designs from backend
+  useEffect(() => {
+    fetchDesigns();
+    
+    // Listen for design updates from Admin panel
+    const handleUpdate = () => fetchDesigns();
+    window.addEventListener('kalapop-designs-update', handleUpdate);
+    return () => window.removeEventListener('kalapop-designs-update', handleUpdate);
+  }, []);
+  
+  const fetchDesigns = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/designs`);
+      if (response.ok) {
+        const data = await response.json();
+        setDesigns(data.designs || []);
+      }
+    } catch (error) {
+      console.error('Error fetching designs:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     if (hash) {
@@ -61,24 +89,49 @@ const Collections = () => {
 
             {/* Design Preview Grid */}
             <div className="designs-grid">
-              {getDesignsByTier(collection.tier).map((design) => (
-                <Link
-                  key={design.id}
-                  to={`/design/${design.id}`}
-                  className="design-card"
-                >
-                  <div className="design-thumbnail">
-                    <div className="design-watermark">KALAPOP</div>
-                    <div className={`pattern-preview ${design.thumbnail}`}></div>
-                  </div>
-                  <div className="design-info">
-                    <h3 className="heading-5" style={{ marginBottom: '0.5rem' }}>
-                      {design.name}
-                    </h3>
-                    <p className="caption">{design.category}</p>
-                  </div>
-                </Link>
-              ))}
+              {isLoading ? (
+                <p className="body-medium" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem' }}>
+                  Loading designs...
+                </p>
+              ) : getDesignsByTier(collection.tier).length === 0 ? (
+                <p className="body-medium" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem', color: '#888' }}>
+                  No designs uploaded yet for this collection. Add designs in the Admin panel.
+                </p>
+              ) : (
+                getDesignsByTier(collection.tier).map((design) => (
+                  <Link
+                    key={design.id}
+                    to={`/design/${design.id}`}
+                    className="design-card"
+                  >
+                    <div className="design-thumbnail">
+                      <div className="design-watermark">KALAPOP</div>
+                      {design.image_url ? (
+                        <img 
+                          src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                          alt={design.name}
+                          style={{ 
+                            width: '100%', 
+                            height: '100%', 
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0
+                          }}
+                        />
+                      ) : (
+                        <div className={`pattern-preview ${design.thumbnail}`}></div>
+                      )}
+                    </div>
+                    <div className="design-info">
+                      <h3 className="heading-5" style={{ marginBottom: '0.5rem' }}>
+                        {design.name}
+                      </h3>
+                      <p className="caption">{design.category}</p>
+                    </div>
+                  </Link>
+                ))
+              )}
             </div>
           </div>
         </section>

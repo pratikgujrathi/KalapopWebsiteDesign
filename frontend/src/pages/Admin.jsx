@@ -6,16 +6,6 @@ import { useToast } from '../hooks/use-toast';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Default mock designs (will be replaced by backend data)
-const defaultDesigns = [
-  { id: 'design-001', name: 'Geometric Horizon', collection: 'starter', category: 'Geometric', style: 'Modern', thumbnail: 'abstract-geometric-1' },
-  { id: 'design-002', name: 'Organic Flow', collection: 'exclusive', category: 'Organic', style: 'Natural', thumbnail: 'abstract-organic-1' },
-  { id: 'design-003', name: 'Angular Vision', collection: 'starter', category: 'Angular', style: 'Bold', thumbnail: 'abstract-angular-1' },
-  { id: 'design-004', name: 'Texture Bloom', collection: 'exclusive', category: 'Texture', style: 'Artistic', thumbnail: 'abstract-texture-1' },
-  { id: 'design-005', name: 'Optical Illusion', collection: 'starter', category: 'Optical', style: 'Dynamic', thumbnail: 'abstract-optical-1' },
-  { id: 'design-006', name: 'Botanical Garden', collection: 'exclusive', category: 'Botanical', style: 'Natural', thumbnail: 'abstract-botanical-1' }
-];
-
 const Admin = () => {
   const [activeSection, setActiveSection] = useState('banner');
   const [showOnBanner, setShowOnBanner] = useState({
@@ -31,21 +21,30 @@ const Admin = () => {
   const [processImages, setProcessImages] = useState({});
   const [isUploading, setIsUploading] = useState(false);
   
-  // Designs state - managed locally with persistence
-  const [designs, setDesigns] = useState(() => {
-    const saved = localStorage.getItem('kalapop_designs');
-    return saved ? JSON.parse(saved) : defaultDesigns;
-  });
+  // Designs state - fetched from backend
+  const [designs, setDesigns] = useState([]);
   
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-  // Save designs to localStorage whenever they change
+  // Fetch designs from backend on mount
   useEffect(() => {
-    localStorage.setItem('kalapop_designs', JSON.stringify(designs));
-  }, [designs]);
+    fetchDesigns();
+  }, []);
+  
+  const fetchDesigns = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/designs`);
+      if (response.ok) {
+        const data = await response.json();
+        setDesigns(data.designs || []);
+      }
+    } catch (error) {
+      console.error('Error fetching designs:', error);
+    }
+  };
 
   // Load images from backend on mount
   useEffect(() => {
@@ -132,12 +131,68 @@ const Admin = () => {
     }
   };
 
-  const handleUploadDesign = (e) => {
+  const handleUploadDesign = async (e) => {
     e.preventDefault();
-    toast({
-      title: "Design uploaded with watermark",
-      description: "Watermark has been automatically applied to the uploaded image.",
-    });
+    
+    const name = e.target.querySelector('#design-name').value;
+    const collection = e.target.querySelector('#design-collection').value;
+    const category = e.target.querySelector('#design-category').value;
+    const style = e.target.querySelector('#design-style').value;
+    const fileInput = e.target.querySelector('#design-image');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+      toast({
+        title: "No image selected",
+        description: "Please select an image to upload.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setIsUploading(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await fetch(
+        `${API_URL}/api/designs?name=${encodeURIComponent(name)}&collection=${encodeURIComponent(collection)}&category=${encodeURIComponent(category)}&style=${encodeURIComponent(style)}`,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Add the new design to local state
+        setDesigns(prevDesigns => [...prevDesigns, data.design]);
+        
+        toast({
+          title: "Design uploaded!",
+          description: `"${name}" has been added to the ${collection} collection.`,
+        });
+        
+        // Reset form
+        e.target.reset();
+        
+        // Trigger refresh event for Collections page
+        window.dispatchEvent(new Event('kalapop-designs-update'));
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Upload failed",
+        description: "Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleDownloadWithoutWatermark = (designId) => {
@@ -223,14 +278,34 @@ const Admin = () => {
     }
   };
 
-  // Delete design function
-  const handleDeleteDesign = (designId, designName) => {
+  // Delete design function - now calls backend
+  const handleDeleteDesign = async (designId, designName) => {
     if (window.confirm(`Are you sure you want to delete "${designName}"?`)) {
-      setDesigns(prevDesigns => prevDesigns.filter(d => d.id !== designId));
-      toast({
-        title: "Design deleted",
-        description: `"${designName}" has been removed successfully.`
-      });
+      try {
+        const response = await fetch(`${API_URL}/api/designs/${designId}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          setDesigns(prevDesigns => prevDesigns.filter(d => d.id !== designId));
+          toast({
+            title: "Design deleted",
+            description: `"${designName}" has been removed successfully.`
+          });
+          
+          // Trigger refresh event for Collections page
+          window.dispatchEvent(new Event('kalapop-designs-update'));
+        } else {
+          throw new Error('Delete failed');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        toast({
+          title: "Delete failed",
+          description: "Please try again.",
+          variant: "destructive"
+        });
+      }
     }
   };
 

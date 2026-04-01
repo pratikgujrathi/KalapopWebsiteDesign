@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { designs, fabrics } from '../mockData';
+import { fabrics } from '../mockData';
 import { ArrowLeft, Download, Bookmark, Star } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
@@ -10,11 +10,37 @@ const DesignDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const design = designs.find(d => d.id === id);
+  const [design, setDesign] = useState(null);
+  const [allDesigns, setAllDesigns] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedFabrics, setSelectedFabrics] = useState([]);
 
+  // Fetch designs from backend
+  useEffect(() => {
+    fetchDesigns();
+  }, [id]);
+
+  const fetchDesigns = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/designs`);
+      if (response.ok) {
+        const data = await response.json();
+        const designs = data.designs || [];
+        setAllDesigns(designs);
+        
+        // Find the current design by ID
+        const currentDesign = designs.find(d => d.id === id);
+        setDesign(currentDesign || null);
+      }
+    } catch (error) {
+      console.error('Error fetching designs:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Get related patterns (exclude current)
-  const relatedPatterns = designs.filter(d => d.id !== id).slice(0, 4);
+  const relatedPatterns = allDesigns.filter(d => d.id !== id).slice(0, 4);
 
   // Application images for mockups
   const applicationImages = [
@@ -24,10 +50,19 @@ const DesignDetail = () => {
     { type: 'shirt', label: 'Smart Shirt', size: 'small' }
   ];
 
+  if (isLoading) {
+    return (
+      <div className="detail-not-found" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+        <p className="body-large">Loading design...</p>
+      </div>
+    );
+  }
+
   if (!design) {
     return (
-      <div className="detail-not-found">
-        <h2>Design Not Found</h2>
+      <div className="detail-not-found" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+        <h2 className="heading-2" style={{ marginBottom: '1rem' }}>Design Not Found</h2>
+        <p className="body-medium" style={{ marginBottom: '2rem' }}>This design may have been removed or doesn't exist.</p>
         <Link to="/collections" className="btn-primary">Back to Collections</Link>
       </div>
     );
@@ -49,15 +84,38 @@ const DesignDetail = () => {
 
   return (
     <div className="design-detail-new" data-testid="design-detail-page">
+      {/* Back Button */}
+      <div style={{ padding: '1rem 2rem', maxWidth: '1400px', margin: '0 auto' }}>
+        <Link to="/collections" className="btn-tertiary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          <ArrowLeft size={18} /> Back to Collections
+        </Link>
+      </div>
+      
       {/* Top Section - Pattern Image & Info */}
       <section className="detail-hero">
         <div className="detail-hero-container">
           {/* Pattern Image */}
           <div className="detail-pattern-image">
             <span className="new-collection-badge">NEW COLLECTION</span>
-            <div className={`pattern-large ${design.thumbnail}`}>
-              <div className="watermark-overlay">KALAPOP</div>
-            </div>
+            {design.image_url ? (
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <img 
+                  src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                  alt={design.name}
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover',
+                    borderRadius: '8px'
+                  }}
+                />
+                <div className="watermark-overlay">KALAPOP</div>
+              </div>
+            ) : (
+              <div className={`pattern-large ${design.thumbnail}`}>
+                <div className="watermark-overlay">KALAPOP</div>
+              </div>
+            )}
           </div>
 
           {/* Pattern Info Panel */}
@@ -122,9 +180,20 @@ const DesignDetail = () => {
           <div className="application-grid">
             {/* Large Fashion Image */}
             <div className="app-image app-image-large">
-              <div className={`app-mockup ${design.thumbnail}`}>
-                <div className="app-label">High-Fashion Textile</div>
-              </div>
+              {design.image_url ? (
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <img 
+                    src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                    alt="High-Fashion Textile"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div className="app-label">High-Fashion Textile</div>
+                </div>
+              ) : (
+                <div className={`app-mockup ${design.thumbnail}`}>
+                  <div className="app-label">High-Fashion Textile</div>
+                </div>
+              )}
             </div>
             
             {/* Right Column - 3 smaller images */}
@@ -136,11 +205,27 @@ const DesignDetail = () => {
               </div>
               <div className="app-images-bottom">
                 <div className="app-image">
-                  <div className={`app-mockup-small ${design.thumbnail}`}></div>
+                  {design.image_url ? (
+                    <img 
+                      src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                      alt="Fabric Sample"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div className={`app-mockup-small ${design.thumbnail}`}></div>
+                  )}
                 </div>
                 <div className="app-image">
                   <div className="app-mockup-simple shirt-mockup">
-                    <div className={`shirt-pattern ${design.thumbnail}`}></div>
+                    {design.image_url ? (
+                      <img 
+                        src={design.image_url.startsWith('/api') ? `${API_URL}${design.image_url}` : design.image_url}
+                        alt="Smart Shirt"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }}
+                      />
+                    ) : (
+                      <div className={`shirt-pattern ${design.thumbnail}`}></div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -150,24 +235,35 @@ const DesignDetail = () => {
       </section>
 
       {/* Related Patterns */}
-      <section className="related-patterns">
-        <div className="related-header">
-          <h2 className="related-title">Related Patterns</h2>
-          <Link to="/collections" className="view-library-link">
-            View Library <span>→</span>
-          </Link>
-        </div>
-
-        <div className="related-grid">
-          {relatedPatterns.map((pattern) => (
-            <Link to={`/design/${pattern.id}`} key={pattern.id} className="related-card">
-              <div className={`related-image ${pattern.thumbnail}`}></div>
-              <h3 className="related-name">{pattern.name}</h3>
-              <p className="related-category">{pattern.style}</p>
+      {relatedPatterns.length > 0 && (
+        <section className="related-patterns">
+          <div className="related-header">
+            <h2 className="related-title">Related Patterns</h2>
+            <Link to="/collections" className="view-library-link">
+              View Library <span>→</span>
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+
+          <div className="related-grid">
+            {relatedPatterns.map((pattern) => (
+              <Link to={`/design/${pattern.id}`} key={pattern.id} className="related-card">
+                {pattern.image_url ? (
+                  <img 
+                    src={pattern.image_url.startsWith('/api') ? `${API_URL}${pattern.image_url}` : pattern.image_url}
+                    alt={pattern.name}
+                    className="related-image"
+                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div className={`related-image ${pattern.thumbnail}`}></div>
+                )}
+                <h3 className="related-name">{pattern.name}</h3>
+                <p className="related-category">{pattern.style || pattern.category}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="detail-footer">
