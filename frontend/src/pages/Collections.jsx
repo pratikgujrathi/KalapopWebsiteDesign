@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { collections } from '../mockData';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Collection definitions matching Admin panel
+const COLLECTIONS = [
+  {
+    id: 'collection',
+    name: 'Collection',
+    tier: 'collection',
+    access: 'Open Access',
+    description: 'Curated surface patterns for modern brands and boutiques. Entry-level access to foundational designs perfect for emerging designers.',
+    priceRange: 'Accessible for all brands'
+  },
+  {
+    id: 'limited_edition',
+    name: 'Limited Edition',
+    tier: 'limited_edition',
+    access: 'Exclusive Access',
+    description: 'Premium exclusive patterns with limited availability. Bespoke surface solutions with unlimited creative freedom for established brands.',
+    priceRange: 'Premium exclusive collection'
+  }
+];
 
 const Collections = () => {
   const location = useLocation();
@@ -46,6 +65,11 @@ const Collections = () => {
   const getDesignsByTier = (tier) => {
     return designs.filter(design => design.collection === tier);
   };
+  
+  // Get actual design count for each collection
+  const getDesignCount = (tier) => {
+    return designs.filter(design => design.collection === tier).length;
+  };
 
   return (
     <div className="collections-page">
@@ -53,11 +77,11 @@ const Collections = () => {
         <p className="caption" style={{ marginBottom: '1rem' }}>Surface Design Library</p>
         <h1 className="heading-1" style={{ marginBottom: '1.5rem' }}>Collections</h1>
         <p className="body-large" style={{ maxWidth: '60ch', margin: '0 auto' }}>
-          Three curated tiers, each offering distinct patterns, licensing structures, and support levels for modern brands.
+          Two curated tiers, each offering distinct patterns, licensing structures, and support levels for modern brands.
         </p>
       </section>
 
-      {collections.map((collection, index) => (
+      {COLLECTIONS.map((collection, index) => (
         <section
           key={collection.id}
           id={collection.tier}
@@ -78,7 +102,7 @@ const Collections = () => {
               <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
                 <div>
                   <p className="caption">Pattern Count</p>
-                  <p className="heading-4" style={{ marginTop: '0.5rem' }}>{collection.designCount}</p>
+                  <p className="heading-4" style={{ marginTop: '0.5rem' }}>{getDesignCount(collection.tier)}</p>
                 </div>
                 <div>
                   <p className="caption">Tier</p>

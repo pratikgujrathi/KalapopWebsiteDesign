@@ -8,9 +8,9 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 - Key pages: Home, Collections, Design Detail, How It Works, Login/Dashboard, and a hidden Admin panel
 - **Homepage:** Hero banner with 9 uploadable images, "Kalapop Studio" section (bubble font), 3-step process, 8 Featured Patterns, 3 Pattern to Fashion boxes
 - **Admin Panel:** Secured by login with credentials. Manage all user-facing images and design assets with DELETE functionality
-- **Collections Page:** Displays designs uploaded via Admin panel (synced with backend)
-- **Design Detail Page:** Shows pattern image, CSS-based fashion mockups, and back navigation
-- **Design Protection:** Public-facing design previews must be watermarked
+- **Collections Page:** Displays designs uploaded via Admin panel (synced with backend). Two tiers: "Collection" and "Limited Edition"
+- **Design Detail Page:** Shows pattern image with KALAPOP watermark, description, keywords, and category
+- **Design Protection:** Server-side watermark automatically applied on upload (Pillow)
 
 ## User Personas
 1. **Fashion Brand Designers** - Access patterns for commercial collections
@@ -19,7 +19,7 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## Tech Stack
 - **Frontend:** React, React Router, Tailwind CSS, Shadcn UI
-- **Backend (Planned):** FastAPI + MongoDB
+- **Backend:** FastAPI + MongoDB + Pillow (for image processing)
 - **Authentication (Current):** Client-side with hardcoded credentials (to be moved to backend)
 
 ## Admin Credentials
@@ -31,7 +31,25 @@ Build a visually-driven MVP website for "Kalapop," a B2B surface design studio. 
 
 ## What's Been Implemented
 
-### Session: April 1, 2026 (Latest Update)
+### Session: April 2, 2026 (Latest Update)
+
+**Server-Side Watermark & Enhanced Upload Form:**
+1. **Automatic KALAPOP Watermark** - Using Pillow, watermark is embedded in uploaded images server-side
+2. **New Upload Form Fields:**
+   - Design Name (text input)
+   - Collection (dropdown): "Collection" or "Limited Edition"
+   - Category (dropdown): Floral, Tropical, Abstract, Geometric, Textures, Minimal, Bold
+   - Description (textarea): Full description visible on Detail page
+   - Keywords (tag input): Press Enter/comma to add tags, displayed as yellow badges
+3. **Updated Collections Page:**
+   - Two tiers: "Collection" (Open Access) and "Limited Edition" (Exclusive Access)
+   - Dynamic pattern count from actual uploads
+4. **Updated Design Detail Page:**
+   - Shows description below badges
+   - Shows keywords as yellow tag badges
+   - Category shown in specs section
+
+### Session: April 1, 2026
 
 **Collections & Design Detail Page Backend Integration:**
 1. **Removed Dummy Data** - Collections.jsx and DesignDetail.jsx no longer use mockData.js

@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Upload, Plus, Edit2, Trash2, Download, Eye, EyeOff, Image, Layout, Sparkles } from 'lucide-react';
-import { fabrics, collections } from '../mockData';
+import { ArrowLeft, Upload, Plus, Edit2, Trash2, Download, Eye, EyeOff, Image, Layout, Sparkles, X } from 'lucide-react';
+import { fabrics } from '../mockData';
 import { useToast } from '../hooks/use-toast';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Collection options
+const COLLECTION_OPTIONS = [
+  { value: 'collection', label: 'Collection' },
+  { value: 'limited_edition', label: 'Limited Edition' }
+];
+
+// Category options
+const CATEGORY_OPTIONS = [
+  'Floral',
+  'Tropical',
+  'Abstract',
+  'Geometric',
+  'Textures',
+  'Minimal',
+  'Bold'
+];
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState('banner');
@@ -23,6 +40,10 @@ const Admin = () => {
   
   // Designs state - fetched from backend
   const [designs, setDesigns] = useState([]);
+  
+  // Keywords state for the tag input
+  const [keywords, setKeywords] = useState([]);
+  const [keywordInput, setKeywordInput] = useState('');
   
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -137,7 +158,7 @@ const Admin = () => {
     const name = e.target.querySelector('#design-name').value;
     const collection = e.target.querySelector('#design-collection').value;
     const category = e.target.querySelector('#design-category').value;
-    const style = e.target.querySelector('#design-style').value;
+    const description = e.target.querySelector('#design-description').value;
     const fileInput = e.target.querySelector('#design-image');
     const file = fileInput.files[0];
     
@@ -156,8 +177,11 @@ const Admin = () => {
       const formData = new FormData();
       formData.append('file', file);
       
+      // Join keywords with commas for the API
+      const keywordsString = keywords.join(',');
+      
       const response = await fetch(
-        `${API_URL}/api/designs?name=${encodeURIComponent(name)}&collection=${encodeURIComponent(collection)}&category=${encodeURIComponent(category)}&style=${encodeURIComponent(style)}`,
+        `${API_URL}/api/designs?name=${encodeURIComponent(name)}&collection=${encodeURIComponent(collection)}&category=${encodeURIComponent(category)}&description=${encodeURIComponent(description)}&keywords=${encodeURIComponent(keywordsString)}`,
         {
           method: 'POST',
           body: formData
@@ -170,13 +194,18 @@ const Admin = () => {
         // Add the new design to local state
         setDesigns(prevDesigns => [...prevDesigns, data.design]);
         
+        // Get collection label for toast
+        const collectionLabel = COLLECTION_OPTIONS.find(c => c.value === collection)?.label || collection;
+        
         toast({
-          title: "Design uploaded!",
-          description: `"${name}" has been added to the ${collection} collection.`,
+          title: "Design uploaded with watermark!",
+          description: `"${name}" has been added to ${collectionLabel}.`,
         });
         
-        // Reset form
+        // Reset form and keywords
         e.target.reset();
+        setKeywords([]);
+        setKeywordInput('');
         
         // Trigger refresh event for Collections page
         window.dispatchEvent(new Event('kalapop-designs-update'));
@@ -193,6 +222,23 @@ const Admin = () => {
     } finally {
       setIsUploading(false);
     }
+  };
+  
+  // Handle adding a keyword
+  const handleAddKeyword = (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      const keyword = keywordInput.trim().replace(',', '');
+      if (keyword && !keywords.includes(keyword)) {
+        setKeywords([...keywords, keyword]);
+      }
+      setKeywordInput('');
+    }
+  };
+  
+  // Handle removing a keyword
+  const handleRemoveKeyword = (keywordToRemove) => {
+    setKeywords(keywords.filter(k => k !== keywordToRemove));
   };
 
   const handleDownloadWithoutWatermark = (designId) => {
@@ -594,33 +640,109 @@ const Admin = () => {
               <form onSubmit={handleUploadDesign}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                   <div className="form-group">
-                    <label className="caption" htmlFor="design-name">Design Name</label>
-                    <input type="text" id="design-name" className="form-input" placeholder="E.g., Geometric Horizon" required />
+                    <label className="caption" htmlFor="design-name">Design Name *</label>
+                    <input type="text" id="design-name" className="form-input" placeholder="E.g., Tropical Paradise" required />
                   </div>
                   <div className="form-group">
-                    <label className="caption" htmlFor="design-collection">Collection</label>
+                    <label className="caption" htmlFor="design-collection">Collection *</label>
                     <select id="design-collection" className="form-input form-select" required>
                       <option value="">Select collection</option>
-                      {collections.map(col => (
-                        <option key={col.id} value={col.tier}>{col.name}</option>
+                      {COLLECTION_OPTIONS.map(col => (
+                        <option key={col.value} value={col.value}>{col.label}</option>
                       ))}
                     </select>
                   </div>
                   <div className="form-group">
-                    <label className="caption" htmlFor="design-category">Category</label>
-                    <input type="text" id="design-category" className="form-input" placeholder="E.g., Geometric" required />
+                    <label className="caption" htmlFor="design-category">Category *</label>
+                    <select id="design-category" className="form-input form-select" required>
+                      <option value="">Select category</option>
+                      {CATEGORY_OPTIONS.map(cat => (
+                        <option key={cat} value={cat}>{cat}</option>
+                      ))}
+                    </select>
                   </div>
                   <div className="form-group">
-                    <label className="caption" htmlFor="design-style">Style</label>
-                    <input type="text" id="design-style" className="form-input" placeholder="E.g., Modern" required />
+                    <label className="caption" htmlFor="design-image">Upload Image *</label>
+                    <input type="file" id="design-image" className="form-input" accept="image/*" required />
                   </div>
                 </div>
-                <div className="form-group">
-                  <label className="caption" htmlFor="design-image">Upload Image</label>
-                  <input type="file" id="design-image" className="form-input" accept="image/*" required />
+                
+                <div className="form-group" style={{ marginTop: '1rem' }}>
+                  <label className="caption" htmlFor="design-description">Description</label>
+                  <textarea 
+                    id="design-description" 
+                    className="form-input" 
+                    placeholder="Describe the pattern, its inspiration, and best use cases..."
+                    rows={3}
+                    style={{ resize: 'vertical', minHeight: '80px' }}
+                  />
                 </div>
-                <button type="submit" className="btn-primary">
-                  <Upload size={18} style={{ marginRight: '0.5rem' }} /> Upload Design
+                
+                <div className="form-group" style={{ marginTop: '1rem' }}>
+                  <label className="caption">Keywords (press Enter or comma to add)</label>
+                  <div style={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: '0.5rem', 
+                    padding: '0.75rem', 
+                    background: 'white', 
+                    border: '2px solid var(--text-primary)',
+                    borderRadius: '8px',
+                    minHeight: '50px'
+                  }}>
+                    {keywords.map((keyword, idx) => (
+                      <span 
+                        key={idx} 
+                        style={{ 
+                          display: 'inline-flex', 
+                          alignItems: 'center', 
+                          gap: '0.25rem',
+                          background: 'var(--bg-vibrant-yellow)', 
+                          padding: '0.25rem 0.75rem', 
+                          borderRadius: '20px',
+                          fontSize: '0.875rem',
+                          fontWeight: 600,
+                          border: '2px solid var(--text-primary)'
+                        }}
+                      >
+                        {keyword}
+                        <button 
+                          type="button"
+                          onClick={() => handleRemoveKeyword(keyword)}
+                          style={{ 
+                            background: 'none', 
+                            border: 'none', 
+                            cursor: 'pointer', 
+                            padding: '2px',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <X size={14} />
+                        </button>
+                      </span>
+                    ))}
+                    <input 
+                      type="text"
+                      value={keywordInput}
+                      onChange={(e) => setKeywordInput(e.target.value)}
+                      onKeyDown={handleAddKeyword}
+                      placeholder={keywords.length === 0 ? "E.g., summer, vibrant, nature..." : "Add more..."}
+                      style={{ 
+                        border: 'none', 
+                        outline: 'none', 
+                        flex: 1, 
+                        minWidth: '150px',
+                        fontSize: '0.875rem',
+                        background: 'transparent'
+                      }}
+                    />
+                  </div>
+                </div>
+                
+                <button type="submit" className="btn-primary" style={{ marginTop: '1.5rem' }} disabled={isUploading}>
+                  <Upload size={18} style={{ marginRight: '0.5rem' }} /> 
+                  {isUploading ? 'Uploading...' : 'Upload Design'}
                 </button>
               </form>
             </div>
@@ -690,7 +812,32 @@ const Admin = () => {
                     {/* Design Info */}
                     <div style={{ padding: '1rem' }}>
                       <p className="body-medium" style={{ fontWeight: 700, marginBottom: '0.25rem' }}>{design.name}</p>
-                      <p className="caption" style={{ marginBottom: '0.75rem' }}>{design.collection.toUpperCase()} • {design.category}</p>
+                      <p className="caption" style={{ marginBottom: '0.5rem' }}>
+                        {COLLECTION_OPTIONS.find(c => c.value === design.collection)?.label || design.collection} • {design.category}
+                      </p>
+                      {design.description && (
+                        <p className="caption" style={{ marginBottom: '0.5rem', color: '#666', fontSize: '0.75rem' }}>
+                          {design.description.length > 80 ? design.description.slice(0, 80) + '...' : design.description}
+                        </p>
+                      )}
+                      {design.keywords && design.keywords.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.75rem' }}>
+                          {design.keywords.slice(0, 4).map((keyword, idx) => (
+                            <span key={idx} style={{ 
+                              background: '#f0f0f0', 
+                              padding: '0.15rem 0.5rem', 
+                              borderRadius: '10px',
+                              fontSize: '0.65rem',
+                              color: '#555'
+                            }}>
+                              {keyword}
+                            </span>
+                          ))}
+                          {design.keywords.length > 4 && (
+                            <span style={{ fontSize: '0.65rem', color: '#888' }}>+{design.keywords.length - 4} more</span>
+                          )}
+                        </div>
+                      )}
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button className="btn-tertiary" style={{ padding: '0.5rem 0.75rem', fontSize: '0.75rem' }} onClick={() => toggleBannerDisplay(design.id)}>
                           {showOnBanner[design.id] ? <><EyeOff size={14} /> Hide</> : <><Eye size={14} /> Show</>}

@@ -138,7 +138,26 @@ const DesignDetail = () => {
               </span>
             </div>
 
-            <p className="detail-description">{design.description}</p>
+            {design.description && (
+              <p className="detail-description">{design.description}</p>
+            )}
+            
+            {design.keywords && design.keywords.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                {design.keywords.map((keyword, idx) => (
+                  <span key={idx} style={{ 
+                    background: 'var(--bg-vibrant-yellow)', 
+                    padding: '0.25rem 0.75rem', 
+                    borderRadius: '20px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    border: '2px solid var(--text-primary)'
+                  }}>
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="detail-actions">
               <button className="btn-download" onClick={handleDownload}>
@@ -152,6 +171,10 @@ const DesignDetail = () => {
             </div>
 
             <div className="detail-specs">
+              <div className="spec-row">
+                <span className="spec-label">Category</span>
+                <span className="spec-value">{design.category}</span>
+              </div>
               <div className="spec-row">
                 <span className="spec-label">Dimensions</span>
                 <span className="spec-value">8000 x 8000 px</span>

@@ -192,17 +192,67 @@ class DesignCreate(BaseModel):
     name: str
     collection: str
     category: str
-    style: str
+    description: str
+    keywords: List[str] = []
 
 class DesignResponse(BaseModel):
     id: str
     name: str
     collection: str
     category: str
-    style: str
+    description: str
+    keywords: List[str] = []
     thumbnail: Optional[str] = None
     image_url: Optional[str] = None
     created_at: str
+
+def add_watermark(image_path: Path, watermark_text: str = "KALAPOP") -> None:
+    """Add watermark to an image"""
+    from PIL import Image, ImageDraw, ImageFont
+    
+    try:
+        img = Image.open(image_path)
+        
+        # Convert to RGBA if necessary
+        if img.mode != 'RGBA':
+            img = img.convert('RGBA')
+        
+        # Create a transparent overlay
+        overlay = Image.new('RGBA', img.size, (255, 255, 255, 0))
+        draw = ImageDraw.Draw(overlay)
+        
+        # Calculate font size based on image width
+        font_size = max(int(img.width / 8), 40)
+        
+        # Try to use a bold font, fallback to default
+        try:
+            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
+        except (OSError, IOError):
+            font = ImageFont.load_default()
+        
+        # Get text bounding box
+        bbox = draw.textbbox((0, 0), watermark_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        
+        # Position text in center
+        x = (img.width - text_width) // 2
+        y = (img.height - text_height) // 2
+        
+        # Draw semi-transparent watermark
+        draw.text((x, y), watermark_text, font=font, fill=(255, 255, 255, 100))
+        
+        # Composite the overlay onto the image
+        watermarked = Image.alpha_composite(img, overlay)
+        
+        # Convert back to RGB for saving as JPEG
+        if image_path.suffix.lower() in ['.jpg', '.jpeg']:
+            watermarked = watermarked.convert('RGB')
+        
+        watermarked.save(image_path)
+        logger.info(f"Watermark added to {image_path}")
+    except Exception as e:
+        logger.error(f"Error adding watermark: {e}")
 
 # Design Management Endpoints
 @api_router.get("/designs")
@@ -212,8 +262,15 @@ async def get_designs():
     return {"success": True, "designs": designs}
 
 @api_router.post("/designs")
-async def create_design(name: str, collection: str, category: str, style: str, file: UploadFile = File(...)):
-    """Create a new design with image upload"""
+async def create_design(
+    name: str, 
+    collection: str, 
+    category: str, 
+    description: str = "",
+    keywords: str = "",  # Comma-separated keywords
+    file: UploadFile = File(...)
+):
+    """Create a new design with image upload and watermark"""
     design_id = str(uuid.uuid4())[:8]
     
     # Create designs directory
@@ -228,14 +285,21 @@ async def create_design(name: str, collection: str, category: str, style: str, f
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
+    # Add watermark to the saved image
+    add_watermark(file_path)
+    
     image_url = f"/api/images/designs/{filename}"
+    
+    # Parse keywords from comma-separated string
+    keywords_list = [k.strip() for k in keywords.split(',') if k.strip()] if keywords else []
     
     design = {
         "id": design_id,
         "name": name,
         "collection": collection,
         "category": category,
-        "style": style,
+        "description": description,
+        "keywords": keywords_list,
         "thumbnail": f"design-{design_id}",
         "image_url": image_url,
         "created_at": datetime.now(timezone.utc).isoformat()
