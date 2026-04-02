@@ -207,7 +207,7 @@ class DesignResponse(BaseModel):
     created_at: str
 
 def add_watermark(image_path: Path, watermark_text: str = "KALAPOP") -> None:
-    """Add watermark to an image"""
+    """Add repeating tiled watermark pattern across the image"""
     from PIL import Image, ImageDraw, ImageFont
     
     try:
@@ -221,8 +221,8 @@ def add_watermark(image_path: Path, watermark_text: str = "KALAPOP") -> None:
         overlay = Image.new('RGBA', img.size, (255, 255, 255, 0))
         draw = ImageDraw.Draw(overlay)
         
-        # Calculate font size based on image width
-        font_size = max(int(img.width / 8), 40)
+        # Calculate font size - smaller for tiled pattern
+        font_size = max(int(img.width / 20), 20)
         
         # Try to use a bold font, fallback to default
         try:
@@ -235,12 +235,23 @@ def add_watermark(image_path: Path, watermark_text: str = "KALAPOP") -> None:
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
         
-        # Position text in center
-        x = (img.width - text_width) // 2
-        y = (img.height - text_height) // 2
+        # Calculate spacing between watermarks
+        spacing_x = text_width + int(text_width * 0.5)
+        spacing_y = text_height + int(text_height * 2)
         
-        # Draw semi-transparent watermark
-        draw.text((x, y), watermark_text, font=font, fill=(255, 255, 255, 100))
+        # Draw repeating watermark pattern across the image (diagonal pattern)
+        row = 0
+        y = -text_height
+        while y < img.height + text_height:
+            # Offset every other row for diagonal effect
+            x_offset = (spacing_x // 2) if row % 2 == 1 else 0
+            x = -text_width + x_offset
+            while x < img.width + text_width:
+                # Draw semi-transparent white watermark
+                draw.text((x, y), watermark_text, font=font, fill=(255, 255, 255, 80))
+                x += spacing_x
+            y += spacing_y
+            row += 1
         
         # Composite the overlay onto the image
         watermarked = Image.alpha_composite(img, overlay)
@@ -250,7 +261,7 @@ def add_watermark(image_path: Path, watermark_text: str = "KALAPOP") -> None:
             watermarked = watermarked.convert('RGB')
         
         watermarked.save(image_path)
-        logger.info(f"Watermark added to {image_path}")
+        logger.info(f"Tiled watermark added to {image_path}")
     except Exception as e:
         logger.error(f"Error adding watermark: {e}")
 
