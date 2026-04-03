@@ -4,9 +4,6 @@ import { Search, Download, CreditCard } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Banner collage image (uploaded by user)
-const BANNER_COLLAGE_IMAGE = "https://customer-assets.emergentagent.com/job_ac53fef2-b223-41a6-943f-33daaf77d05e/artifacts/szmxihmm_freepik_create-a-collage-as-individual-images-stitched-together-for-banner-image-that-looks-classic-design-aesthetics-without-typography-and-show-images-individually.-keep-the-collage-as-per-atta_0001.png";
-
 const Home = () => {
   const [featuredPatterns, setFeaturedPatterns] = useState({});
   const [fashionImages, setFashionImages] = useState({});
@@ -37,6 +34,16 @@ const Home = () => {
     if (!path) return null;
     return path.startsWith('/api') ? `${API_URL}${path}` : path;
   };
+  
+  // Get banner collage image from backend or use default
+  const getBannerImage = () => {
+    // Try PNG first (newly uploaded), then JPG
+    if (bannerImages.slot1) {
+      return getImageUrl(bannerImages.slot1);
+    }
+    // Fallback to default
+    return `${API_URL}/api/images/banner/slot1.png`;
+  };
 
   return (
     <div className="home-page-v2" data-testid="home-page">
@@ -59,7 +66,7 @@ const Home = () => {
         <div className="hero-image-v2">
           <div className="hero-collage">
             <img 
-              src={BANNER_COLLAGE_IMAGE} 
+              src={getBannerImage()} 
               alt="Pattern collage moodboard"
             />
           </div>
